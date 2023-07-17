@@ -48,6 +48,9 @@ class _NiftiGeoAppState extends State<NiftiGeoApp> {
   late bool servicePermission = false;
   late LocationPermission permission;
   String _currentAddress = "";
+  double tryLoc = 0;
+  double bearing =
+      Geolocator.bearingBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
 
   Future<Position> _getLocation() async {
     // ? Confirming native location access specifier is public.
@@ -71,7 +74,8 @@ class _NiftiGeoAppState extends State<NiftiGeoApp> {
           _currentLocation!.latitude, _currentLocation!.longitude);
       Placemark place = placemarks[0];
       setState(() {
-        _currentAddress = "${place.locality}, ${place.country}";
+        _currentAddress =
+            "${place.street}, ${place.subLocality}, ${place.locality}, ${place.country} ";
       });
     } catch (e) {
       print(e);
@@ -116,6 +120,7 @@ class _NiftiGeoAppState extends State<NiftiGeoApp> {
             height: 8,
           ),
           Text(_currentAddress),
+          Text("{$bearing}"),
           const SizedBox(
             height: 50.0,
           ),
