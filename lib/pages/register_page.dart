@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/components/text_field.dart';
@@ -45,8 +44,10 @@ class _RegisterPageState extends State<RegisterPage> {
 
   // Register Method
   Future register() async {
-    // create user
+    // Loading Animation
+    displayLoadingCircle(context);
 
+    // create user
     if (passwordConfirmed()) {
       // Registration Check
       try{
@@ -54,11 +55,14 @@ class _RegisterPageState extends State<RegisterPage> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      // pop loading circle
+      if(context.mounted) Navigator.pop(context);
       } on FirebaseAuthException catch (error) {
+        // pop loading circle
+      Navigator.pop(context);
       displayErrorMessage(context, error.message!);
       }
-      
-      
+       
       // add user details
       addUserDetails(
         _firstNameController.text.trim(),
@@ -66,14 +70,6 @@ class _RegisterPageState extends State<RegisterPage> {
         _emailController.text.trim(),
       );
     }
-  }
-
-  Future addUserDetails(String firstName, String lastName, String email) async {
-    await FirebaseFirestore.instance.collection('users').add({
-      'first name': firstName,
-      'last name': lastName,
-      'email': email,
-    });
   }
 
   @override

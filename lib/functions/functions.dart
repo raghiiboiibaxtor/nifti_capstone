@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-// Error Message Snackbar
+// Error Message Snackbar Function
 void displayErrorMessage(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(
@@ -22,9 +23,31 @@ void displayErrorMessage(BuildContext context, String message) {
       )));
 }
 
-/*void displayLoadingCircle(BuildContext context,){
+// Loading Circle Animation Function
+void displayLoadingCircle(BuildContext context,){
   showDialog(context: context, 
   builder: (context) => const Center(
     child: CircularProgressIndicator(),
   ),);
-}*/
+}
+
+// Adding User Details to FireStore
+Future addUserDetails(String firstName, String lastName, String email,) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'first name': firstName,
+      'last name': lastName,
+      'email': email,
+      'contact number': 0,
+      'pronouns': '', 
+      'profile picture': '',
+      'bio': '',
+      'social link': '',
+      'role': '',
+      'company': '',
+      'time worked': '',
+    });
+}
+
+
+/*int contactNumber, String pronouns, Image profilePicure, String bio, 
+String socialLink, String roleTitle, String companyName, int timeWorked*/

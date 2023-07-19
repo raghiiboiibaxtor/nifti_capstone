@@ -27,13 +27,21 @@ class _LoginPageState extends State<LoginPage> {
 
   //Login Method
   Future login() async {
+    // Loading Animation
+    displayLoadingCircle(context);
+    
     // Sign in check
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      // pop loading circle
+      if(context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (error) {
+      // pop loading circle
+      Navigator.pop(context);
+      // Display error message
       displayErrorMessage(context, error.message!);
     }
   }
