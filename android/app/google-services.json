@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "521383375097",
+    "project_id": "nifti-mobile-app",
+    "storage_bucket": "nifti-mobile-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521383375097:android:2af632284add120e553228",
+        "android_client_info": {
+          "package_name": "com.example.nifti_locapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "521383375097-i0e6ps4hs8k6nb96sda8dic86noj11ne.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuSILDHk3X6YN-dsYWFRiw5BlFI4SX7ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "521383375097-i0e6ps4hs8k6nb96sda8dic86noj11ne.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "521383375097-2p1lv4jtppo8d8kesg830e7n2pd4l4kc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.test.niftiAppV1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
