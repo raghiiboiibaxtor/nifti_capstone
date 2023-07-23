@@ -32,19 +32,20 @@ void displayLoadingCircle(BuildContext context,){
 }
 
 // Adding User Details to FireStore
-Future addUserDetails(String firstName, String lastName, String email,) async {
+Future addUserDetails(String firstName, String lastName, String email, String contactNumber, String pronouns, String profilePicure, String bio, String role, String industry, String company, String timeWorked ) async {
     await FirebaseFirestore.instance.collection('users').add({
       'first name': firstName,
       'last name': lastName,
       'email': email,
-      'contact number': 0,
-      'pronouns': '', 
-      'profile picture': '',
-      'bio': '',
-      'social link': '',
-      'role': '',
-      'company': '',
-      'time worked': '',
+      'contact number': contactNumber,
+      'pronouns': pronouns, 
+      'profile picture': profilePicure,
+      'bio': bio,
+      //'social link': '',
+      'role': role,
+      'industry': industry,
+      'company': company,
+      'time worked': timeWorked,
     });
 }
 
