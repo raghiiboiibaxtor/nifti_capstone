@@ -2,24 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 
 // Custom text field
-class TextFieldComponent extends StatelessWidget {
+class GradientTextFieldComponent extends StatelessWidget {
   // text field variables
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
+  final double width;
+  final EdgeInsetsGeometry padding;
 
-  const TextFieldComponent({
+  const GradientTextFieldComponent({
     super.key,
     required this.controller,
     required this.hintText,
     required this.obscureText,
+    required this.width,
+    required this.padding,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        padding: padding,
         child: Container(
+          width: width,
           decoration: BoxDecoration(
               color: const Color.fromRGBO(252, 250, 245, 1),
               border: Border.all(color: Colors.white),
@@ -29,9 +34,10 @@ class TextFieldComponent extends StatelessWidget {
             obscureText: obscureText,
             decoration: InputDecoration(
               hintText: hintText,
-              border: const GradientOutlineInputBorder(
-                  gradient: LinearGradient(colors: [Colors.red, Colors.blue]),
-                  width: 2,),
+              border: GradientOutlineInputBorder(
+                  gradient: const LinearGradient(colors: [Color.fromRGBO(209, 147, 246, 1), Color.fromRGBO(115, 142, 247, 1), Color.fromRGBO(116, 215, 247, 1)]),
+                  width: 2,
+                  borderRadius: BorderRadius.circular(25),),
               contentPadding: const EdgeInsets.only(
                 left: 20.0,
                 right: 20.0,

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nifti_locapp/components/text_field.dart';
+import 'package:nifti_locapp/components/gradient_text_field.dart';
 
 //User's Profile Page
 class AddProfile extends StatefulWidget {
@@ -55,52 +55,20 @@ String socialLink, String roleTitle, String companyName, int timeWorked*/
                 Row(
                   children: [
                     // First name
-                    Padding(
+                    GradientTextFieldComponent(
                       padding: const EdgeInsets.only(left: 25.0),
-                      child: Container(
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color: const Color.fromRGBO(252, 250, 245, 1),
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: TextField(
-                            controller: _profilePicture,
-                            decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'First Name',
-                                contentPadding: EdgeInsets.only(
-                                  left: 20.0,
-                                  right: 20.0,
-                                )),
-                            style: const TextStyle(
-                              fontSize: 15,
-                            )),
-                      ),
+                      width: 150,
+                      controller: _contactNumberController,
+                      hintText: 'Email',
+                      obscureText: false,
                     ),
                     // Last name
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 25.0),
-                      child: Container(
-                        width: 168,
-                        decoration: BoxDecoration(
-                            color: const Color.fromRGBO(252, 250, 245, 1),
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(25)),
-                        child: TextField(
-                          controller: _pronouns,
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Last Name',
-                              contentPadding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                              )),
-                          style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
+                    GradientTextFieldComponent(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      width: 160,
+                      controller: _contactNumberController,
+                      hintText: 'Email',
+                      obscureText: false,
                     ),
                   ],
                 ),
@@ -108,7 +76,9 @@ String socialLink, String roleTitle, String companyName, int timeWorked*/
                 const SizedBox(height: 20),
 
                 //Email Textfield
-                TextFieldComponent(
+                GradientTextFieldComponent(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  width: 350,
                   controller: _contactNumberController,
                   hintText: 'Email',
                   obscureText: false,
@@ -117,7 +87,9 @@ String socialLink, String roleTitle, String companyName, int timeWorked*/
                 const SizedBox(height: 20),
 
                 //Password Textfield
-                TextFieldComponent(
+                GradientTextFieldComponent(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    width: 350,
                     controller: _socialLink,
                     hintText: 'Password',
                     obscureText: true),
@@ -125,7 +97,9 @@ String socialLink, String roleTitle, String companyName, int timeWorked*/
                 const SizedBox(height: 20),
 
                 // Confirm Password Textfield
-                TextFieldComponent(
+                GradientTextFieldComponent(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    width: 350,
                     controller: _bio,
                     hintText: 'Confirm Password',
                     obscureText: true),
@@ -144,3 +118,5 @@ String socialLink, String roleTitle, String companyName, int timeWorked*/
     );
   }
 }
+
+*/

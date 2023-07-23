@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 25),
 
                       // Login Button
-                      ButtonComponent(onTap: login, text: 'LOGIN'),
+                      ButtonComponent(onTap: login, text: 'LOGIN', color: const Color.fromRGBO(79, 219, 245, 1),),
                       // Space between next widget
                       const SizedBox(height: 30),
 

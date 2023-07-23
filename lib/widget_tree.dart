@@ -4,6 +4,7 @@ import 'package:nifti_locapp/pages/scan_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';
 import 'package:nifti_locapp/pages/profile_page.dart';
 
+
 // THIS FILE CONTAINS THE LOGIC FOR THE APP'S TOP & BOTTOM NAV BAR
 
 class WidgetTree extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:firebase_auth/firebase_auth.dart";
 import 'package:nifti_locapp/auth/login_or_register.dart';
-import 'package:nifti_locapp/pages/add_profile.dart';
+import 'package:nifti_locapp/widget_tree.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -13,7 +13,7 @@ class AuthPage extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot){
         if(snapshot.hasData){
-          return const AddProfile(); 
+          return const WidgetTree(); 
         } else {
           return const LoginOrRegister();
         }
