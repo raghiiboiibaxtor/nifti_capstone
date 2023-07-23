@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/gradient_text_field.dart';
+import 'package:gradient_borders/gradient_borders.dart';
 
 /* * ---------------- * (STATEFUL WIDGET) CLASS RegisterPage (STATEFUL WIDGET) * ---------------- * */
 class RegisterPage extends StatefulWidget {
@@ -33,8 +34,17 @@ class _RegisterPageState extends State<RegisterPage> {
   final _companyName = TextEditingController();
   final _timeWorked = TextEditingController();
 
-  // ? Variables
+  // ? Stepper Variable
   int currentStep = 0;
+  // ? Pronoun dropdown list 
+  final List<String> pronouns = [
+    'They/Them',
+    'He/Him',
+    'She/Her',
+    'He/They',
+    'She/They'
+  ];
+  String? selectedPronouns;
 
   // ? Dispose controllers when not using - helps memory management
   @override
@@ -215,13 +225,44 @@ class _RegisterPageState extends State<RegisterPage> {
                       obscureText: false,
                     ),
                     // Pronouns
-                    GradientTextFieldComponent(
+                    /*GradientTextFieldComponent(
                       padding: const EdgeInsets.only(left: 20.0),
                       width: 170,
                       controller: _pronouns,
                       hintText: 'Pronouns',
                       obscureText: false,
-                    ),
+                    ),*/
+                    // ? Pronoun dropdown selector
+                    Container(
+                      padding: const EdgeInsets.only(left: 20),
+                      width: 190,
+                      child: DropdownButtonFormField<String>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                          border: GradientOutlineInputBorder(
+                            gradient: const LinearGradient(colors: [
+                              Color.fromRGBO(209, 147, 246, 1),
+                              Color.fromRGBO(115, 142, 247, 1),
+                              Color.fromRGBO(116, 215, 247, 1)
+                            ]),
+                            width: 2,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        icon: const Icon(Icons.arrow_drop_down),
+                        hint: const Text('Pronouns'),
+                        items: pronouns.map((pronoun) {
+                          return DropdownMenuItem(
+                            value: pronoun,
+                            child: Text('$pronoun '),
+                          );
+                        }).toList(),
+                        onChanged: (value) =>
+                            setState(() => selectedPronouns = value as String),
+                      ),
+                    )
                   ],
                 ),
                 // Space between next widget
@@ -385,7 +426,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     // Next Button
                     Expanded(
                         child: ElevatedButton(
-                      onPressed:details.onStepContinue,
+                      onPressed: details.onStepContinue,
                       child: const Text(
                         'Next',
                         style: TextStyle(
