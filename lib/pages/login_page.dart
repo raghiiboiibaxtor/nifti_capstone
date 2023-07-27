@@ -4,6 +4,7 @@ import 'package:nifti_locapp/components/button.dart';
 import 'package:nifti_locapp/components/text_field.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 
+/* * ---------------- * (STATEFUL WIDGET) CLASS LoginPage (STATEFUL WIDGET) * ---------------- * */
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
   const LoginPage({super.key, required this.onTap});
@@ -11,7 +12,9 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
+/* * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- * */
 
+/* * ---------------- * (STATE) CLASS _LoginPageState (STATE) * ---------------- * */
 class _LoginPageState extends State<LoginPage> {
   // Text Controllers - used to access the user's input
   final _emailController = TextEditingController();
@@ -25,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  //Login Method
+  // ? Email & Password Login Method
   Future login() async {
     // Loading Animation
     displayLoadingCircle(context);
@@ -46,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                       const Image(
                           image: AssetImage('images/nifti_logo_white.png')),
 
-                      //Email Textfield
+                      // Email Textfield
                       TextFieldComponent(
                           controller: _emailController,
                           hintText: 'Email',
@@ -86,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                       // Space between next widget
                       const SizedBox(height: 30),
 
-                      // Register button
+                      // Register button - Redirects user to registration process
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -117,4 +121,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             )));
   }
+  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
 }
+/* * ---------------- * END OF (STATE) CLASS _LoginPageState (STATE) * ---------------- * */

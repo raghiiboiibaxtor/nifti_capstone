@@ -47,7 +47,3 @@ Future addUserDetails(String firstName, String lastName, String email, String co
       'years worked': yearsWorked,
     });
 }
-
-
-/*int contactNumber, String pronouns, Image profilePicure, String bio, 
-String socialLink, String roleTitle, String companyName, int timeWorked*/

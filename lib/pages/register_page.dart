@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/gradient_text_field.dart';
+import 'package:nifti_locapp/components/text_field_character_limit.dart';
 import 'package:nifti_locapp/components/drop_menu.dart';
 
 /* * ---------------- * (STATEFUL WIDGET) CLASS RegisterPage (STATEFUL WIDGET) * ---------------- * */
@@ -14,7 +15,9 @@ class RegisterPage extends StatefulWidget {
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
-}
+} 
+/* * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- * */
+
 
 /* * ---------------- * (STATE) CLASS _RegisterPageState (STATE) * ---------------- * */
 class _RegisterPageState extends State<RegisterPage> {
@@ -28,7 +31,6 @@ class _RegisterPageState extends State<RegisterPage> {
   String _pronouns = '';
   final _profilePicture = TextEditingController();
   final _bio = TextEditingController();
-  //final _socialLink = TextEditingController();
   final _roleTitle = TextEditingController();
   final _industry = TextEditingController();
   final _companyName = TextEditingController();
@@ -42,7 +44,8 @@ class _RegisterPageState extends State<RegisterPage> {
     'He / Him',
     'She / Her',
     'He / They',
-    'She / They'
+    'She / They',
+    'Prefer not to say'
   ];
   // ? Years in company dropdown list
   final List<String> years = [
@@ -58,6 +61,9 @@ class _RegisterPageState extends State<RegisterPage> {
     '9+ years',
     '10+ years',
   ];
+
+  // ? Profile image selection function
+  void selectProfileImage() {}
 
   // ? Dispose controllers when not using - helps memory management
   @override
@@ -115,7 +121,6 @@ class _RegisterPageState extends State<RegisterPage> {
         _lastNameController.text.trim(),
         _emailController.text.trim(),
         _contactNumberController.text.trim(),
-        //  _pronouns.text.trim(),
         _pronouns,
         _profilePicture.text.trim(),
         _bio.text.trim(),
@@ -207,7 +212,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             )),
 
-        // ? Second Step == Account Details (First Name, Last Name, Email, Password)
+        // ? Second Step == Account Details (Personal & Work Details)
         Step(
           isActive: currentStep >= 1,
           state: currentStep <= 1 ? StepState.editing : StepState.complete,
@@ -230,17 +235,36 @@ class _RegisterPageState extends State<RegisterPage> {
                 Row(
                   children: [
                     // Profile Picture
-                    GradientTextFieldComponent(
+                    /*GradientTextFieldComponent(
                       padding: const EdgeInsets.only(left: 0),
                       width: 150,
                       controller: _profilePicture,
                       hintText: 'Image',
                       obscureText: false,
+                    ),*/
+                    // TODO: Stack In Progress
+                    Stack(
+                      children: [
+                        const CircleAvatar(
+                          radius: 45,
+                          backgroundImage:
+                              AssetImage('images/defaultProfileImage.png'),
+                        ),
+                        Positioned(
+                          bottom: -14,
+                          left: 55,
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.add_a_photo_rounded),
+                          ),
+                        ),
+                      ],
                     ),
-
+                    // Space between next widget
+                    const SizedBox(width: 50),
                     // ? Pronoun dropdown selector
-                    CustomDropdownMenu(
-                      width: 190,
+                    DropdownMenuComponent(
+                      width: 200,
                       value: pronouns,
                       hintText: const Text('Pronouns'),
                       itemsList: pronouns,
@@ -256,15 +280,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 20),
 
                 //Bio Textfield
-                GradientTextFieldComponent(
-                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                  width: 350,
+                CharacterLimitFieldComponent(
                   controller: _bio,
                   hintText: 'Bio',
-                  obscureText: false,
+                  width: 350,
+                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
                 ),
                 // Space between next widget
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
 
                 //Contact Number Textfield
                 GradientTextFieldComponent(
@@ -320,7 +343,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
 
                     // ? Years Worked dropdown selector
-                    CustomDropdownMenu(
+                    DropdownMenuComponent(
                       width: 150,
                       value: years,
                       hintText: const Text('Years'),
@@ -334,7 +357,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ],
                 ),
                 // Space between next widget
-                const SizedBox(height: 25),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -459,5 +482,7 @@ class _RegisterPageState extends State<RegisterPage> {
             },
           ),
         ));
-  } /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
-}/* * ---------------- * END OF(STATE) CLASS _RegisterPageState (STATE) * ---------------- * */
+  } 
+  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
+} 
+/* * ---------------- * END OF (STATE) CLASS _RegisterPageState (STATE) * ---------------- * */

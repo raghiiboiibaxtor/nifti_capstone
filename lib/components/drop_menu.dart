@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 
 
-class CustomDropdownMenu extends StatelessWidget {
+class DropdownMenuComponent extends StatelessWidget {
   final value;
   final double width;
   final List<String> itemsList;
   final Widget hintText;
   final Function(dynamic value) onChanged;
 
-  const CustomDropdownMenu({super.key, required this.value, required this.width, required this.itemsList, required this.hintText, required this.onChanged});
+  const DropdownMenuComponent({super.key, required this.value, required this.width, required this.itemsList, required this.hintText, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

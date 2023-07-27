@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 
-// Custom text field
+/* * ---------------- * (STATELESS WIDGET) CLASS GradientTextFieldComponent (STATELESS WIDGET) * ---------------- * */
 class GradientTextFieldComponent extends StatelessWidget {
-  // text field variables
+  // Component variables
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
   final double width;
   final EdgeInsetsGeometry padding;
 
+  // Required variables to be passed
   const GradientTextFieldComponent({
     super.key,
     required this.controller,
@@ -19,6 +20,7 @@ class GradientTextFieldComponent extends StatelessWidget {
     required this.padding,
   });
 
+  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -51,4 +53,6 @@ class GradientTextFieldComponent extends StatelessWidget {
         );
         
   }
+  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
 }
+/* * ---------------- * END OF (STATELESS WIDGET) CLASS GradientTextFieldComponent (STATELESS WIDGET) * ---------------- * */

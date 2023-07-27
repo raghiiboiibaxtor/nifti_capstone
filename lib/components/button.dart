@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
+/* * ---------------- * (STATELESS WIDGET) CLASS ButtonComponent (STATELESS WIDGET) * ---------------- * */
 class ButtonComponent extends StatelessWidget {
+  // Component Variables
   final Function()? onTap;
   final String text;
   final Color color;
 
+  // Required variables to be passed
   const ButtonComponent({super.key, required this.onTap, required this.text, required this.color});
 
+  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,4 +34,6 @@ class ButtonComponent extends StatelessWidget {
                   ),
                 ))));
   }
+  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
 }
+/* * ---------------- * END OF (STATELESS WIDGET) CLASS ButtonComponent (STATELESS WIDGET) * ---------------- * */
