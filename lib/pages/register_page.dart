@@ -25,26 +25,39 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _contactNumberController = TextEditingController();
-  final _pronouns = TextEditingController();
+  String _pronouns = '';
   final _profilePicture = TextEditingController();
   final _bio = TextEditingController();
   //final _socialLink = TextEditingController();
   final _roleTitle = TextEditingController();
   final _industry = TextEditingController();
   final _companyName = TextEditingController();
-  final _timeWorked = TextEditingController();
+  String _yearsWorked = '';
 
   // ? Stepper Variable
   int currentStep = 0;
-  // ? Pronoun dropdown list 
+  // ? Pronoun dropdown list
   final List<String> pronouns = [
-    'They/Them',
-    'He/Him',
-    'She/Her',
-    'He/They',
-    'She/They'
+    'They / Them',
+    'He / Him',
+    'She / Her',
+    'He / They',
+    'She / They'
   ];
-  String? selectedPronouns;
+  // ? Years in company dropdown list
+  final List<String> years = [
+    '< 1 year',
+    '1+ year',
+    '2+ years',
+    '3+ years',
+    '4+ years',
+    '5+ years',
+    '6+ years',
+    '7+ years',
+    '8+ years',
+    '9+ years',
+    '10+ years',
+  ];
 
   // ? Dispose controllers when not using - helps memory management
   @override
@@ -55,13 +68,12 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _contactNumberController.dispose();
-    _pronouns.dispose();
     _profilePicture.dispose();
     _bio.dispose();
     _roleTitle.dispose();
     _industry.dispose();
     _companyName.dispose();
-    _timeWorked.dispose();
+    //_timeWorked.dispose();
     super.dispose();
   }
 
@@ -103,13 +115,14 @@ class _RegisterPageState extends State<RegisterPage> {
         _lastNameController.text.trim(),
         _emailController.text.trim(),
         _contactNumberController.text.trim(),
-        _pronouns.text.trim(),
+        //  _pronouns.text.trim(),
+        _pronouns,
         _profilePicture.text.trim(),
         _bio.text.trim(),
         _roleTitle.text.trim(),
         _industry.text.trim(),
         _companyName.text.trim(),
-        _timeWorked.text.trim(),
+        _yearsWorked,
       );
     }
   }
@@ -224,23 +237,17 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintText: 'Image',
                       obscureText: false,
                     ),
-                    // Pronouns
-                    /*GradientTextFieldComponent(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      width: 170,
-                      controller: _pronouns,
-                      hintText: 'Pronouns',
-                      obscureText: false,
-                    ),*/
+
                     // ? Pronoun dropdown selector
                     Container(
                       padding: const EdgeInsets.only(left: 20),
                       width: 190,
                       child: DropdownButtonFormField<String>(
                         isExpanded: true,
+                        borderRadius: BorderRadius.circular(20),
                         decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 20),
                           border: GradientOutlineInputBorder(
                             gradient: const LinearGradient(colors: [
                               Color.fromRGBO(209, 147, 246, 1),
@@ -259,8 +266,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             child: Text('$pronoun '),
                           );
                         }).toList(),
-                        onChanged: (value) =>
-                            setState(() => selectedPronouns = value as String),
+                        onChanged: (value) => setState(
+                          () => _pronouns = value as String,
+                        ),
                       ),
                     )
                   ],
@@ -289,17 +297,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 // Space between next widget
                 const SizedBox(height: 20),
-
-                /*//Social Media Textfield
-                    GradientTextFieldComponent(
-                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                      width: 350,
-                      controller: _socialLink,
-                      hintText: 'URL',
-                      obscureText: false,
-                    ),
-                    // Space between next widget
-                    const SizedBox(height: 20),*/
 
                 // Role prompt
                 const Text(
@@ -337,19 +334,46 @@ class _RegisterPageState extends State<RegisterPage> {
                     // Place of Work/Study Textfield
                     GradientTextFieldComponent(
                       padding: const EdgeInsets.only(left: 0),
-                      width: 230,
+                      width: 190,
                       controller: _companyName,
                       hintText: 'Place of Work/Study',
                       obscureText: false,
                     ),
-                    // Work Time
-                    GradientTextFieldComponent(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      width: 90,
-                      controller: _timeWorked,
-                      hintText: 'Years',
-                      obscureText: false,
-                    ),
+                    
+                    // ? Years Worked dropdown selector
+                    Container(
+                      padding: const EdgeInsets.only(left: 20),
+                      width: 150,
+                      child: DropdownButtonFormField<String>(
+                        menuMaxHeight: 200,
+                        borderRadius: BorderRadius.circular(20),
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 20),
+                          border: GradientOutlineInputBorder(
+                            gradient: const LinearGradient(colors: [
+                              Color.fromRGBO(209, 147, 246, 1),
+                              Color.fromRGBO(115, 142, 247, 1),
+                              Color.fromRGBO(116, 215, 247, 1)
+                            ]),
+                            width: 2,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        icon: const Icon(Icons.arrow_drop_down),
+                        hint: const Text('Years'),
+                        items: years.map((year) {
+                          return DropdownMenuItem(
+                            value: year,
+                            child: Text('$year '),
+                          );
+                        }).toList(),
+                        onChanged: (value) => setState(
+                          () => _yearsWorked = value as String,
+                        ),
+                      ),
+                    )
                   ],
                 ),
                 // Space between next widget
@@ -411,16 +435,6 @@ class _RegisterPageState extends State<RegisterPage> {
               final isLastStep = currentStep == stepList().length - 1;
               return Row(
                 children: [
-                  /* Expanded(
-                      child: ElevatedButton(
-                    onPressed: details.onStepContinue,
-                    child: Text(isLastStep ? "Confirm" : "Next",
-                    style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
-                            letterSpacing: 0.5),),
-                  )),*/
-
                   // ? If first step = show Next button to continue & cancel prompt to go back to login page
                   if (!isLastStep) ...[
                     // Next Button

@@ -32,7 +32,7 @@ void displayLoadingCircle(BuildContext context,){
 }
 
 // Adding User Details to FireStore
-Future addUserDetails(String firstName, String lastName, String email, String contactNumber, String pronouns, String profilePicure, String bio, String role, String industry, String company, String timeWorked ) async {
+Future addUserDetails(String firstName, String lastName, String email, String contactNumber, String pronouns, String profilePicure, String bio, String role, String industry, String company, String yearsWorked ) async {
     await FirebaseFirestore.instance.collection('users').add({
       'first name': firstName,
       'last name': lastName,
@@ -41,11 +41,10 @@ Future addUserDetails(String firstName, String lastName, String email, String co
       'pronouns': pronouns, 
       'profile picture': profilePicure,
       'bio': bio,
-      //'social link': '',
       'role': role,
       'industry': industry,
       'company': company,
-      'time worked': timeWorked,
+      'years worked': yearsWorked,
     });
 }
 

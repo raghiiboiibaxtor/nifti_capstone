@@ -29,6 +29,7 @@ class _WidgetTreeState extends State<WidgetTree> {
     return Scaffold(
       // Top bar that contains Nifti Logo
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
         title: SizedBox(
           width: 100,
           child: Image.asset('images/nifti_logo.png'),
