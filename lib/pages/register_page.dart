@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/gradient_text_field.dart';
-import 'package:gradient_borders/gradient_borders.dart';
+import 'package:nifti_locapp/components/drop_menu.dart';
 
 /* * ---------------- * (STATEFUL WIDGET) CLASS RegisterPage (STATEFUL WIDGET) * ---------------- * */
 class RegisterPage extends StatefulWidget {
@@ -239,38 +239,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
 
                     // ? Pronoun dropdown selector
-                    Container(
-                      padding: const EdgeInsets.only(left: 20),
+                    CustomDropdownMenu(
                       width: 190,
-                      child: DropdownButtonFormField<String>(
-                        isExpanded: true,
-                        borderRadius: BorderRadius.circular(20),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 20),
-                          border: GradientOutlineInputBorder(
-                            gradient: const LinearGradient(colors: [
-                              Color.fromRGBO(209, 147, 246, 1),
-                              Color.fromRGBO(115, 142, 247, 1),
-                              Color.fromRGBO(116, 215, 247, 1)
-                            ]),
-                            width: 2,
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                        ),
-                        icon: const Icon(Icons.arrow_drop_down),
-                        hint: const Text('Pronouns'),
-                        items: pronouns.map((pronoun) {
-                          return DropdownMenuItem(
-                            value: pronoun,
-                            child: Text('$pronoun '),
-                          );
-                        }).toList(),
-                        onChanged: (value) => setState(
-                          () => _pronouns = value as String,
-                        ),
-                      ),
-                    )
+                      value: pronouns,
+                      hintText: const Text('Pronouns'),
+                      itemsList: pronouns,
+                      onChanged: (value) {
+                        setState(() {
+                          _pronouns = value as String;
+                        });
+                      },
+                    ),
                   ],
                 ),
                 // Space between next widget
@@ -339,41 +318,19 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintText: 'Place of Work/Study',
                       obscureText: false,
                     ),
-                    
+
                     // ? Years Worked dropdown selector
-                    Container(
-                      padding: const EdgeInsets.only(left: 20),
+                    CustomDropdownMenu(
                       width: 150,
-                      child: DropdownButtonFormField<String>(
-                        menuMaxHeight: 200,
-                        borderRadius: BorderRadius.circular(20),
-                        isExpanded: true,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 20),
-                          border: GradientOutlineInputBorder(
-                            gradient: const LinearGradient(colors: [
-                              Color.fromRGBO(209, 147, 246, 1),
-                              Color.fromRGBO(115, 142, 247, 1),
-                              Color.fromRGBO(116, 215, 247, 1)
-                            ]),
-                            width: 2,
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                        ),
-                        icon: const Icon(Icons.arrow_drop_down),
-                        hint: const Text('Years'),
-                        items: years.map((year) {
-                          return DropdownMenuItem(
-                            value: year,
-                            child: Text('$year '),
-                          );
-                        }).toList(),
-                        onChanged: (value) => setState(
-                          () => _yearsWorked = value as String,
-                        ),
-                      ),
-                    )
+                      value: years,
+                      hintText: const Text('Years'),
+                      itemsList: years,
+                      onChanged: (value) {
+                        setState(() {
+                          _yearsWorked = value as String;
+                        });
+                      },
+                    ),
                   ],
                 ),
                 // Space between next widget
