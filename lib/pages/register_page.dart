@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/functions/functions.dart';
@@ -5,7 +7,7 @@ import 'package:nifti_locapp/components/gradient_text_field.dart';
 import 'package:nifti_locapp/components/text_field_character_limit.dart';
 import 'package:nifti_locapp/components/drop_menu.dart';
 
-/* * ---------------- * (STATEFUL WIDGET) CLASS RegisterPage (STATEFUL WIDGET) * ---------------- * */
+// * * ---------------- * (STATEFUL WIDGET) CLASS RegisterPage (STATEFUL WIDGET) * ---------------- *
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
   const RegisterPage({
@@ -15,11 +17,11 @@ class RegisterPage extends StatefulWidget {
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
-} 
-/* * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- * */
+}
+// * * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- *
 
 
-/* * ---------------- * (STATE) CLASS _RegisterPageState (STATE) * ---------------- * */
+// * * ---------------- * (STATE) CLASS _RegisterPageState (STATE) * ---------------- *
 class _RegisterPageState extends State<RegisterPage> {
   // ? Text Controllers - used to access the user's input
   final _firstNameController = TextEditingController();
@@ -29,7 +31,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final _confirmPasswordController = TextEditingController();
   final _contactNumberController = TextEditingController();
   String _pronouns = '';
-  final _profilePicture = TextEditingController();
+  Uint8List? _profilePicture;
+  String testPicture = '';
   final _bio = TextEditingController();
   final _roleTitle = TextEditingController();
   final _industry = TextEditingController();
@@ -63,7 +66,12 @@ class _RegisterPageState extends State<RegisterPage> {
   ];
 
   // ? Profile image selection function
-  void selectProfileImage() {}
+  void selectProfileImage() async {
+    Uint8List image = await pickImage();
+    setState(() {
+      _profilePicture = image;
+    });
+  }
 
   // ? Dispose controllers when not using - helps memory management
   @override
@@ -74,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _contactNumberController.dispose();
-    _profilePicture.dispose();
+    // _profilePicture.dispose();
     _bio.dispose();
     _roleTitle.dispose();
     _industry.dispose();
@@ -122,7 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
         _emailController.text.trim(),
         _contactNumberController.text.trim(),
         _pronouns,
-        _profilePicture.text.trim(),
+        testPicture,
         _bio.text.trim(),
         _roleTitle.text.trim(),
         _industry.text.trim(),
@@ -242,19 +250,25 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintText: 'Image',
                       obscureText: false,
                     ),*/
+
                     // TODO: Stack In Progress
                     Stack(
                       children: [
-                        const CircleAvatar(
-                          radius: 45,
-                          backgroundImage:
-                              AssetImage('images/defaultProfileImage.png'),
-                        ),
+                        _profilePicture != null
+                            ? CircleAvatar(
+                                radius: 45,
+                                backgroundImage: MemoryImage(_profilePicture!),
+                              )
+                            : const CircleAvatar(
+                                radius: 45,
+                                backgroundImage: AssetImage(
+                                    'images/defaultProfileImage.png'),
+                              ),
                         Positioned(
                           bottom: -14,
                           left: 55,
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: selectProfileImage,
                             icon: const Icon(Icons.add_a_photo_rounded),
                           ),
                         ),
@@ -364,7 +378,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ];
 
-  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
+  // * * ---------------- * (BUILD WIDGET) * ---------------- * 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -482,7 +496,8 @@ class _RegisterPageState extends State<RegisterPage> {
             },
           ),
         ));
-  } 
-  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
+  }
+  // * * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 } 
-/* * ---------------- * END OF (STATE) CLASS _RegisterPageState (STATE) * ---------------- * */
+
+// * * ---------------- * END OF (STATE) CLASS _RegisterPageState (STATE) * ---------------- *

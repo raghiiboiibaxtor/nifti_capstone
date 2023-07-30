@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
 
-// Error Message Snackbar Function
+// ? Error Message Snackbar Function
 void displayErrorMessage(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(
@@ -23,7 +24,7 @@ void displayErrorMessage(BuildContext context, String message) {
       )));
 }
 
-// Loading Circle Animation Function
+// ? Loading Circle Animation Function
 void displayLoadingCircle(BuildContext context,){
   showDialog(context: context, 
   builder: (context) => const Center(
@@ -31,7 +32,7 @@ void displayLoadingCircle(BuildContext context,){
   ),);
 }
 
-// Adding User Details to FireStore
+// ? Adding User Details to FireStore
 Future addUserDetails(String firstName, String lastName, String email, String contactNumber, String pronouns, String profilePicure, String bio, String role, String industry, String company, String yearsWorked ) async {
     await FirebaseFirestore.instance.collection('users').add({
       'first name': firstName,
@@ -46,4 +47,13 @@ Future addUserDetails(String firstName, String lastName, String email, String co
       'company': company,
       'years worked': yearsWorked,
     });
+}
+
+// ? Select profile image functions
+pickImage() async{
+  final picker = ImagePicker();
+  XFile? selectedFile= await picker.pickImage(source: ImageSource.gallery);
+  if(selectedFile != null){
+    return await selectedFile.readAsBytes();
+  }
 }
