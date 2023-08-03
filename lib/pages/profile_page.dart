@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:firebase_auth/firebase_auth.dart';
 
 //User's Profile Page
 class ProfilePage extends StatefulWidget {
@@ -10,12 +11,12 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   // user
-  //final currentUser = FirebaseAuth.instance.currentUser;
+  final currentUser = FirebaseAuth.instance.currentUser!;
   
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('this is my not profile')),
+    return Scaffold(
+      body: Center(child: Text(currentUser.email!)),
     );
   }
 }

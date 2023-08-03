@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
+/* * ---------------- * (STATELESS WIDGET) CLASS ButtonComponent (STATELESS WIDGET) * ---------------- * */
 class ButtonComponent extends StatelessWidget {
+  // Component Variables
   final Function()? onTap;
   final String text;
+  final Color color;
 
-  const ButtonComponent({super.key, required this.onTap, required this.text});
+  // Required variables to be passed
+  const ButtonComponent({super.key, required this.onTap, required this.text, required this.color});
 
+  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,7 +20,7 @@ class ButtonComponent extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color.fromRGBO(79, 219, 245, 1),
+                  color: color,
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Center(
@@ -29,4 +34,6 @@ class ButtonComponent extends StatelessWidget {
                   ),
                 ))));
   }
+  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
 }
+/* * ---------------- * END OF (STATELESS WIDGET) CLASS ButtonComponent (STATELESS WIDGET) * ---------------- * */
