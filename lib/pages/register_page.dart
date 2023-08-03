@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _confirmPasswordController = TextEditingController();
   final _contactNumberController = TextEditingController();
   String _pronouns = '';
-  Uint8List? _profilePicture;
+  Uint8List? _profileImage;
   String testPicture = '';
   final _bio = TextEditingController();
   final _roleTitle = TextEditingController();
@@ -69,7 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void selectProfileImage() async {
     Uint8List image = await pickImage();
     setState(() {
-      _profilePicture = image;
+      _profileImage = image;
     });
   }
 
@@ -124,19 +124,21 @@ class _RegisterPageState extends State<RegisterPage> {
       }
 
       // ? Adds user info to Firestore
-      addUserDetails(
+      String response = await StoreUserData().addUserDetails(
         _firstNameController.text.trim(),
         _lastNameController.text.trim(),
         _emailController.text.trim(),
         _contactNumberController.text.trim(),
         _pronouns,
-        testPicture,
+        _profileImage!,
         _bio.text.trim(),
         _roleTitle.text.trim(),
         _industry.text.trim(),
         _companyName.text.trim(),
         _yearsWorked,
       );
+      StoreUserData().addUserImage(_profileImage!);
+      StoreUserData().updateFirestoreImageLink(_profileImage!);
     }
   }
 
@@ -254,10 +256,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     // TODO: Stack In Progress
                     Stack(
                       children: [
-                        _profilePicture != null
+                        _profileImage != null
                             ? CircleAvatar(
                                 radius: 45,
-                                backgroundImage: MemoryImage(_profilePicture!),
+                                backgroundImage: MemoryImage(_profileImage!),
                               )
                             : const CircleAvatar(
                                 radius: 45,
