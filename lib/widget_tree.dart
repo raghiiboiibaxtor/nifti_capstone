@@ -4,6 +4,7 @@ import 'package:nifti_locapp/pages/scan_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';
 import 'package:nifti_locapp/pages/profile_page.dart';
 
+
 // THIS FILE CONTAINS THE LOGIC FOR THE APP'S TOP & BOTTOM NAV BAR
 
 class WidgetTree extends StatefulWidget {
@@ -28,6 +29,7 @@ class _WidgetTreeState extends State<WidgetTree> {
     return Scaffold(
       // Top bar that contains Nifti Logo
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
         title: SizedBox(
           width: 100,
           child: Image.asset('images/nifti_logo.png'),
