@@ -244,16 +244,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 Row(
                   children: [
-                    // Profile Picture
-                    /*GradientTextFieldComponent(
-                      padding: const EdgeInsets.only(left: 0),
-                      width: 150,
-                      controller: _profilePicture,
-                      hintText: 'Image',
-                      obscureText: false,
-                    ),*/
-
-                    // TODO: Stack In Progress
                     Stack(
                       children: [
                         _profileImage != null
