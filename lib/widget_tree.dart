@@ -38,7 +38,7 @@ class _WidgetTreeState extends State<WidgetTree> {
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
                 },
-                icon: const Icon(Icons.logout_rounded))
+                icon: const Icon(Icons.exit_to_app_rounded, color: Color.fromRGBO(115, 142, 247, 1),))
           ],
         ),
         // Body of the page
@@ -162,11 +162,3 @@ class _WidgetTreeState extends State<WidgetTree> {
         )));
   }
 } // End of widget_tree
-
-
-/*ClipRRect(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(24),
-          //topRight: Radius.circular(24),
-          //topLeft: Radius.circular(24),
-        ), */
