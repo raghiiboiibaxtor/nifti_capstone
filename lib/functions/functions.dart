@@ -50,7 +50,7 @@ class StoreUserData {
       String firstName,
       String lastName,
       String email,
-      String contactNumber,
+      String city,
       String pronouns,
       Uint8List profileImage,
       String bio,
@@ -65,7 +65,7 @@ class StoreUserData {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
-        'contactNumber': contactNumber,
+        'city/town': city,
         'pronouns': pronouns,
         'imageLink': '',
         'bio': bio,
@@ -113,3 +113,4 @@ pickImage() async {
     return await selectedFile.readAsBytes();
   }
 }
+

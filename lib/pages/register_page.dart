@@ -29,7 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  final _contactNumberController = TextEditingController();
+  final _cityController = TextEditingController();
   String _pronouns = '';
   Uint8List? _profileImage;
   String testPicture = '';
@@ -81,7 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
-    _contactNumberController.dispose();
+    _cityController.dispose();
     // _profilePicture.dispose();
     _bio.dispose();
     _roleTitle.dispose();
@@ -128,7 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
         _firstNameController.text.trim(),
         _lastNameController.text.trim(),
         _emailController.text.trim(),
-        _contactNumberController.text.trim(),
+        _cityController.text.trim(),
         _pronouns,
         _profileImage!,
         _bio.text.trim(),
@@ -244,16 +244,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 Row(
                   children: [
-                    // Profile Picture
-                    /*GradientTextFieldComponent(
-                      padding: const EdgeInsets.only(left: 0),
-                      width: 150,
-                      controller: _profilePicture,
-                      hintText: 'Image',
-                      obscureText: false,
-                    ),*/
-
-                    // TODO: Stack In Progress
                     Stack(
                       children: [
                         _profileImage != null
@@ -305,12 +295,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 // Space between next widget
                 const SizedBox(height: 10),
 
-                //Contact Number Textfield
+                //City Textfield
                 GradientTextFieldComponent(
                   padding: const EdgeInsets.symmetric(horizontal: 0.0),
                   width: 350,
-                  controller: _contactNumberController,
-                  hintText: 'Contact Number',
+                  controller: _cityController,
+                  hintText: 'City / Town',
                   obscureText: false,
                 ),
                 // Space between next widget
