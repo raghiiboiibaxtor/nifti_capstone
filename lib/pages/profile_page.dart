@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:nifti_locapp/components/text_display.dart';
+import 'package:nifti_locapp/components/copy_tool.dart';
 
 //User's Profile Page
 class ProfilePage extends StatefulWidget {
@@ -237,7 +238,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
 
                     // ? Contact Info
-                    Row(
+                     Row(
                       children: [
                         const Icon(
                           Icons.mail_outline,
@@ -249,17 +250,23 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 7,
                         ),
 
+                      
+
+                        GestureDetector(
+                          child: CopyTool(text: userData['email']),
+                          onTap: () {},
+                        ),
 
                         /*SelectableText(
                           userData['email'],
                         ),*/
 
-                        TextDisplay(
+                        /*TextDisplay(
                           text: userData['email'],
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
                           color: const Color.fromRGBO(133, 157, 194, 1),
-                        ),
+                        ),*/
                       ],
                     ),
 
