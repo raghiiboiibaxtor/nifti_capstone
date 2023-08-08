@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nifti_locapp/pages/scan_page.dart';
+import 'package:nifti_locapp/pages/connection_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';
 import 'package:nifti_locapp/pages/profile_page.dart';
 
@@ -19,7 +19,7 @@ class _WidgetTreeState extends State<WidgetTree> {
   // List of page widgets
   List<Widget> pages = const [
     ContactsPage(),
-    ScanPage(),
+    ConnectPage(),
     ProfilePage(),
   ];
 
@@ -38,7 +38,10 @@ class _WidgetTreeState extends State<WidgetTree> {
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
                 },
-                icon: const Icon(Icons.exit_to_app_rounded, color: Color.fromRGBO(115, 142, 247, 1),))
+                icon: const Icon(
+                  Icons.exit_to_app_rounded,
+                  color: Color.fromRGBO(115, 142, 247, 1),
+                ))
           ],
         ),
         // Body of the page
