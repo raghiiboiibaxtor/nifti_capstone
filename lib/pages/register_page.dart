@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/functions/functions.dart';
@@ -32,7 +31,10 @@ class _RegisterPageState extends State<RegisterPage> {
   final _cityController = TextEditingController();
   String _pronouns = '';
   Uint8List? _profileImage;
-  String testPicture = '';
+  Uint8List? _bannerImage;
+  Uint8List? _squareImage1;
+  Uint8List? _squareImage2;
+  Uint8List? _squareImage3;
   final _bio = TextEditingController();
   final _roleTitle = TextEditingController();
   final _industry = TextEditingController();
@@ -82,12 +84,10 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _cityController.dispose();
-    // _profilePicture.dispose();
     _bio.dispose();
     _roleTitle.dispose();
     _industry.dispose();
     _companyName.dispose();
-    //_timeWorked.dispose();
     super.dispose();
   }
 
@@ -124,13 +124,17 @@ class _RegisterPageState extends State<RegisterPage> {
       }
 
       // ? Adds user info to Firestore
-      String response = await StoreUserData().addUserDetails(
+      await StoreUserData().addUserDetails(
         _firstNameController.text.trim(),
         _lastNameController.text.trim(),
         _emailController.text.trim(),
         _cityController.text.trim(),
         _pronouns,
         _profileImage!,
+        _bannerImage!,
+        _squareImage1!,
+        _squareImage2!,
+        _squareImage3!,
         _bio.text.trim(),
         _roleTitle.text.trim(),
         _industry.text.trim(),

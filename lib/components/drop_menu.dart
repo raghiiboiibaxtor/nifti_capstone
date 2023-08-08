@@ -3,7 +3,7 @@ import 'package:gradient_borders/gradient_borders.dart';
 
 
 class DropdownMenuComponent extends StatelessWidget {
-  final value;
+  final dynamic value;
   final double width;
   final List<String> itemsList;
   final Widget hintText;

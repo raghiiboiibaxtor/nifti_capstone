@@ -1,7 +1,10 @@
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:nifti_locapp/functions/functions.dart';
+import 'package:nifti_locapp/components/image_selection_placeholder.dart';
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/components/copy_tool.dart';
 
@@ -19,6 +22,10 @@ class _ProfilePageState extends State<ProfilePage> {
   // Storage image variables
   final storage = FirebaseStorage.instance;
   String imageUrl = '';
+  Uint8List? _bannerImage;
+  Uint8List? _squareImage1;
+  Uint8List? _squareImage2;
+  Uint8List? _squareImage3;
 
   // get profileImage from storage
   Future getProfileImageUrl() async {
@@ -28,6 +35,38 @@ class _ProfilePageState extends State<ProfilePage> {
     final url = await ref.getDownloadURL();
     setState(() {
       imageUrl = url;
+    });
+  }
+
+  // ? image selection function
+  void selectBanner() async {
+    Uint8List banner = await pickImage();
+    setState(() {
+      _bannerImage = banner;
+    });
+  }
+
+  // ? image selection function
+  void selectSquare1() async {
+    Uint8List square1 = await pickImage();
+    setState(() {
+      _squareImage1 = square1;
+    });
+  }
+
+  // ? image selection function
+  void selectSquare2() async {
+    Uint8List square2 = await pickImage();
+    setState(() {
+      _squareImage2 = square2;
+    });
+  }
+
+  // ? image selection function
+  void selectSquare3() async {
+    Uint8List square3 = await pickImage();
+    setState(() {
+      _squareImage3 = square3;
     });
   }
 
@@ -146,7 +185,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     // Space between divide & role
                     const SizedBox(
-                      height: 5,
+                      height: 7,
                     ),
                     // ? Current Role Title
                     const TextDisplay(
@@ -156,7 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Color.fromRGBO(133, 157, 194, 1),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
 
                     // ? ROW == icon & role title
@@ -190,7 +229,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         const Icon(
                           Icons.push_pin_outlined,
-                          size: 13,
+                          size: 14,
                           color: Color.fromRGBO(133, 157, 194, 1),
                         ),
                         // Space between icon & company
@@ -200,7 +239,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         // Company
                         TextDisplay(
                           text: userData['company'],
-                          fontSize: 12,
+                          fontSize: 13,
                           fontWeight: FontWeight.w500,
                           color: const Color.fromRGBO(133, 157, 194, 1),
                         ),
@@ -216,7 +255,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         const Icon(
                           Icons.access_time_rounded,
-                          size: 13,
+                          size: 14,
                           color: Color.fromRGBO(133, 157, 194, 1),
                         ),
                         // Space between icon & years
@@ -226,7 +265,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         // Years worked
                         TextDisplay(
                           text: userData['yearsWorked'],
-                          fontSize: 12,
+                          fontSize: 13,
                           fontWeight: FontWeight.w500,
                           color: const Color.fromRGBO(133, 157, 194, 1),
                         ),
@@ -234,42 +273,31 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
 
                     const SizedBox(
-                      height: 7,
+                      height: 5,
                     ),
 
                     // ? Contact Info
-                     Row(
+                    Row(
                       children: [
                         const Icon(
                           Icons.mail_outline,
                           size: 15,
-                          color: Color.fromRGBO(133, 157, 194, 1),
+                          color: Color.fromRGBO(209, 147, 246, 1),
                         ),
                         // Space between icon & years
                         const SizedBox(
                           width: 7,
                         ),
-
-                      
-
+                        // ? Email display + copy
                         GestureDetector(
-                          child: CopyTool(text: userData['email']),
+                          child: CopyTool(
+                            text: userData['email'],
+                            fontSize: 14,
+                          ),
                           onTap: () {},
                         ),
-
-                        /*SelectableText(
-                          userData['email'],
-                        ),*/
-
-                        /*TextDisplay(
-                          text: userData['email'],
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: const Color.fromRGBO(133, 157, 194, 1),
-                        ),*/
                       ],
                     ),
-
                     // faint DIVIDE line
                     const TextDisplay(
                       text:
@@ -280,7 +308,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     // Space between divide & role
                     const SizedBox(
-                      height: 5,
+                      height: 7,
                     ),
                     // ? Current Role Title
                     const TextDisplay(
@@ -292,9 +320,130 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(
                       height: 5,
                     ),
+
                     // ? Media & Content
                     // if no content = show "Welcome to your media space, add some photos that represent you! + add button"
                     // else == display media content
+                    //
+                    const TextDisplay(
+                      text: 'A SNEAK PEAK OF ME',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                      color: Color.fromRGBO(133, 157, 194, 1),
+                    ),
+                    const TextDisplay(
+                      text: "and what I'm about",
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(133, 157, 194, 1),
+                    ),
+
+                    const SizedBox(
+                      height: 7,
+                    ),
+                    // Banner
+                    Row(
+                      children: [
+                        Stack(
+                          children: [
+                            _bannerImage != null
+                                ? Container(
+                                    width: 360,
+                                    height: 110,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: MemoryImage(_bannerImage!,
+                                              scale: 1)),
+                                    ),
+                                  )
+                                : ImageSelectionBox(
+                                    width: 360,
+                                    height: 110,
+                                    onPressed: selectBanner,
+                                  )
+                          ],
+                        ),
+                      ],
+                    ),
+                    // Space between
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    // Square Row
+                    Row(
+                      children: [
+                        Stack(
+                          children: [
+                            _squareImage1 != null
+                                ? Container(
+                                    width: 110,
+                                    height: 110,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: MemoryImage(_squareImage1!,
+                                              scale: 1)),
+                                    ),
+                                  )
+                                : ImageSelectionBox(
+                                    width: 110,
+                                    height: 110,
+                                    onPressed: selectSquare1,
+                                  )
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Stack(
+                          children: [
+                            _squareImage2 != null
+                                ? Container(
+                                    width: 110,
+                                    height: 110,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: MemoryImage(_squareImage2!,
+                                              scale: 1)),
+                                    ),
+                                  )
+                                : ImageSelectionBox(
+                                    width: 110,
+                                    height: 110,
+                                    onPressed: selectSquare2,
+                                  )
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Stack(
+                          children: [
+                            _squareImage3 != null
+                                ? Container(
+                                    width: 110,
+                                    height: 110,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: MemoryImage(_squareImage3!,
+                                              scale: 1)),
+                                    ),
+                                  )
+                                : ImageSelectionBox(
+                                    width: 110,
+                                    height: 110,
+                                    onPressed: selectSquare3,
+                                  ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ],
                 ));
           } else if (snapshot.hasError) {
