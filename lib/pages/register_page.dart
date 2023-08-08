@@ -1,3 +1,4 @@
+//import 'dart:js_interop';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -80,12 +81,12 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _cityController.dispose();
-    // _profilePicture.dispose();
+    //_profileImage!.clear();
     _bio.dispose();
     _roleTitle.dispose();
     _industry.dispose();
     _companyName.dispose();
-    //_timeWorked.dispose();
+    _yearsWorked = '';
     super.dispose();
   }
 

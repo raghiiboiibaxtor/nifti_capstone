@@ -29,9 +29,7 @@ class _ConnectorState extends State<Connector> {
     dynamic secure = Random.secure();
     dynamic secList = List.generate(4, (_) => secure.nextInt(10));
     _code = secList.toString();
-
     setState(() {});
-
     return _code;
   }
 
@@ -48,9 +46,7 @@ class _ConnectorState extends State<Connector> {
                   const TextStyle(fontSize: 23, fontWeight: FontWeight.w400)),
           ElevatedButton(
               onPressed: () async {
-                setState(() async {
-                  _code = await _createRandom();
-                });
+                await _createRandom();
               },
               child: const Text("Create Random Number")),
         ])));

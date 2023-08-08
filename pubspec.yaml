@@ -38,7 +38,7 @@ dependencies:
   geocoding: ^2.1.0
   geolocator_apple: ^2.2.7
   baseflow_plugin_template: ^2.1.2
-  
+
   # Firebase Dependencies
   firebase_auth: ^4.7.1
   firebase_core: ^2.15.0

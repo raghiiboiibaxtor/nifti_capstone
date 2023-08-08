@@ -18,7 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   // Storage image variables
   final storage = FirebaseStorage.instance;
-  String imageUrl = '';
+  late String imageUrl = '';
 
   // get profileImage from storage
   Future getProfileImageUrl() async {
@@ -59,7 +59,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     'images/defaultProfileImage.png'),
                                 child: CircleAvatar(
                                   radius: 40,
-                                  backgroundImage: NetworkImage(imageUrl),
+                                  backgroundImage:
+                                      NetworkImage(imageUrl, scale: 40.0),
                                 ),
                               )
                             : const CircleAvatar(
@@ -238,7 +239,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
 
                     // ? Contact Info
-                     Row(
+                    Row(
                       children: [
                         const Icon(
                           Icons.mail_outline,
@@ -249,8 +250,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         const SizedBox(
                           width: 7,
                         ),
-
-                      
 
                         GestureDetector(
                           child: CopyTool(text: userData['email']),
