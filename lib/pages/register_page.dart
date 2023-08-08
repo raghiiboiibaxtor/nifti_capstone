@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/functions/functions.dart';
@@ -19,7 +18,6 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 // * * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- *
-
 
 // * * ---------------- * (STATE) CLASS _RegisterPageState (STATE) * ---------------- *
 class _RegisterPageState extends State<RegisterPage> {
@@ -124,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
       }
 
       // ? Adds user info to Firestore
-      String response = await StoreUserData().addUserDetails(
+      await StoreUserData().addUserDetails(
         _firstNameController.text.trim(),
         _lastNameController.text.trim(),
         _emailController.text.trim(),
@@ -370,7 +368,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ];
 
-  // * * ---------------- * (BUILD WIDGET) * ---------------- * 
+  // * * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -490,6 +488,6 @@ class _RegisterPageState extends State<RegisterPage> {
         ));
   }
   // * * ---------------- * END OF (BUILD WIDGET) * ---------------- *
-} 
+}
 
 // * * ---------------- * END OF (STATE) CLASS _RegisterPageState (STATE) * ---------------- *
