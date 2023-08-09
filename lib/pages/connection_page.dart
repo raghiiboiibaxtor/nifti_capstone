@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'dart:math';
+import '../components/pin_code.dart';
 
 //Bluetooth Contact Exchange Page
 class ConnectPage extends StatelessWidget {
@@ -8,7 +9,7 @@ class ConnectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Connector()),
+      body: Center(child: PinCodeVerificationScreen()),
     );
   }
 }
