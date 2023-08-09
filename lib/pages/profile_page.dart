@@ -21,7 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
   // user
   final currentUser = FirebaseAuth.instance.currentUser!;
   // Storage image variables
-  final storage = FirebaseStorage.instance;
+  final storage = FirebaseStorage.instance.ref();
   String imageUrl = '';
   Uint8List? _bannerImage;
   Uint8List? _squareImage1;
@@ -29,15 +29,17 @@ class _ProfilePageState extends State<ProfilePage> {
   Uint8List? _squareImage3;
 
   // get profileImage from storage
-  Future getProfileImageUrl() async {
+  Future getProfileImageUrl(String profileImage) async {
     // get reference to image file in Firebase Storage
-    final ref = storage.ref().child(currentUser.uid);
+    final storageReference = storage.child(currentUser.uid);
+     Reference referenceGetImage = storageReference.child('profileImage');
     // get the imageUrl to downloadURL
-    final url = await ref.getDownloadURL();
+    final url = await referenceGetImage.getDownloadURL();
     setState(() {
       imageUrl = url;
     });
   }
+
 
   // ? image selection function
   void selectBanner() async {
@@ -85,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
           // get user data
           if (snapshot.hasData) {
             final userData = snapshot.data!.data() as Map<String, dynamic>;
-            getProfileImageUrl();
+            getProfileImageUrl('profileImage');
             return Container(
                 alignment: Alignment.topLeft,
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
@@ -466,11 +468,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         : Container(),
                   ],
                 ));
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error${snapshot.error}'),
-            );
-          }
+          } 
           return const Center(child: CircularProgressIndicator());
         },
       ),

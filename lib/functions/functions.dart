@@ -53,15 +53,12 @@ class StoreUserData {
       String city,
       String pronouns,
       Uint8List profileImage,
-      Uint8List bannerImage,
-      Uint8List squareImage1,
-      Uint8List squareImage2,
-      Uint8List squareImage3,
       String bio,
       String role,
       String industry,
       String company,
-      String yearsWorked) async {
+      String yearsWorked,
+      ) async {
     // Error Variable
     String response = "Error Occured";
     try {
@@ -72,10 +69,6 @@ class StoreUserData {
         'city/town': city,
         'pronouns': pronouns,
         'imageLink': '',
-        'bannerImageLink': '',
-        'squareImage1Link': '',
-        'squareImage2Link': '',
-        'squareImage3Link': '',
         'bio': bio,
         'role': role,
         'industry': industry,
@@ -92,10 +85,12 @@ class StoreUserData {
   // ? Update Add profile image to storage
   Future addUserImage(Uint8List file) async {
     // Reference points to object in memory
-    Reference ref = FirebaseStorage.instance.ref().child(_niftiFireUser.toString());
-    //userRef = users.id;
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectory = referenceRoot.child(_niftiFireUser.toString());
+    // Create reference for image storage
+    Reference referenceImageUpload = referenceDirectory.child('profileImage');
     // UploadTask upload data to remote storage
-    UploadTask uploadTask = ref.putData(file);
+    UploadTask uploadTask = referenceImageUpload.putData(file);
     // TaskSnapshot represents current state of an aync task
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();
@@ -122,3 +117,10 @@ pickImage() async {
   }
 }
 
+/*
+Uint8List bannerImage,
+      Uint8List squareImage1,
+      Uint8List squareImage2,
+      Uint8List squareImage3, */
+
+     

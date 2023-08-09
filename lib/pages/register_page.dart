@@ -31,10 +31,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _cityController = TextEditingController();
   String _pronouns = '';
   Uint8List? _profileImage;
-  Uint8List? _bannerImage;
-  Uint8List? _squareImage1;
-  Uint8List? _squareImage2;
-  Uint8List? _squareImage3;
   final _bio = TextEditingController();
   final _roleTitle = TextEditingController();
   final _industry = TextEditingController();
@@ -131,10 +127,6 @@ class _RegisterPageState extends State<RegisterPage> {
         _cityController.text.trim(),
         _pronouns,
         _profileImage!,
-        _bannerImage!,
-        _squareImage1!,
-        _squareImage2!,
-        _squareImage3!,
         _bio.text.trim(),
         _roleTitle.text.trim(),
         _industry.text.trim(),
