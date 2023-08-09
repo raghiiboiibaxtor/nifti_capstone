@@ -37,19 +37,20 @@ class _ConnectorState extends State<Connector> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 //crossAxisAlignment: CrossAxisAlignment.top,
                 children: [
-          Text("Random Number: $_code",
-              style:
-                  const TextStyle(fontSize: 23, fontWeight: FontWeight.w400)),
-          ElevatedButton(
-              onPressed: () async {
-                await _createRandom();
-              },
-              child: const Text("Create Random Number")),
-        ])));
+              Text("Random Number: $_code",
+                  style: const TextStyle(
+                      fontSize: 23, fontWeight: FontWeight.w400)),
+              ElevatedButton(
+                  onPressed: () async {
+                    await _createRandom();
+                  },
+                  child: const Text("Create Random Number")),
+            ])));
   }
 }

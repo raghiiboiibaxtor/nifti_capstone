@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:gradient_borders/gradient_borders.dart';
+//import 'package:gradient_borders/gradient_borders.dart';
 
 class PinCodeVerificationScreen extends StatefulWidget {
   const PinCodeVerificationScreen({
@@ -50,8 +50,9 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: GestureDetector(
-        onTap: () {},
+        onTap: () => FocusScope.of(context).unfocus(),
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -63,7 +64,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 8.0,
-                    horizontal: 30,
+                    horizontal: 15,
                   ),
                   child: PinCodeTextField(
                     appContext: context,
@@ -79,19 +80,20 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     ]),
                     obscureText: false,
                     animationType: AnimationType.scale,
+                    /*
                     validator: (v) {
                       if (v!.length <= 3) {
                         return "We know you know, 4 digits please 😋 ";
                       } else {
                         return "🥹👍";
                       }
-                    },
+                    },*/
                     pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
                       borderRadius: BorderRadius.circular(21),
                       fieldHeight: 88,
                       fieldWidth: 77,
-                      borderWidth: 0,
+                      borderWidth: 0.0,
                       inactiveFillColor:
                           const Color.fromRGBO(209, 147, 246, 0.88),
                       selectedFillColor:

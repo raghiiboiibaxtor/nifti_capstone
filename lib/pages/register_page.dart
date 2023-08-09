@@ -373,6 +373,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         // Top bar that contains Nifti Logo
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
