@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:nifti_locapp/components/image_display.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/image_selection_placeholder.dart';
 import 'package:nifti_locapp/components/text_display.dart';
@@ -69,6 +70,8 @@ class _ProfilePageState extends State<ProfilePage> {
       _squareImage3 = square3;
     });
   }
+
+  bool displayImageEdit = false;
 
   @override
   Widget build(BuildContext context) {
@@ -324,126 +327,143 @@ class _ProfilePageState extends State<ProfilePage> {
                     // ? Media & Content
                     // if no content = show "Welcome to your media space, add some photos that represent you! + add button"
                     // else == display media content
-                    //
-                    const TextDisplay(
-                      text: 'A SNEAK PEAK OF ME',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900,
-                      color: Color.fromRGBO(133, 157, 194, 1),
-                    ),
-                    const TextDisplay(
-                      text: "and what I'm about",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromRGBO(133, 157, 194, 1),
-                    ),
+                    Row(children: [
+                      const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextDisplay(
+                              text: 'A SNEAK PEAK OF ME',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromRGBO(133, 157, 194, 1),
+                            ),
+                            TextDisplay(
+                              text: "and what I'm about",
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromRGBO(133, 157, 194, 1),
+                            ),
+                          ]),
+                      // space between
+                      const SizedBox(width: 99),
+
+                      if (!displayImageEdit)
+                        IconButton(
+                          color: const Color.fromRGBO(115, 142, 247, 1),
+                          iconSize: 25,
+                          onPressed: () {
+                            setState(() {
+                              displayImageEdit = true;
+                            });
+                          },
+                          icon: const Icon(Icons.add_circle),
+                        )
+                      else
+                        IconButton(
+                          color: const Color.fromRGBO(115, 142, 247, 1),
+                          iconSize: 25,
+                          onPressed: () {
+                            setState(() {
+                              displayImageEdit = false;
+                            });
+                          },
+                          icon: const Icon(Icons.check_circle),
+                        )
+                    ]),
 
                     const SizedBox(
                       height: 7,
                     ),
-                    // Banner
-                    Row(
-                      children: [
-                        Stack(
-                          children: [
-                            _bannerImage != null
-                                ? Container(
-                                    width: 360,
-                                    height: 110,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
+
+                    //
+                    displayImageEdit
+                        ? Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  _bannerImage != null
+                                      ? ImageDisplay(
+                                          width: 360,
+                                          height: 110,
+                                          onPressed: selectBanner,
                                           image: MemoryImage(_bannerImage!,
-                                              scale: 1)),
-                                    ),
-                                  )
-                                : ImageSelectionBox(
-                                    width: 360,
-                                    height: 110,
-                                    onPressed: selectBanner,
-                                  )
-                          ],
-                        ),
-                      ],
-                    ),
-                    // Space between
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    // Square Row
-                    Row(
-                      children: [
-                        Stack(
-                          children: [
-                            _squareImage1 != null
-                                ? Container(
-                                    width: 110,
-                                    height: 110,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: MemoryImage(_squareImage1!,
-                                              scale: 1)),
-                                    ),
-                                  )
-                                : ImageSelectionBox(
-                                    width: 110,
-                                    height: 110,
-                                    onPressed: selectSquare1,
-                                  )
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Stack(
-                          children: [
-                            _squareImage2 != null
-                                ? Container(
-                                    width: 110,
-                                    height: 110,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: MemoryImage(_squareImage2!,
-                                              scale: 1)),
-                                    ),
-                                  )
-                                : ImageSelectionBox(
-                                    width: 110,
-                                    height: 110,
-                                    onPressed: selectSquare2,
-                                  )
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Stack(
-                          children: [
-                            _squareImage3 != null
-                                ? Container(
-                                    width: 110,
-                                    height: 110,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: MemoryImage(_squareImage3!,
-                                              scale: 1)),
-                                    ),
-                                  )
-                                : ImageSelectionBox(
-                                    width: 110,
-                                    height: 110,
-                                    onPressed: selectSquare3,
+                                              scale: 1))
+                                      : ImageSelectionBox(
+                                          width: 360,
+                                          height: 110,
+                                          onPressed: selectBanner,
+                                        )
+                                ],
+                              ),
+                              // Space between
+                              const SizedBox(
+                                height: 15,
+                              ),
+
+                              // Banner
+
+                              // Square Row
+                              Row(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      _squareImage1 != null
+                                          ? ImageDisplay(
+                                              width: 110,
+                                              height: 110,
+                                              onPressed: selectSquare1,
+                                              image: MemoryImage(_squareImage1!,
+                                                  scale: 1))
+                                          : ImageSelectionBox(
+                                              width: 110,
+                                              height: 110,
+                                              onPressed: selectSquare1,
+                                            )
+                                    ],
                                   ),
-                          ],
-                        ),
-                      ],
-                    ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Stack(
+                                    children: [
+                                      _squareImage2 != null
+                                          ? ImageDisplay(
+                                              width: 110,
+                                              height: 110,
+                                              onPressed: selectSquare2,
+                                              image: MemoryImage(_squareImage2!,
+                                                  scale: 1))
+                                          : ImageSelectionBox(
+                                              width: 110,
+                                              height: 110,
+                                              onPressed: selectSquare2,
+                                            )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Stack(
+                                    children: [
+                                      _squareImage3 != null
+                                          ? ImageDisplay(
+                                              width: 110,
+                                              height: 110,
+                                              onPressed: selectSquare3,
+                                              image: MemoryImage(_squareImage3!,
+                                                  scale: 1))
+                                          : ImageSelectionBox(
+                                              width: 110,
+                                              height: 110,
+                                              onPressed: selectSquare3,
+                                            ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        : Container(),
                   ],
                 ));
           } else if (snapshot.hasError) {

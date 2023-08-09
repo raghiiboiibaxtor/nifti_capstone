@@ -20,13 +20,13 @@ class _ImageSelectionBoxState extends State<ImageSelectionBox> {
             borderRadius: BorderRadius.circular(20)),
         height: widget.height,
         width: widget.width,
-        child: Positioned(
+        
           child: IconButton(
             color: const Color.fromRGBO(115, 142, 247, 1),
             iconSize: 25,
             onPressed: widget.onPressed,
             icon: const Icon(Icons.add_a_photo_rounded),
           ),
-        ));
+        );
   }
 }
