@@ -17,8 +17,8 @@ class StoreUserData {
 
   // ? Add user info to Firestore
   Future addUserDetails(
-      String firstcode,
-      String lastcode,
+      String firstName,
+      String lastName,
       String email,
       String city,
       String pronouns,
@@ -33,8 +33,8 @@ class StoreUserData {
     String response = "Error Occured";
     try {
       await _collectionReference.doc(_niftiFireUser).set({
-        'firstcode': firstcode,
-        'lastcode': lastcode,
+        'firstName': firstName,
+        'lastName': lastName,
         'email': email,
         'city/town': city,
         'pronouns': pronouns,
