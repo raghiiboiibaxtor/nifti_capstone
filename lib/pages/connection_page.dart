@@ -3,14 +3,10 @@ import '../functions/functions.dart';
 
 //Bluetooth Contact Exchange Page
 class ConnectPage extends StatelessWidget {
-
-//Bluetooth Contact Exchange Page
-class ConnectPage extends StatelessWidget {
   const ConnectPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return const Scaffold(
       body: Center(child: Connector()), //PinCodeVerificationScreen()
     );
@@ -27,8 +23,8 @@ class Connector extends StatefulWidget {
 
 /* * ---------------- * (STATE) CLASS _ConnectorState (STATE) * ---------------- * */
 class _ConnectorState extends State<Connector> {
-  late String _code = '';
-  
+  late String code = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,12 +34,12 @@ class _ConnectorState extends State<Connector> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 //crossAxisAlignment: CrossAxisAlignment.top,
                 children: [
-              Text("Random Number: $_code",
+              Text("Random Number: $code",
                   style: const TextStyle(
                       fontSize: 23, fontWeight: FontWeight.w400)),
               ElevatedButton(
                   onPressed: () async {
-                    _code = await ReadUserData.readUserCode();
+                    code = await ReadUserData.readUserCode();
                     setState(() {});
                   },
                   child: const Text("Create Random Number")),

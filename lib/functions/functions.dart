@@ -56,6 +56,7 @@ class StoreUserData {
   // ? Update Add profile image to storage
   Future addUserImage(Uint8List file) async {
     // Reference points to object in memory
+    // ignore: unused_local_variable
     Reference ref =
         FirebaseStorage.instance.ref().child(_niftiFireUser.toString());
     Reference referenceRoot = FirebaseStorage.instance.ref();
@@ -158,7 +159,6 @@ pickImage() async {
 }
 
 /* * ---------------- * FRONTEND * ---------------- * */
-
 
 // ? Adding User Details to FireStore & Storage
 class StoreUserImages {
