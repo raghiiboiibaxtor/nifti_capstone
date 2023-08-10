@@ -2,6 +2,7 @@
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/gradient_text_field.dart';
 import 'package:nifti_locapp/components/text_field_character_limit.dart';
@@ -208,7 +209,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintText: 'Password *',
                         obscureText: true),
                     // Space between next widget
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 5),
+
+                    // Password prompt
+                    const TextDisplay(text: '                                                     6 characters minimum',
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromRGBO(133, 157, 194, 1),),
+                    
+                    // Space between next widget
+                    const SizedBox(height: 15),
 
                     // Confirm Password Textfield
                     GradientTextFieldComponent(
@@ -376,6 +386,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         resizeToAvoidBottomInset: false,
         // Top bar that contains Nifti Logo
         appBar: AppBar(
@@ -400,7 +411,7 @@ class _RegisterPageState extends State<RegisterPage> {
             currentStep: currentStep,
             // ? Change to next step
             onStepContinue: () {
-              if (currentStep < (stepList().length - 1)) {
+              if (currentStep < (stepList().length - 1) && passwordConfirmed()) {
                 setState(() {
                   currentStep += 1;
                 });
