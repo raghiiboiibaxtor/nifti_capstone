@@ -297,10 +297,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     // else == display media content
                   ],
                 ));
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error${snapshot.error}'),
-            );
           }
           return const Center(child: CircularProgressIndicator());
         },
