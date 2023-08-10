@@ -17,8 +17,8 @@ class StoreUserData {
 
   // ? Add user info to Firestore
   Future addUserDetails(
-      String firstName,
-      String lastName,
+      String firstcode,
+      String lastcode,
       String email,
       String city,
       String pronouns,
@@ -33,8 +33,8 @@ class StoreUserData {
     String response = "Error Occured";
     try {
       await _collectionReference.doc(_niftiFireUser).set({
-        'firstName': firstName,
-        'lastName': lastName,
+        'firstcode': firstcode,
+        'lastcode': lastcode,
         'email': email,
         'city/town': city,
         'pronouns': pronouns,
@@ -44,7 +44,6 @@ class StoreUserData {
         'industry': industry,
         'company': company,
         'yearsWorked': yearsWorked,
-        //'pincode': '1234',
         'pincode': code,
       });
       response = 'Success';
@@ -79,7 +78,22 @@ class StoreUserData {
   }
 }
 
+class ReadUserData {
+  static readUserCode() async {
+    final niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
+    var collectionReference = FirebaseFirestore.instance.collection('users');
+    var docSnapshot = await collectionReference.doc(niftiFireUser).get();
+    var code = '';
+    if (docSnapshot.exists) {
+      Map<String, dynamic> data = docSnapshot.data()!;
+      code = data['pincode']; // Targeting pincode var read
+    }
+    return code;
+  }
+}
+
 // ! FIREBASE 🔥 ------------------------------ 🔥
+
 // ? Creating random code for user
 class CreateRandom {
   static createRandom() async {
@@ -87,7 +101,6 @@ class CreateRandom {
     dynamic secure = Random.secure();
     dynamic secList = List.generate(4, (_) => secure.nextInt(10));
     code = secList.toString();
-    // setState(() {});
     return code;
   }
 }

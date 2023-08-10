@@ -26,7 +26,7 @@ class Connector extends StatefulWidget {
 
 /* * ---------------- * (STATE) CLASS _ConnectorState (STATE) * ---------------- * */
 class _ConnectorState extends State<Connector> {
-  late var _code = '';
+  late String _code = '';
   /*_createRandom() async {
     dynamic secure = Random.secure();
     dynamic secList = List.generate(4, (_) => secure.nextInt(10));
@@ -49,7 +49,7 @@ class _ConnectorState extends State<Connector> {
                       fontSize: 23, fontWeight: FontWeight.w400)),
               ElevatedButton(
                   onPressed: () async {
-                    _code = await CreateRandom.createRandom();
+                    _code = await ReadUserData.readUserCode();
                     setState(() {});
                   },
                   child: const Text("Create Random Number")),
