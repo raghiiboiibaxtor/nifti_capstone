@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
@@ -33,19 +34,27 @@ class _ProfilePageState extends State<ProfilePage> {
   Uint8List? _squareImage2;
   Uint8List? _squareImage3;
 
+  @override
+  void initState() {
+    super.initState();
+    getProfileImageUrl('profileImage');
+    getUserImagesUrl('banner', 'square1', 'square2', 'square3');
+  }
+
   // get profileImage from storage
-  Future getProfileImageUrl(String profileImage) async {
+  getProfileImageUrl(String profileImage) async {
     // get reference to image file in Firebase Storage
     final storageReference = storage.child(currentUser.uid);
-     Reference referenceGetImage = storageReference.child('profileImage');
+    Reference referenceGetImage = storageReference.child('profileImage');
     // get the imageUrl to downloadURL
     final url = await referenceGetImage.getDownloadURL();
+    //imageUrl = url;
     setState(() {
       imageUrl = url;
     });
   }
 
-    // ? get pageImages from storage
+  // ? get pageImages from storage
   Future getUserImagesUrl(
     String banner,
     String square1,
@@ -64,6 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final url1 = await referenceGetSquare1.getDownloadURL();
     final url2 = await referenceGetSquare2.getDownloadURL();
     final url3 = await referenceGetSquare3.getDownloadURL();
+
     setState(() {
       bannerUrl = url;
       square1Url = url1;
@@ -86,36 +96,40 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-
   // ? image selection function
   void selectBanner() async {
     Uint8List banner = await pickImage();
+    _bannerImage = banner;
     setState(() {
-      _bannerImage = banner;
+      //_bannerImage = banner;
     });
   }
 
   // ? image selection function
   void selectSquare1() async {
     Uint8List square1 = await pickImage();
+    _squareImage1 = square1;
     setState(() {
-      _squareImage1 = square1;
+      //_squareImage1 = square1;
     });
   }
 
   // ? image selection function
   void selectSquare2() async {
     Uint8List square2 = await pickImage();
+    _squareImage2 = square2;
+
     setState(() {
-      _squareImage2 = square2;
+      //_squareImage2 = square2;
     });
   }
 
   // ? image selection function
   void selectSquare3() async {
     Uint8List square3 = await pickImage();
+    _squareImage3 = square3;
     setState(() {
-      _squareImage3 = square3;
+      //_squareImage3 = square3;
     });
   }
 
@@ -134,7 +148,8 @@ class _ProfilePageState extends State<ProfilePage> {
           // get user data
           if (snapshot.hasData) {
             final userData = snapshot.data!.data() as Map<String, dynamic>;
-            getProfileImageUrl('profileImage');
+            //getProfileImageUrl('profileImage');
+            //getUserImagesUrl('banner', 'square1', 'square2', 'square3');
             return Container(
                 alignment: Alignment.topLeft,
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
@@ -150,7 +165,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     'images/defaultProfileImage.png'),
                                 child: CircleAvatar(
                                   radius: 40,
-                                  backgroundImage: NetworkImage(imageUrl),
+                                  backgroundImage:
+                                      NetworkImage(imageUrl, scale: 1.0),
                                 ),
                               )
                             : const CircleAvatar(
@@ -397,7 +413,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(width: 99),
 
                       if (!displayImageEdit)
-                      // Edit Button
+                        // Edit Button
                         IconButton(
                           color: const Color.fromRGBO(115, 142, 247, 1),
                           iconSize: 25,
@@ -410,18 +426,23 @@ class _ProfilePageState extends State<ProfilePage> {
                           icon: const Icon(Icons.add_circle),
                         )
                       else
-                      // Save Button
+                        // Save Button
                         IconButton(
                           color: const Color.fromRGBO(115, 142, 247, 1),
                           iconSize: 25,
                           onPressed: () {
                             // Save selected images
                             saveImages();
-                            // get them to display on profile
-                            getUserImagesUrl('banner', 'square1', 'square2', 'square3');
-                            setState(() {
-                              displayImageEdit = false;
-                              displayImages = true;
+                            // Timer delay added to show updated images
+                            Timer(const Duration(seconds: 1), () {
+                              // get images to display on profile
+                              getUserImagesUrl(
+                                  'banner', 'square1', 'square2', 'square3');
+                              setState(() {
+                                displayImageEdit = false;
+                                displayImages = true;
+                              });
+                              
                             });
                           },
                           icon: const Icon(Icons.check_circle),
@@ -438,23 +459,31 @@ class _ProfilePageState extends State<ProfilePage> {
                             children: [
                               Stack(
                                 children: [
-                                  _bannerImage != null
+                                  userData['bannerImageLink'] != null
                                       ? ImageDisplay(
                                           width: 360,
                                           height: 110,
                                           onPressed: selectBanner,
-                                          image: MemoryImage(_bannerImage!,
-                                              scale: 1))
+                                          image: NetworkImage(bannerUrl,
+                                              scale: 1.0))
                                       : // Prompt text
-                                          Container(
-                                            alignment: Alignment.center,
-                                            width: 360,
-                                            height: 110,
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
-                                            child: const Text('Tap + to add some photos!', textAlign:TextAlign.center,
-                                            style: TextStyle(color: Color.fromRGBO(115, 142, 247, 1), fontWeight: FontWeight.bold,
-                                            fontSize: 16),),
-                                          )
+                                      Container(
+                                          alignment: Alignment.center,
+                                          width: 360,
+                                          height: 110,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: const Text(
+                                            'Tap + to add some photos!',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    115, 142, 247, 1),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
+                                        )
                                 ],
                               ),
                               // Space between
@@ -467,20 +496,23 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   Stack(
                                     children: [
-                                      _squareImage1 != null
+                                      userData['square1ImageLink'] != null
                                           ? ImageDisplay(
                                               width: 110,
                                               height: 110,
                                               onPressed: selectSquare1,
-                                              image: MemoryImage(_squareImage1!,
-                                                  scale: 1))
-                                          : 
+                                              image: NetworkImage(square1Url,
+                                                  scale: 1.0))
+                                          :
                                           // Will show as empty space while keeping image spacing the same
                                           Container(
-                                            width: 110,
-                                            height: 110,
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
-                                          )
+                                              width: 110,
+                                              height: 110,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                            )
                                     ],
                                   ),
                                   const SizedBox(
@@ -488,19 +520,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Stack(
                                     children: [
-                                      _squareImage2 != null
+                                      userData['square2ImageLink'] != null
                                           ? ImageDisplay(
                                               width: 110,
                                               height: 110,
                                               onPressed: selectSquare2,
-                                              image: MemoryImage(_squareImage2!,
-                                                  scale: 1))
+                                              image: NetworkImage(square2Url,
+                                                  scale: 1.0))
                                           : // Will show as empty space while keeping image spacing the same
                                           Container(
-                                            width: 110,
-                                            height: 110,
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
-                                          )
+                                              width: 110,
+                                              height: 110,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                            )
                                     ],
                                   ),
                                   const SizedBox(
@@ -508,19 +543,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Stack(
                                     children: [
-                                      _squareImage3 != null
+                                      userData['square3ImageLink'] != null
                                           ? ImageDisplay(
                                               width: 110,
                                               height: 110,
                                               onPressed: selectSquare3,
-                                              image: MemoryImage(_squareImage3!,
-                                                  scale: 1))
-                                          :  // Will show as empty space while keeping image spacing the same
+                                              image: NetworkImage(square3Url,
+                                                  scale: 1.0))
+                                          : // Will show as empty space while keeping image spacing the same
                                           Container(
-                                            width: 110,
-                                            height: 110,
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
-                                          )
+                                              width: 110,
+                                              height: 110,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                            )
                                     ],
                                   ),
                                 ],
@@ -620,7 +658,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         : Container(),
                   ],
                 ));
-          } 
+          }
           return const Center(child: CircularProgressIndicator());
         },
       ),
