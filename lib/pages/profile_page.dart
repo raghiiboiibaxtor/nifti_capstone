@@ -24,6 +24,10 @@ class _ProfilePageState extends State<ProfilePage> {
   // Storage image variables
   final storage = FirebaseStorage.instance.ref();
   String imageUrl = '';
+  String bannerUrl = '';
+  String square1Url = '';
+  String square2Url = '';
+  String square3Url = '';
   Uint8List? _bannerImage;
   Uint8List? _squareImage1;
   Uint8List? _squareImage2;
@@ -39,6 +43,47 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       imageUrl = url;
     });
+  }
+
+    // ? get pageImages from storage
+  Future getUserImagesUrl(
+    String banner,
+    String square1,
+    String square2,
+    String square3,
+  ) async {
+    // get reference to image file in Firebase Storage
+    final storageReference = storage.child(currentUser.uid);
+    Reference referenceGetBanner = storageReference.child('banner');
+    Reference referenceGetSquare1 = storageReference.child('square1');
+    Reference referenceGetSquare2 = storageReference.child('square2');
+    Reference referenceGetSquare3 = storageReference.child('square3');
+
+    // get the imageUrl to downloadURL
+    final url = await referenceGetBanner.getDownloadURL();
+    final url1 = await referenceGetSquare1.getDownloadURL();
+    final url2 = await referenceGetSquare2.getDownloadURL();
+    final url3 = await referenceGetSquare3.getDownloadURL();
+    setState(() {
+      bannerUrl = url;
+      square1Url = url1;
+      square2Url = url2;
+      square3Url = url3;
+    });
+  }
+
+  // ? Save images when save icon selected
+  Future saveImages() async {
+    StoreUserImages().addBannerImage(_bannerImage!);
+    StoreUserImages().addSquare1Image(_squareImage1!);
+    StoreUserImages().addSquare2Image(_squareImage2!);
+    StoreUserImages().addSquare3Image(_squareImage3!);
+    StoreUserImages().updateFirestoreImageLinks(
+      _bannerImage!,
+      _squareImage1!,
+      _squareImage2!,
+      _squareImage3!,
+    );
   }
 
 
@@ -352,6 +397,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(width: 99),
 
                       if (!displayImageEdit)
+                      // Edit Button
                         IconButton(
                           color: const Color.fromRGBO(115, 142, 247, 1),
                           iconSize: 25,
@@ -364,10 +410,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           icon: const Icon(Icons.add_circle),
                         )
                       else
+                      // Save Button
                         IconButton(
                           color: const Color.fromRGBO(115, 142, 247, 1),
                           iconSize: 25,
                           onPressed: () {
+                            // Save selected images
+                            saveImages();
+                            // get them to display on profile
+                            getUserImagesUrl('banner', 'square1', 'square2', 'square3');
                             setState(() {
                               displayImageEdit = false;
                               displayImages = true;
@@ -394,7 +445,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           onPressed: selectBanner,
                                           image: MemoryImage(_bannerImage!,
                                               scale: 1))
-                                      : // Will show as empty space while keeping image spacing the same
+                                      : // Prompt text
                                           Container(
                                             alignment: Alignment.center,
                                             width: 360,
