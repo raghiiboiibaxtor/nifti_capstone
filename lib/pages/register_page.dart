@@ -31,7 +31,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _cityController = TextEditingController();
   String _pronouns = '';
   Uint8List? _profileImage;
-  String testPicture = '';
   final _bio = TextEditingController();
   final _roleTitle = TextEditingController();
   final _industry = TextEditingController();

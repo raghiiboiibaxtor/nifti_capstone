@@ -1,15 +1,16 @@
 import "package:flutter/material.dart";
-//import 'dart:math';
-//import '../components/pin_code.dart';
 import '../functions/functions.dart';
 
 //Bluetooth Contact Exchange Page
 class ConnectPage extends StatelessWidget {
-  //final Function()? _code;
+
+//Bluetooth Contact Exchange Page
+class ConnectPage extends StatelessWidget {
   const ConnectPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return const Scaffold(
       body: Center(child: Connector()), //PinCodeVerificationScreen()
     );
@@ -27,14 +28,7 @@ class Connector extends StatefulWidget {
 /* * ---------------- * (STATE) CLASS _ConnectorState (STATE) * ---------------- * */
 class _ConnectorState extends State<Connector> {
   late String _code = '';
-  /*_createRandom() async {
-    dynamic secure = Random.secure();
-    dynamic secList = List.generate(4, (_) => secure.nextInt(10));
-    _code = secList.toString();
-    setState(() {});
-    return _code;
-  }*/
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

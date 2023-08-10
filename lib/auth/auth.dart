@@ -3,6 +3,7 @@ import "package:firebase_auth/firebase_auth.dart";
 import 'package:nifti_locapp/auth/login_or_register.dart';
 import 'package:nifti_locapp/widget_tree.dart';
 
+
 /* * ---------------- * (STATELESS WIDGET) CLASS AuthPage (STATELESS WIDGET) * ---------------- * */
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
