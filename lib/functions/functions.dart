@@ -117,10 +117,6 @@ pickImage() async {
   }
 }
 
-/*
-Uint8List bannerImage,
-      Uint8List squareImage1,
-      Uint8List squareImage2,
-      Uint8List squareImage3, */
+
 
      

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class ImageDisplay extends StatefulWidget {
+class ImageEditDisplay extends StatefulWidget {
   final double width;
   final double height;
   final ImageProvider image;
   final Function()? onPressed;
 
-  const ImageDisplay(
+  const ImageEditDisplay(
       {super.key,
       required this.width,
       required this.height,
@@ -14,10 +14,10 @@ class ImageDisplay extends StatefulWidget {
       required this.image});
 
   @override
-  State<ImageDisplay> createState() => _ImageDisplayState();
+  State<ImageEditDisplay> createState() => _ImageEditDisplayState();
 }
 
-class _ImageDisplayState extends State<ImageDisplay> {
+class _ImageEditDisplayState extends State<ImageEditDisplay> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -33,6 +33,15 @@ class _ImageDisplayState extends State<ImageDisplay> {
           height: widget.height,
           width: widget.width,
         ),
+        Positioned(
+          right: 0,
+          top: -5,
+          child: IconButton(
+            color: const Color.fromRGBO(252, 250, 245, 1),
+            iconSize: 20,
+            onPressed: widget.onPressed,
+            icon: const Icon(Icons.add_a_photo_rounded),
+          ),)
       ],
     );
   }

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:nifti_locapp/components/image_edit_display.dart';
 import 'package:nifti_locapp/components/image_display.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/image_selection_placeholder.dart';
@@ -74,6 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   bool displayImageEdit = false;
+  bool displayImages = true;
 
   @override
   Widget build(BuildContext context) {
@@ -356,6 +358,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           onPressed: () {
                             setState(() {
                               displayImageEdit = true;
+                              displayImages = false;
                             });
                           },
                           icon: const Icon(Icons.add_circle),
@@ -367,6 +370,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           onPressed: () {
                             setState(() {
                               displayImageEdit = false;
+                              displayImages = true;
                             });
                           },
                           icon: const Icon(Icons.check_circle),
@@ -377,14 +381,111 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 7,
                     ),
 
-                    //
-                    displayImageEdit
+                    // ? Display Banner & Square Images
+                    displayImages
                         ? Column(
                             children: [
                               Stack(
                                 children: [
                                   _bannerImage != null
                                       ? ImageDisplay(
+                                          width: 360,
+                                          height: 110,
+                                          onPressed: selectBanner,
+                                          image: MemoryImage(_bannerImage!,
+                                              scale: 1))
+                                      : // Will show as empty space while keeping image spacing the same
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: 360,
+                                            height: 110,
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
+                                            child: const Text('Tap + to add some photos!', textAlign:TextAlign.center,
+                                            style: TextStyle(color: Color.fromRGBO(115, 142, 247, 1), fontWeight: FontWeight.bold,
+                                            fontSize: 16),),
+                                          )
+                                ],
+                              ),
+                              // Space between
+                              const SizedBox(
+                                height: 15,
+                              ),
+
+                              // Square Row
+                              Row(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      _squareImage1 != null
+                                          ? ImageDisplay(
+                                              width: 110,
+                                              height: 110,
+                                              onPressed: selectSquare1,
+                                              image: MemoryImage(_squareImage1!,
+                                                  scale: 1))
+                                          : 
+                                          // Will show as empty space while keeping image spacing the same
+                                          Container(
+                                            width: 110,
+                                            height: 110,
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
+                                          )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Stack(
+                                    children: [
+                                      _squareImage2 != null
+                                          ? ImageDisplay(
+                                              width: 110,
+                                              height: 110,
+                                              onPressed: selectSquare2,
+                                              image: MemoryImage(_squareImage2!,
+                                                  scale: 1))
+                                          : // Will show as empty space while keeping image spacing the same
+                                          Container(
+                                            width: 110,
+                                            height: 110,
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
+                                          )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Stack(
+                                    children: [
+                                      _squareImage3 != null
+                                          ? ImageDisplay(
+                                              width: 110,
+                                              height: 110,
+                                              onPressed: selectSquare3,
+                                              image: MemoryImage(_squareImage3!,
+                                                  scale: 1))
+                                          :  // Will show as empty space while keeping image spacing the same
+                                          Container(
+                                            width: 110,
+                                            height: 110,
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
+                                          )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        : Container(),
+
+                    // ? Edit Banner & Square Images
+                    displayImageEdit
+                        ? Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  _bannerImage != null
+                                      ? ImageEditDisplay(
                                           width: 360,
                                           height: 110,
                                           onPressed: selectBanner,
@@ -410,7 +511,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Stack(
                                     children: [
                                       _squareImage1 != null
-                                          ? ImageDisplay(
+                                          ? ImageEditDisplay(
                                               width: 110,
                                               height: 110,
                                               onPressed: selectSquare1,
@@ -429,7 +530,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Stack(
                                     children: [
                                       _squareImage2 != null
-                                          ? ImageDisplay(
+                                          ? ImageEditDisplay(
                                               width: 110,
                                               height: 110,
                                               onPressed: selectSquare2,
@@ -448,7 +549,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Stack(
                                     children: [
                                       _squareImage3 != null
-                                          ? ImageDisplay(
+                                          ? ImageEditDisplay(
                                               width: 110,
                                               height: 110,
                                               onPressed: selectSquare3,
