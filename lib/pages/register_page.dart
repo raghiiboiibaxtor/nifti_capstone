@@ -1,3 +1,4 @@
+//import 'dart:js_interop';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _industry = TextEditingController();
   final _companyName = TextEditingController();
   String _yearsWorked = '';
+  String _createCode = '';
 
   // ? Stepper Variable
   int currentStep = 0;
@@ -79,10 +81,13 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _cityController.dispose();
+    _profileImage!.clear();
     _bio.dispose();
     _roleTitle.dispose();
     _industry.dispose();
     _companyName.dispose();
+    _yearsWorked = '';
+    _createCode = '';
     super.dispose();
   }
 
@@ -118,6 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
         displayErrorMessage(context, error.message!);
       }
 
+      _createCode = await CreateRandom.createRandom();
       // ? Adds user info to Firestore
       await StoreUserData().addUserDetails(
         _firstNameController.text.trim(),
@@ -131,6 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
         _industry.text.trim(),
         _companyName.text.trim(),
         _yearsWorked,
+        _createCode,
       );
       StoreUserData().addUserImage(_profileImage!);
       StoreUserData().updateFirestoreImageLink(_profileImage!);
@@ -369,6 +376,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         // Top bar that contains Nifti Logo
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(252, 250, 245, 1),

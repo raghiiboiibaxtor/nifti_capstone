@@ -26,6 +26,7 @@ class _WidgetTreeState extends State<WidgetTree> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         // Top bar that contains Nifti Logo
         appBar: AppBar(
           toolbarHeight: 35,
@@ -39,7 +40,10 @@ class _WidgetTreeState extends State<WidgetTree> {
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
                 },
-                icon: const Icon(Icons.exit_to_app_rounded, color: Color.fromRGBO(115, 142, 247, 1),))
+                icon: const Icon(
+                  Icons.exit_to_app_rounded,
+                  color: Color.fromRGBO(115, 142, 247, 1),
+                ))
           ],
         ),
         // Body of the page
