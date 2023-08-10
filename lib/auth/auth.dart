@@ -12,18 +12,19 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot){
-        // ? Check if user is logged in to the app
-        if(snapshot.hasData){
-          // Display the app contents if logged in
-          return const WidgetTree(); 
-        } else {
-          // Display the Login/Register pages if not logged in
-          return const LoginOrRegister();
-        }
-      },
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          // ? Check if user is logged in to the app
+          if (snapshot.hasData) {
+            // Display the app contents if logged in
+            return const WidgetTree();
+          } else {
+            // Display the Login/Register pages if not logged in
+            return const LoginOrRegister();
+          }
+        },
       ),
     );
   }

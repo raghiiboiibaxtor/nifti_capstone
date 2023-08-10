@@ -38,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     getProfileImageUrl('profileImage');
-    getUserImagesUrl('banner', 'square1', 'square2', 'square3');
+    //getUserImagesUrl('banner', 'square1', 'square2', 'square3');
   }
 
   // get profileImage from storage
@@ -139,6 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection("users")
@@ -442,7 +443,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 displayImageEdit = false;
                                 displayImages = true;
                               });
-                              
                             });
                           },
                           icon: const Icon(Icons.check_circle),
