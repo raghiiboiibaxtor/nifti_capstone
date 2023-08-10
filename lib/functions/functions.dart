@@ -47,17 +47,18 @@ class StoreUserData {
 
   // ? Add user info to Firestore
   Future addUserDetails(
-      String firstName,
-      String lastName,
-      String email,
-      String city,
-      String pronouns,
-      Uint8List profileImage,
-      String bio,
-      String role,
-      String industry,
-      String company,
-      String yearsWorked) async {
+    String firstName,
+    String lastName,
+    String email,
+    String city,
+    String pronouns,
+    Uint8List profileImage,
+    String bio,
+    String role,
+    String industry,
+    String company,
+    String yearsWorked,
+  ) async {
     // Error Variable
     String response = "Error Occured";
     try {
@@ -84,10 +85,13 @@ class StoreUserData {
   // ? Update Add profile image to storage
   Future addUserImage(Uint8List file) async {
     // Reference points to object in memory
-    Reference ref = FirebaseStorage.instance.ref().child(_niftiFireUser.toString());
-    //userRef = users.id;
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectory =
+        referenceRoot.child(_niftiFireUser.toString());
+    // Create reference for image storage
+    Reference referenceImageUpload = referenceDirectory.child('profileImage');
     // UploadTask upload data to remote storage
-    UploadTask uploadTask = ref.putData(file);
+    UploadTask uploadTask = referenceImageUpload.putData(file);
     // TaskSnapshot represents current state of an aync task
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();
@@ -113,4 +117,94 @@ pickImage() async {
     return await selectedFile.readAsBytes();
   }
 }
+
+// ? Adding User Details to FireStore & Storage
+class StoreUserImages {
+  final _collectionReference = FirebaseFirestore.instance.collection('users');
+  final _niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
+
+  // ? Update Add profile image to storage
+  Future addBannerImage(Uint8List file) async {
+    // Reference points to object in memory
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectory =
+        referenceRoot.child(_niftiFireUser.toString());
+    // Create reference for image storage
+    Reference referenceImageUpload = referenceDirectory.child('banner');
+    // UploadTask upload data to remote storage
+    UploadTask uploadTask = referenceImageUpload.putData(file);
+    // TaskSnapshot represents current state of an aync task
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  // ? Update Add profile image to storage
+  Future addSquare1Image(Uint8List file) async {
+    // Reference points to object in memory
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectory =
+        referenceRoot.child(_niftiFireUser.toString());
+    // Create reference for image storage
+    Reference referenceImageUpload = referenceDirectory.child('square1');
+    // UploadTask upload data to remote storage
+    UploadTask uploadTask = referenceImageUpload.putData(file);
+    // TaskSnapshot represents current state of an aync task
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  Future addSquare2Image(Uint8List file) async {
+    // Reference points to object in memory
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectory =
+        referenceRoot.child(_niftiFireUser.toString());
+    // Create reference for image storage
+    Reference referenceImageUpload = referenceDirectory.child('square2');
+    // UploadTask upload data to remote storage
+    UploadTask uploadTask = referenceImageUpload.putData(file);
+    // TaskSnapshot represents current state of an aync task
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  Future addSquare3Image(Uint8List file) async {
+    // Reference points to object in memory
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectory =
+        referenceRoot.child(_niftiFireUser.toString());
+    // Create reference for image storage
+    Reference referenceImageUpload = referenceDirectory.child('square3');
+    // UploadTask upload data to remote storage
+    UploadTask uploadTask = referenceImageUpload.putData(file);
+    // TaskSnapshot represents current state of an aync task
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  // ? Update ImageUrl in firestore
+  Future updateFirestoreImageLinks(
+    Uint8List banner,
+    Uint8List square1,
+    Uint8List square2,
+    Uint8List square3,
+  ) async {
+    // this relies on the userImage being added to storage
+    String bannerUrl = await addBannerImage(banner);
+    String square1Url = await addSquare1Image(square1);
+    String square2Url = await addSquare2Image(square2);
+    String square3Url = await addSquare3Image(square3);
+    var docRef = _collectionReference.doc(_niftiFireUser);
+    docRef.update({
+      'bannerImageLink': bannerUrl,
+      'square1ImageLink': square1Url,
+      'square2ImageLink': square2Url,
+      'square3ImageLink': square3Url,
+    });
+  }
+}
+
 

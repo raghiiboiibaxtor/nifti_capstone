@@ -30,7 +30,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _cityController = TextEditingController();
   String _pronouns = '';
   Uint8List? _profileImage;
-  String testPicture = '';
   final _bio = TextEditingController();
   final _roleTitle = TextEditingController();
   final _industry = TextEditingController();
@@ -80,12 +79,10 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _cityController.dispose();
-    // _profilePicture.dispose();
     _bio.dispose();
     _roleTitle.dispose();
     _industry.dispose();
     _companyName.dispose();
-    //_timeWorked.dispose();
     super.dispose();
   }
 

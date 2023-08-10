@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nifti_locapp/pages/scan_page.dart';
+import 'package:nifti_locapp/pages/connection_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';
 import 'package:nifti_locapp/pages/profile_page.dart';
 
@@ -19,7 +19,7 @@ class _WidgetTreeState extends State<WidgetTree> {
   // List of page widgets
   List<Widget> pages = const [
     ContactsPage(),
-    ScanPage(),
+    ConnectPage(),
     ProfilePage(),
   ];
 
@@ -28,7 +28,8 @@ class _WidgetTreeState extends State<WidgetTree> {
     return Scaffold(
         // Top bar that contains Nifti Logo
         appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
+          toolbarHeight: 35,
+          backgroundColor: Colors.transparent,
           title: SizedBox(
             width: 100,
             child: Image.asset('images/nifti_logo.png'),
@@ -49,7 +50,7 @@ class _WidgetTreeState extends State<WidgetTree> {
           margin: const EdgeInsets.symmetric(
             horizontal: 15,
           ),
-          height: 60,
+          height: 55,
           decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.bottomLeft,
