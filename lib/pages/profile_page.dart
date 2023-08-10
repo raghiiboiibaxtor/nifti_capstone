@@ -38,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     getProfileImageUrl('profileImage');
-    //getUserImagesUrl('banner', 'square1', 'square2', 'square3');
+    getUserImagesUrl('banner', 'square1', 'square2', 'square3');
   }
 
   // get profileImage from storage
