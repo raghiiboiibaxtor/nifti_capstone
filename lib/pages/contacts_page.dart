@@ -7,6 +7,7 @@ class ContactsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(child: Text('you have no friends...')),
     );
   }

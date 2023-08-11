@@ -1,6 +1,8 @@
+//import 'dart:js_interop';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/gradient_text_field.dart';
 import 'package:nifti_locapp/components/text_field_character_limit.dart';
@@ -30,12 +32,12 @@ class _RegisterPageState extends State<RegisterPage> {
   final _cityController = TextEditingController();
   String _pronouns = '';
   Uint8List? _profileImage;
-  String testPicture = '';
   final _bio = TextEditingController();
   final _roleTitle = TextEditingController();
   final _industry = TextEditingController();
   final _companyName = TextEditingController();
   String _yearsWorked = '';
+  String _createCode = '';
 
   // ? Stepper Variable
   int currentStep = 0;
@@ -80,12 +82,13 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _cityController.dispose();
-    // _profilePicture.dispose();
+    _profileImage!.clear();
     _bio.dispose();
     _roleTitle.dispose();
     _industry.dispose();
     _companyName.dispose();
-    //_timeWorked.dispose();
+    _yearsWorked = '';
+    _createCode = '';
     super.dispose();
   }
 
@@ -121,6 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
         displayErrorMessage(context, error.message!);
       }
 
+      _createCode = await CreateRandom.createRandom();
       // ? Adds user info to Firestore
       await StoreUserData().addUserDetails(
         _firstNameController.text.trim(),
@@ -134,6 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
         _industry.text.trim(),
         _companyName.text.trim(),
         _yearsWorked,
+        _createCode,
       );
       StoreUserData().addUserImage(_profileImage!);
       StoreUserData().updateFirestoreImageLink(_profileImage!);
@@ -204,7 +209,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintText: 'Password *',
                         obscureText: true),
                     // Space between next widget
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 5),
+
+                    // Password prompt
+                    const TextDisplay(text: '                                                     6 characters minimum',
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromRGBO(133, 157, 194, 1),),
+                    
+                    // Space between next widget
+                    const SizedBox(height: 15),
 
                     // Confirm Password Textfield
                     GradientTextFieldComponent(
@@ -372,6 +386,8 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
+        resizeToAvoidBottomInset: false,
         // Top bar that contains Nifti Logo
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
@@ -395,7 +411,7 @@ class _RegisterPageState extends State<RegisterPage> {
             currentStep: currentStep,
             // ? Change to next step
             onStepContinue: () {
-              if (currentStep < (stepList().length - 1)) {
+              if (currentStep < (stepList().length - 1) && passwordConfirmed()) {
                 setState(() {
                   currentStep += 1;
                 });

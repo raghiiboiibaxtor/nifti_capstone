@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   Future login() async {
     // Loading Animation
     displayLoadingCircle(context);
-    
+
     // Sign in check
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         password: _passwordController.text.trim(),
       );
       // pop loading circle
-      if(context.mounted) Navigator.pop(context);
+      if (context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (error) {
       // pop loading circle
       Navigator.pop(context);
@@ -53,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: DecoratedBox(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -86,7 +87,11 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 25),
 
                       // Login Button
-                      ButtonComponent(onTap: login, text: 'LOGIN', color: const Color.fromRGBO(79, 219, 245, 1),),
+                      ButtonComponent(
+                        onTap: login,
+                        text: 'LOGIN',
+                        color: const Color.fromRGBO(79, 219, 245, 1),
+                      ),
                       // Space between next widget
                       const SizedBox(height: 30),
 
