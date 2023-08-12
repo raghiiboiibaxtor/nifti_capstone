@@ -38,6 +38,12 @@ class _ConnectorState extends State<Connector> {
   }
 
   @override
+  initState() {
+    _getProfileData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -61,7 +67,7 @@ class _ConnectorState extends State<Connector> {
                       fontSize: 23, fontWeight: FontWeight.w400)),
               ElevatedButton(
                   onPressed: () async {
-                    await _getProfileData();
+                    // await _getProfileData();
                     setState(() {});
                   },
                   child: const Text("Read User")),
