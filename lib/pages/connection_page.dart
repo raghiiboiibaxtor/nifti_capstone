@@ -1,3 +1,4 @@
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/pin_code.dart';
 import '../functions/functions.dart';
@@ -36,9 +37,20 @@ class _ConnectorState extends State<Connector> {
     return details;
   }
 
+  late Map<String, Object?> friend = {};
+  //String pincode = '2917';
+
+  _getConnectionData() async {
+    friend = await ReadUserData.getConnectionData();
+    //friend = buddy as Map<String, Object?>;
+    setState(() {});
+    return friend;
+  }
+
   @override
   initState() {
     _getProfileData();
+    _getConnectionData();
     super.initState();
   }
 
@@ -58,7 +70,7 @@ class _ConnectorState extends State<Connector> {
               Text("User: ${details['firstName']}",
                   style: const TextStyle(
                       fontSize: 23, fontWeight: FontWeight.w400)),
-              Text("Friends details: ${details['firstName']}",
+              Text("Friends details: ${friend['firstName']}",
                   style: const TextStyle(
                       fontSize: 23, fontWeight: FontWeight.w400)),
               SizedBox(

@@ -1,4 +1,5 @@
 //import 'dart:js_interop';
+//import 'dart:js_interop';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -90,12 +91,26 @@ class ReadUserData {
     final niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
     var collectionReference = FirebaseFirestore.instance.collection('users');
     var docSnapshot = await collectionReference.doc(niftiFireUser).get();
-    //late dynamic connection;
     Map<String, dynamic> data = {};
     //late var j = '';
     if (docSnapshot.exists) {
       data = docSnapshot.data()!;
     }
+    return data;
+  }
+
+  static getConnectionData() async {
+    // ? Finding the pincode in Firestore
+    late Map<String, dynamic> data = {};
+    var collectionReference = FirebaseFirestore.instance.collection('users');
+    await collectionReference
+        .where("pincode", isEqualTo: '2917')
+        .get()
+        .then((querySnapshot) {
+      for (var docSnapshot in querySnapshot.docs) {
+        data = docSnapshot.data();
+      }
+    });
     return data;
   }
 }
