@@ -28,23 +28,16 @@ class Connector extends StatefulWidget {
 /* * ---------------- * (STATE) CLASS _ConnectorState (STATE) * ---------------- * */
 class _ConnectorState extends State<Connector> {
   late String code = '';
-  late String users = '';
   late Map<String, dynamic> details = {};
-  //late List user = [];
-  // late List key = [];
-  //late dynamic index;
+
   _getProfileData() async {
     details = await ReadUserData.getProfileData();
-    // index = details.map(('firstName', '') => null);
     if (details.isNotEmpty) {
-      users = details['firstName'];
-      //  key = details.keys.toList();
-      //  user = details.values.toList();
-      setState(() {
-        // index.toString();
-      });
+      for (int i = 0; i < details.length; i++) {
+        setState(() {});
+      }
     }
-    return users;
+    return details;
   }
 
   @override
@@ -66,7 +59,7 @@ class _ConnectorState extends State<Connector> {
                     setState(() {});
                   },
                   child: const Text("My Number")),
-              Text("User: $users",
+              Text("User: ${details['firstName']}",
                   style: const TextStyle(
                       fontSize: 23, fontWeight: FontWeight.w400)),
               ElevatedButton(
