@@ -58,6 +58,9 @@ class _ConnectorState extends State<Connector> {
               Text("User: ${details['firstName']}",
                   style: const TextStyle(
                       fontSize: 23, fontWeight: FontWeight.w400)),
+              Text("Friends details: ${details['firstName']}",
+                  style: const TextStyle(
+                      fontSize: 23, fontWeight: FontWeight.w400)),
               SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,

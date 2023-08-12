@@ -86,58 +86,6 @@ class StoreUserData {
 }
 
 class ReadUserData {
-  String firstName;
-  String lastName;
-  String email;
-  String city;
-  String pronouns;
-  Uint8List profileImage;
-  String bio;
-  String role;
-  String industry;
-  String company;
-  String yearsWorked;
-  String code;
-
-  ReadUserData({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.city,
-    required this.pronouns,
-    required this.profileImage,
-    required this.bio,
-    required this.role,
-    required this.industry,
-    required this.company,
-    required this.yearsWorked,
-    required this.code,
-  });
-
-  static readUserCode() async {
-    final niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
-    var collectionReference = FirebaseFirestore.instance.collection('users');
-    var docSnapshot = await collectionReference.doc(niftiFireUser).get();
-    var code = '';
-    if (docSnapshot.exists) {
-      Map<String, dynamic> data = docSnapshot.data()!;
-      code = data['pincode']; // Targeting pincode var read
-    }
-    return code;
-  }
-
-  static readMyProfile() async {
-    final niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
-    var collectionReference = FirebaseFirestore.instance.collection('users');
-    var docSnapshot = await collectionReference.doc(niftiFireUser).get();
-    var code = '';
-    if (docSnapshot.exists) {
-      Map<String, dynamic> data = docSnapshot.data()!;
-      code = data.toString(); // Targeting pincode var read
-    }
-    return code;
-  }
-
   static getProfileData() async {
     final niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
     var collectionReference = FirebaseFirestore.instance.collection('users');
@@ -149,81 +97,6 @@ class ReadUserData {
       data = docSnapshot.data()!;
     }
     return data;
-  }
-}
-
-class CreateUserJson {
-  String firstName;
-  String lastName;
-  String email;
-  String city;
-  String pronouns;
-  Uint8List profileImage;
-  String bio;
-  String role;
-  String industry;
-  String company;
-  String yearsWorked;
-  String code;
-
-  CreateUserJson({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.city,
-    required this.pronouns,
-    required this.profileImage,
-    required this.bio,
-    required this.role,
-    required this.industry,
-    required this.company,
-    required this.yearsWorked,
-    required this.code,
-  });
-
-  factory CreateUserJson.fromSnapshot(DocumentSnapshot docSnapshot) {
-    return CreateUserJson(
-      firstName: docSnapshot.get('firstName'),
-      lastName: docSnapshot.get('lastName'),
-      email: docSnapshot.get('email'),
-      city: docSnapshot.get('city'),
-      pronouns: docSnapshot.get('pronouns'),
-      profileImage: docSnapshot.get('profileImage'),
-      bio: docSnapshot.get('bio'),
-      role: docSnapshot.get('role'),
-      industry: docSnapshot.get('industry'),
-      company: docSnapshot.get('company'),
-      yearsWorked: docSnapshot.get('yearsWorked'),
-      code: docSnapshot.get('code'),
-    );
-    // connection = data;
-
-    /*connection = ReadUserData(
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          city: city,
-          pronouns: pronouns,
-          profileImage: profileImage,
-          bio: bio,
-          role: role,
-          industry: industry,
-          company: company,
-          yearsWorked: yearsWorked,
-          code: code) as Map<String, dynamic>;*/
-  }
-
-  static findConnection() async {
-    final niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
-    var collectionReference = FirebaseFirestore.instance.collection('users');
-    var docSnapshot = await collectionReference.doc(niftiFireUser).get();
-    Map<String, dynamic> connection = {};
-    //late var j = '';
-    if (docSnapshot.exists) {
-      Map<String, dynamic> data = docSnapshot.data()!;
-      connection = data;
-    }
-    return connection;
   }
 }
 
@@ -246,6 +119,8 @@ class CreateRandom {
 }
 
 /* * ---------------- * BACKEND * ---------------- * */
+
+//// ++++++++++++++++++++++++++++++++++/\/\/\/\/\/\+++++++++++++++++++++++++++++ ////
 
 /* * ---------------- * FRONTEND * ---------------- * */
 
