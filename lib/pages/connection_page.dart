@@ -1,4 +1,8 @@
+//import 'dart:ffi';
+//import 'dart:html';
+
 import "package:flutter/material.dart";
+import 'package:nifti_locapp/components/pin_code.dart';
 import '../functions/functions.dart';
 
 //Bluetooth Contact Exchange Page
@@ -24,16 +28,35 @@ class Connector extends StatefulWidget {
 /* * ---------------- * (STATE) CLASS _ConnectorState (STATE) * ---------------- * */
 class _ConnectorState extends State<Connector> {
   late String code = '';
+  late String users = '';
+  late Map<String, dynamic> details = {};
+  //late List user = [];
+  // late List key = [];
+  //late dynamic index;
+  _getProfileData() async {
+    details = await ReadUserData.getProfileData();
+    // index = details.map(('firstName', '') => null);
+    if (details.isNotEmpty) {
+      users = details['firstName'];
+      //  key = details.keys.toList();
+      //  user = details.values.toList();
+      setState(() {
+        // index.toString();
+      });
+    }
+    return users;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                //crossAxisAlignment: CrossAxisAlignment.top,
-                children: [
+        body: SingleChildScrollView(
+            child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    //crossAxisAlignment: CrossAxisAlignment.top,
+                    children: [
               Text("Random Number: $code",
                   style: const TextStyle(
                       fontSize: 23, fontWeight: FontWeight.w400)),
@@ -42,7 +65,21 @@ class _ConnectorState extends State<Connector> {
                     code = await ReadUserData.readUserCode();
                     setState(() {});
                   },
-                  child: const Text("Create Random Number")),
-            ])));
+                  child: const Text("My Number")),
+              Text("User: $users",
+                  style: const TextStyle(
+                      fontSize: 23, fontWeight: FontWeight.w400)),
+              ElevatedButton(
+                  onPressed: () async {
+                    await _getProfileData();
+                    setState(() {});
+                  },
+                  child: const Text("Read User")),
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: const PinCodeVerificationScreen(),
+              ),
+            ]))));
   }
 }
