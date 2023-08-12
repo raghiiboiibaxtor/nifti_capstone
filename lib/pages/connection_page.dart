@@ -53,24 +53,12 @@ class _ConnectorState extends State<Connector> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     //crossAxisAlignment: CrossAxisAlignment.top,
                     children: [
-              Text("Random Number: $code",
+              Text("Code: ${details['pincode']}",
                   style: const TextStyle(
                       fontSize: 23, fontWeight: FontWeight.w400)),
-              ElevatedButton(
-                  onPressed: () async {
-                    code = await ReadUserData.readUserCode();
-                    setState(() {});
-                  },
-                  child: const Text("My Number")),
               Text("User: ${details['firstName']}",
                   style: const TextStyle(
                       fontSize: 23, fontWeight: FontWeight.w400)),
-              ElevatedButton(
-                  onPressed: () async {
-                    // await _getProfileData();
-                    setState(() {});
-                  },
-                  child: const Text("Read User")),
               SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
