@@ -212,7 +212,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
 
                     // ? Tags = Pronouns, Industry, City
-                    Row(children: [
+                    Wrap(children: [
                       // Pronouns
                       TextDisplay(
                         text: userData['pronouns'] + '   |',
@@ -245,13 +245,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     ]), // End of Tag ROW
 
                     // faint DIVIDE line
-                    const TextDisplay(
-                      text:
-                          '____________________________________________________________________',
-                      fontSize: 10,
-                      fontWeight: FontWeight.w200,
-                      color: Color.fromRGBO(133, 157, 194, 0.422),
-                    ),
+                    // Divide line
+                    const Divider(thickness: 0.5,
+                    color: Color.fromRGBO(133, 157, 194, 0.422)),
+
                     // Space between divide & role
                     const SizedBox(
                       height: 7,
@@ -368,13 +365,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                     // faint DIVIDE line
-                    const TextDisplay(
-                      text:
-                          '____________________________________________________________________',
-                      fontSize: 10,
-                      fontWeight: FontWeight.w200,
-                      color: Color.fromRGBO(133, 157, 194, 0.422),
-                    ),
+                    // Divide line
+                    const Divider(thickness: 0.5,
+                    color: Color.fromRGBO(133, 157, 194, 0.422)),
                     // Space between divide & role
                     const SizedBox(
                       height: 7,
