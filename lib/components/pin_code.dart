@@ -80,14 +80,6 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     ]),
                     obscureText: false,
                     animationType: AnimationType.scale,
-                    /*
-                    validator: (v) {
-                      if (v!.length <= 3) {
-                        return "We know you know, 4 digits please 😋 ";
-                      } else {
-                        return "🥹👍";
-                      }
-                    },*/
                     pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
                       borderRadius: BorderRadius.circular(21),
