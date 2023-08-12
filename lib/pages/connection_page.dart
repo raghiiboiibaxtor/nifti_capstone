@@ -1,12 +1,8 @@
-//import 'dart:ffi';
-//import 'dart:html';
-
 import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/pin_code.dart';
-import '../components/text_display.dart';
 import '../functions/functions.dart';
 
-//Bluetooth Contact Exchange Page
+/* * ---------------- * (STATEFUL WIDGET) CLASS CONNECTOR (STATEFUL WIDGET) * ---------------- * */
 class ConnectPage extends StatelessWidget {
   const ConnectPage({super.key});
 
@@ -77,76 +73,3 @@ class _ConnectorState extends State<Connector> {
             ]))));
   }
 }
-
-/*Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SingleChildScrollView(
-            child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    //crossAxisAlignment: CrossAxisAlignment.top,
-                    children: [
-              Text("Random Number: $code",
-                  style: const TextStyle(
-                      fontSize: 23, fontWeight: FontWeight.w400)),
-              ElevatedButton(
-                  onPressed: () async {
-                    code = await ReadUserData.readUserCode();
-                    setState(() {});
-                  },
-                  child: const Text("My Number")),
-              Text("User: ${details['firstName']}",
-                  style: const TextStyle(
-                      fontSize: 23, fontWeight: FontWeight.w400)),
-              ElevatedButton(
-                  onPressed: () async {
-                    await _getProfileData();
-                    setState(() {});
-                  },
-                  child: const Text("Read User")),
-              SizedBox(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: const PinCodeVerificationScreen(),
-              ),
-            ]))));* 
-            
-            
-            
-            
-            
-            return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: StreamBuilder<Map<String, Object?>>(
-            stream: await _getProfileData(),
-            builder: (context, snapshot) {
-              // get user data
-              if (snapshot.hasData) {
-                return Container(
-                    alignment: Alignment.topLeft,
-                    padding:
-                        const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                    child: ListView(children: [
-                      Row(children: [
-                        // First Name
-                        TextDisplay(
-                          text: details['firstName'],
-                          fontSize: 33,
-                          fontWeight: FontWeight.w600,
-                          color: const Color.fromRGBO(133, 157, 194, 1),
-                        ),
-                        // Space between first & last name
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        // Last Name
-                        TextDisplay(
-                          text: details['lastName'],
-                          fontSize: 33,
-                          fontWeight: FontWeight.w600,
-                          color: const Color.fromRGBO(133, 157, 194, 1),
-                        ),
-                      ]),
-                    ]));
-              }
-            }));*/
