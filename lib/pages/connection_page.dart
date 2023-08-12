@@ -24,7 +24,6 @@ class Connector extends StatefulWidget {
 
 /* * ---------------- * (STATE) CLASS _ConnectorState (STATE) * ---------------- * */
 class _ConnectorState extends State<Connector> {
-  late String code = '';
   late Map<String, Object?> details = {};
 
   _getProfileData() async {
