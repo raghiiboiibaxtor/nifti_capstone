@@ -35,8 +35,9 @@ class UserPincode {
   set setPincode(String pincode) => pincode; // ? setting pincode
   get getPincode => pincode; // ? getting pincode
 
-  static getStaticPincode() {
-    String staticPin = UserPincode.getStaticPincode();
+  // ? Static getter allowing pincode to be accessed through ui
+  static getStaticPincode(String pincode) {
+    String staticPin = pincode;
     return staticPin;
   }
 }

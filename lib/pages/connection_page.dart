@@ -42,7 +42,7 @@ class _ConnectorState extends State<Connector> {
   String pincode = '';
 
   _getConnectionData() async {
-    pincode = await UserPincode.getStaticPincode();
+    // pincode = await UserPincode.getStaticPincode();
     friend = await ReadUserData.getConnectionData(pincode);
     //friend = buddy as Map<String, Object?>;
     setState(() {});

@@ -24,13 +24,30 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
 
   bool hasError = false;
   String currentText = "";
-  String _pincode = '';
+  //String _pincode = '';
   final formKey = GlobalKey<FormState>();
+
+  // late Map<String, Object?> friend = {};
+  String pincode = '';
+  String staticPin = '';
+
+  _getPincode() async {
+    // staticPin = await UserPincode.getStaticPincode(pincode);
+    if (staticPin != '') {
+      setState(() {});
+      return staticPin;
+    } else {
+      return staticPin = 'lame';
+    }
+    // friend = await ReadUserData.getConnectionData(pincode);
+    //friend = buddy as Map<String, Object?>;
+  }
 
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     //  _setPincode(currentText);
+    _getPincode();
     super.initState();
   }
 
@@ -171,12 +188,13 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                             .shake); // Triggering error shake animation
                         setState(() => hasError = true);
                       } else {
-                        _pincode = currentText;
-                        UserPincode(pincode: _pincode);
+                        UserPincode(pincode: currentText);
+                        staticPin =
+                            await UserPincode.getStaticPincode(currentText);
                         setState(
-                          () {
+                          () async {
                             hasError = false;
-                            snackBar("OTP Verified!! $_pincode");
+                            snackBar("OTP Verified!! $staticPin");
                           },
                         );
                       }
