@@ -3,7 +3,7 @@
 
 import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/pin_code.dart';
-import '../components/text_display.dart';
+//import '../components/text_display.dart';
 import '../functions/functions.dart';
 
 //Bluetooth Contact Exchange Page
