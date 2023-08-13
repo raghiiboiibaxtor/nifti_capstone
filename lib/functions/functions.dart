@@ -4,8 +4,74 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
+
 /* * ---------------- * BACKEND * ---------------- * */
+
+// ? Creating random code for user
+class CreateRandom {
+  static createRandom() async {
+    late String code;
+    dynamic secure = Random.secure();
+    dynamic secList = List.generate(4, (_) => secure.nextInt(10));
+    code = secList
+        .toString()
+        .replaceAll('[', '')
+        .replaceAll(',', '')
+        .replaceAll(' ', '')
+        .replaceAll(']', '');
+    return code;
+  }
+}
+
+/////\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\\\\\\\\\\
 // ! FIREBASE 🔥 ------------------------------- 🔥
+//
+
+class UserPincode {
+  // ? Definfing and constructing the pincode object
+  String pincode;
+  UserPincode({required this.pincode});
+  set setPincode(String pincode) => pincode; // ? setting pincode
+  get getPincode => pincode; // ? getting pincode
+
+  // ? Static getter allowing pincode to be accessed through ui
+  static getStaticPincode(String pincode) {
+    String staticPin = pincode;
+    return staticPin;
+  }
+}
+
+// ? Reading user data
+class ReadUserData {
+  // ? Reading user data from Firestore as map
+  static getProfileData() async {
+    final niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
+    var collectionReference = FirebaseFirestore.instance.collection('users');
+    var docSnapshot = await collectionReference.doc(niftiFireUser).get();
+    Map<String, dynamic> data = {};
+    if (docSnapshot.exists) {
+      data = docSnapshot.data()!;
+    }
+    return data;
+  }
+
+  // ? Reading connection data from Firestore using otp
+  static getConnectionData(String pincode) async {
+    // ? Finding the pincode in Firestore
+    late Map<String, dynamic> data = {};
+    var collectionReference = FirebaseFirestore.instance.collection('users');
+    await collectionReference
+        .where("pincode", isEqualTo: pincode)
+        .get()
+        .then((querySnapshot) {
+      for (var docSnapshot in querySnapshot.docs) {
+        data = docSnapshot.data();
+      }
+    });
+    return data;
+  }
+}
 
 // ? Adding User Details to FireStore & Storage
 class StoreUserData {
@@ -82,55 +148,6 @@ class StoreUserData {
     });
   }
 }
-
-class ReadUserData {
-  static getProfileData() async {
-    final niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
-    var collectionReference = FirebaseFirestore.instance.collection('users');
-    var docSnapshot = await collectionReference.doc(niftiFireUser).get();
-    Map<String, dynamic> data = {};
-    //late var j = '';
-    if (docSnapshot.exists) {
-      data = docSnapshot.data()!;
-    }
-    return data;
-  }
-
-  static getConnectionData() async {
-    // ? Finding the pincode in Firestore
-    late Map<String, dynamic> data = {};
-    var collectionReference = FirebaseFirestore.instance.collection('users');
-    await collectionReference
-        .where("pincode", isEqualTo: '2917')
-        .get()
-        .then((querySnapshot) {
-      for (var docSnapshot in querySnapshot.docs) {
-        data = docSnapshot.data();
-      }
-    });
-    return data;
-  }
-}
-
-// ! FIREBASE 🔥 ------------------------------ 🔥
-
-// ? Creating random code for user
-class CreateRandom {
-  static createRandom() async {
-    late String code;
-    dynamic secure = Random.secure();
-    dynamic secList = List.generate(4, (_) => secure.nextInt(10));
-    code = secList
-        .toString()
-        .replaceAll('[', '')
-        .replaceAll(',', '')
-        .replaceAll(' ', '')
-        .replaceAll(']', '');
-    return code;
-  }
-}
-
-//// ++++++++++++++++++++++++++++++++++/\/\/\/\/\/\+++++++++++++++++++++++++++++ ////
 
 // ? Adding User Details to FireStore & Storage
 class StoreUserImages {
@@ -220,3 +237,4 @@ class StoreUserImages {
     });
   }
 }
+// ! FIREBASE 🔥 ------------------------------ 🔥
