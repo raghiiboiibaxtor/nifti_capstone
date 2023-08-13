@@ -1,3 +1,5 @@
+/*
+
 import 'dart:async';
 import 'dart:typed_data';
 //import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,8 +12,6 @@ import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/image_selection_placeholder.dart';
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/components/copy_tool.dart';
-
-import '../functions/frontend.dart';
 
 //User's Profile Page
 class ProfilePage extends StatefulWidget {
@@ -35,21 +35,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Uint8List? _squareImage1;
   Uint8List? _squareImage2;
   Uint8List? _squareImage3;
-
-  bool displayImageEdit = false;
-  bool displayImages = true;
-
-  late Map<String, Object?> details = {};
-
-  _getProfileData() async {
-    details = await ReadUserData.getProfileData();
-    if (details.isNotEmpty) {
-      for (int i = 0; i < details.length; i++) {
-        setState(() {});
-      }
-    }
-    return details;
-  }
 
   // get profileImage from storage
   getProfileImageUrl(String profileImage) async {
@@ -143,6 +128,21 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  bool displayImageEdit = false;
+  bool displayImages = true;
+
+  late Map<String, Object?> details = {};
+
+  _getProfileData() async {
+    details = await ReadUserData.getProfileData();
+    if (details.isNotEmpty) {
+      for (int i = 0; i < details.length; i++) {
+        setState(() {});
+      }
+    }
+    return details;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -216,7 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
 
                 // ? Tags = Pronouns, Industry, City
-                Wrap(children: [
+                Row(children: [
                   // Pronouns
                   TextDisplay(
                     text: '${details['pronouns']}   |',
@@ -249,11 +249,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 ]), // End of Tag ROW
 
                 // faint DIVIDE line
-                // Divide line
-                const Divider(
-                    thickness: 0.5,
-                    color: Color.fromRGBO(133, 157, 194, 0.422)),
-
+                const TextDisplay(
+                  text:
+                      '____________________________________________________________________',
+                  fontSize: 10,
+                  fontWeight: FontWeight.w200,
+                  color: Color.fromRGBO(133, 157, 194, 0.422),
+                ),
                 // Space between divide & role
                 const SizedBox(
                   height: 7,
@@ -291,6 +293,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
 
+
                 const SizedBox(
                   height: 5,
                 ),
@@ -304,6 +307,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Color.fromRGBO(133, 157, 194, 1),
                     ),
                     // Space between icon & company
+
                     const SizedBox(
                       width: 7,
                     ),
@@ -370,10 +374,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 // faint DIVIDE line
-                // Divide line
-                const Divider(
-                    thickness: 0.5,
-                    color: Color.fromRGBO(133, 157, 194, 0.422)),
+                const TextDisplay(
+                  text:
+                      '____________________________________________________________________',
+                  fontSize: 10,
+                  fontWeight: FontWeight.w200,
+                  color: Color.fromRGBO(133, 157, 194, 0.422),
+                ),
                 // Space between divide & role
                 const SizedBox(
                   height: 7,
@@ -489,6 +496,91 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(
                             height: 15,
                           ),
+          onTap: () {},
+                        ),
+                      ],
+                    ),
+                    // faint DIVIDE line
+                    // Divide line
+                    const Divider(thickness: 0.5,
+                    color: Color.fromRGBO(133, 157, 194, 0.422)),
+                    // Space between divide & role
+                    const SizedBox(
+                      height: 7,
+                    ),
+                    // ? Current Role Title
+                    const TextDisplay(
+                      text: 'Media & Content',
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(133, 157, 194, 1),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+
+                    // ? Media & Content
+                    // if no content = show "Welcome to your media space, add some photos that represent you! + add button"
+                    // else == display media content
+                    Row(children: [
+                      const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextDisplay(
+                              text: 'A SNEAK PEAK OF ME',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromRGBO(133, 157, 194, 1),
+                            ),
+                            TextDisplay(
+                              text: "and what I'm about",
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromRGBO(133, 157, 194, 1),
+                            ),
+                          ]),
+                      // space between
+                      const SizedBox(width: 99),
+
+                      if (!displayImageEdit)
+                        // Edit Button
+                        IconButton(
+                          color: const Color.fromRGBO(115, 142, 247, 1),
+                          iconSize: 25,
+                          onPressed: () {
+                            setState(() {
+                              displayImageEdit = true;
+                              displayImages = false;
+                            });
+                          },
+                          icon: const Icon(Icons.add_circle),
+                        )
+                      else
+                        // Save Button
+                        IconButton(
+                          color: const Color.fromRGBO(115, 142, 247, 1),
+                          iconSize: 25,
+                          onPressed: () {
+                            // Save selected images
+                            saveImages();
+                            // Timer delay added to show updated images
+                            Timer(const Duration(seconds: 1), () {
+                              // get images to display on profile
+                              getUserImagesUrl(
+                                  'banner', 'square1', 'square2', 'square3');
+                              setState(() {
+                                displayImageEdit = false;
+                                displayImages = true;
+                              });
+                            });
+                          },
+                          icon: const Icon(Icons.check_circle),
+                        )
+                    ]),
+
+                    const SizedBox(
+                      height: 7,
+                    ),
 
                           // Square Row
                           Row(
@@ -655,5 +747,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             )));
   }
-  //  return const Center(child: const CircularProgressIndicator());
+  //return const Center(child: CircularProgressIndicator());
 }
+*/
