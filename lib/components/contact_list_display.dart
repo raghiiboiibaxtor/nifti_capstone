@@ -5,42 +5,37 @@ import "package:nifti_locapp/components/text_display.dart";
 import "../functions/functions.dart";
 
 class ListDisplay extends StatefulWidget {
-   //final String firstName;
- //  final String lastName;
+  //final String firstName;
+  //  final String lastName;
 //   final String role;
 //   final String email;
 
-   const ListDisplay({super.key /*, required this.firstName, required this.lastName, required this.role, required this.email,*/ });
+  const ListDisplay(
+      {super.key /*, required this.firstName, required this.lastName, required this.role, required this.email,*/});
 
   @override
   State<ListDisplay> createState() => _ListDisplayState();
 }
 
 class _ListDisplayState extends State<ListDisplay> {
-
   //late final String firstName;
- // late final String lastName;
- // late final String role;
+  // late final String lastName;
+  // late final String role;
 //  late final String email;
   late String code = '';
-  late Map<String, Object?> details = {};
+  late Map<String, Object?> friend = {};
 
-  _getProfileData() async {
-    details = await ReadUserData.getProfileData();
-    if (details.isNotEmpty) {
-      for (int i = 0; i < details.length; i++) {
-        setState(() {});
-      }
-    }
-    return details;
+  _getConnectionData() async {
+    friend = await ReadUserData.getConnectionData();
+    setState(() {});
+    return friend;
   }
 
   @override
   void initState() {
-    _getProfileData();
+    _getConnectionData();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +52,7 @@ class _ListDisplayState extends State<ListDisplay> {
             const Stack(
               children: [
                 // Profile picture
-                /*userData['imageLink'] != null
+                /*friend['imageLink']  != null
                             ? 
                             CircleAvatar(
                                 radius: 45,
@@ -83,21 +78,25 @@ class _ListDisplayState extends State<ListDisplay> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
-                 const TextDisplay(
-                    text: 'Dylan Sash',
+                // Full Name
+                TextDisplay(
+                    text: '${friend['firstName']}' ' ${friend['lastName']}',
                     fontSize: 19,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromRGBO(133, 157, 194, 1)),
-                const TextDisplay(
-                    text: 'BC Marketing & Communication',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color.fromRGBO(133, 157, 194, 1)),
+                    color: const Color.fromRGBO(133, 157, 194, 1)),
+                // Role
+                SizedBox(
+                  width: 260,
+                  child: TextDisplay(
+                      text: '${friend['role']}',
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w500,
+                      color: const Color.fromRGBO(133, 157, 194, 1)),
+                ),
 
                 // space between
                 const SizedBox(
-                  height: 2,
+                  height: 3,
                 ),
                 // ? Contact Info
                 Row(
@@ -113,8 +112,8 @@ class _ListDisplayState extends State<ListDisplay> {
                     ),
                     // ? Email display + copy
                     GestureDetector(
-                      child:  CopyTool(
-                        text: '${details['email']}',
+                      child: CopyTool(
+                        text: '${friend['email']}',
                         fontSize: 13,
                       ),
                       onTap: () {},
@@ -129,39 +128,3 @@ class _ListDisplayState extends State<ListDisplay> {
     );
   }
 }
-
-/*
-child:  ListTile(
-              contentPadding:EdgeInsets.symmetric(horizontal: 15),
-              
-              leading: Stack(
-                children: [
-                  // Profile picture
-                  /*userData['imageLink'] != null
-                            ? 
-                            CircleAvatar(
-                                radius: 45,
-                                backgroundImage: const AssetImage(
-                                    'images/defaultProfileImage.png'),
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundImage:
-                                      NetworkImage(imageUrl, scale: 1.0),
-                                ),
-                              )
-                            : */
-                  CircleAvatar(
-                    
-                    radius: 45,
-                    backgroundImage:
-                        AssetImage('images/defaultProfileImage.png'),
-                  ),
-                ],
-              ),
-              title: Text('Full Name'),
-              subtitle:
-                  Text('Role'), 
-              
-              isThreeLine: true,
-            ),
- */

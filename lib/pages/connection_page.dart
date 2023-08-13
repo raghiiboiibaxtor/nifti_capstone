@@ -1,7 +1,7 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/pin_code.dart';
-import '../components/text_display.dart';
+//import '../components/text_display.dart';
 import '../functions/functions.dart';
 
 /* * ---------------- * (STATEFUL WIDGET) CLASS CONNECTOR (STATEFUL WIDGET) * ---------------- * */
