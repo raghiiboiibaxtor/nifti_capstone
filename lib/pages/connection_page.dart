@@ -39,11 +39,10 @@ class _ConnectorState extends State<Connector> {
   }
 
   late Map<String, Object?> friend = {};
-  //String pincode = '2917';
+  String pincode = '';
 
   _getConnectionData() async {
-    friend = await ReadUserData.getConnectionData();
-    //friend = buddy as Map<String, Object?>;
+    friend = await ReadUserData.getConnectionData(pincode);
     setState(() {});
     return friend;
   }

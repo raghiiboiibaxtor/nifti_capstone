@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+
+import '../functions/functions.dart';
 //import 'package:gradient_borders/gradient_borders.dart';
 
 class PinCodeVerificationScreen extends StatefulWidget {
@@ -21,19 +23,43 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   StreamController<ErrorAnimationType>? errorController;
 
   bool hasError = false;
-  String currentText = "";
+  String currentText = '';
   final formKey = GlobalKey<FormState>();
+
+  late Map<String, Object?> friend = {};
+  String pincode = '';
+  String staticPin = '';
+
+  _getPincode() async {
+    if (staticPin != '') {
+      setState(() {});
+      return staticPin;
+    } else {
+      return staticPin = 'lame';
+    }
+  }
+
+  _getConnectionData(String staticPin) async {
+    if (staticPin != '') {
+      friend = await ReadUserData.getConnectionData(staticPin);
+      setState(() {});
+      return friend;
+    } else {
+      return staticPin = 'lame';
+    }
+  }
 
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+    _getPincode();
+    _getConnectionData(staticPin);
     super.initState();
   }
 
   @override
   void dispose() {
     errorController!.close();
-
     super.dispose();
   }
 
@@ -160,18 +186,23 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 child: ButtonTheme(
                   height: 50,
                   child: TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       formKey.currentState!.validate();
                       // conditions for validating
-                      if (currentText.length != 4 || currentText != "1234") {
+                      if (currentText.length != 4) {
                         errorController!.add(ErrorAnimationType
                             .shake); // Triggering error shake animation
                         setState(() => hasError = true);
                       } else {
+                        UserPincode(pincode: currentText);
+                        staticPin =
+                            await UserPincode.getStaticPincode(currentText);
+                        friend = await _getConnectionData(staticPin);
                         setState(
-                          () {
+                          () async {
                             hasError = false;
-                            snackBar("OTP Verified!!");
+                            snackBar(
+                                "OTP Verified!! $staticPin, ${friend['firstName']}");
                           },
                         );
                       }
