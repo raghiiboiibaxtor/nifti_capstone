@@ -2,17 +2,13 @@ import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/components/button.dart';
 
+/*_getConnectionData() async {
+    friend = await ReadUserData.getConnectionData();
+    setState(() {});
+    return friend;*/
+
 // ? CONTACT CARD MODAL
-displayModalBottomSheet(context) {
-  String firstName = 'Dylan';
-  String lastName = 'Sash';
-  String bio = 'Born to travel & do cool things.';
-  String pronouns = 'She / They';
-  String industry = 'Marketing';
-  String city = 'Dunedin';
-  String role = 'Bachelor of Marketing & Communication';
-  String company = 'Otago University';
-  String yearsWorked = '3+ years';
+displayModalBottomSheet(context, String name, String bio, String pronouns, String industry, String city, String role, String company, String yearsWorked){
 
   // ? Build Context 
   showModalBottomSheet(
@@ -54,10 +50,10 @@ displayModalBottomSheet(context) {
                 height: 5,
               ),
               // ? Display Full Name
-              Row(children: [
+          
                 // First Name
                 TextDisplay(
-                  text: firstName,
+                  text: name,
                   fontSize: 33,
                   fontWeight: FontWeight.w600,
                   color: const Color.fromRGBO(133, 157, 194, 1),
@@ -66,14 +62,7 @@ displayModalBottomSheet(context) {
                 const SizedBox(
                   width: 8,
                 ),
-                // Last Name
-                TextDisplay(
-                  text: lastName,
-                  fontSize: 33,
-                  fontWeight: FontWeight.w600,
-                  color: const Color.fromRGBO(133, 157, 194, 1),
-                ),
-              ]),
+               
 
               // ? Display Bio
               TextDisplay(
