@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 // ? Error Message Snackbar Function
 void displayErrorMessage(BuildContext context, String message) {
@@ -32,4 +33,13 @@ void displayLoadingCircle(
       child: CircularProgressIndicator(),
     ),
   );
+}
+
+// ? Select profile image functions
+pickImage() async {
+  final picker = ImagePicker();
+  XFile? selectedFile = await picker.pickImage(source: ImageSource.gallery);
+  if (selectedFile != null) {
+    return await selectedFile.readAsBytes();
+  }
 }
