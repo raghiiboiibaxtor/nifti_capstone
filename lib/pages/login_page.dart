@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/components/button.dart';
 import 'package:nifti_locapp/components/text_field.dart';
-import 'package:nifti_locapp/functions/functions.dart';
+import 'package:nifti_locapp/functions/frontend.dart';
 
 /* * ---------------- * (STATEFUL WIDGET) CLASS LoginPage (STATEFUL WIDGET) * ---------------- * */
 class LoginPage extends StatefulWidget {

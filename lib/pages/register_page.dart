@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/functions/functions.dart';
+import 'package:nifti_locapp/functions/frontend.dart';
 import 'package:nifti_locapp/components/gradient_text_field.dart';
 import 'package:nifti_locapp/components/text_field_character_limit.dart';
 import 'package:nifti_locapp/components/drop_menu.dart';
@@ -387,7 +388,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-        resizeToAvoidBottomInset: false,
+        //resizeToAvoidBottomInset: false,
         // Top bar that contains Nifti Logo
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
