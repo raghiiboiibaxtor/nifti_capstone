@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+
+import '../functions/functions.dart';
 //import 'package:gradient_borders/gradient_borders.dart';
 
 class PinCodeVerificationScreen extends StatefulWidget {
@@ -22,18 +24,19 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
 
   bool hasError = false;
   String currentText = "";
+  String _pincode = '';
   final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+    //  _setPincode(currentText);
     super.initState();
   }
 
   @override
   void dispose() {
     errorController!.close();
-
     super.dispose();
   }
 
@@ -160,18 +163,20 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 child: ButtonTheme(
                   height: 50,
                   child: TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       formKey.currentState!.validate();
                       // conditions for validating
-                      if (currentText.length != 4 || currentText != "1234") {
+                      if (currentText.length != 4) {
                         errorController!.add(ErrorAnimationType
                             .shake); // Triggering error shake animation
                         setState(() => hasError = true);
                       } else {
+                        _pincode = currentText;
+                        UserPincode(pincode: _pincode);
                         setState(
                           () {
                             hasError = false;
-                            snackBar("OTP Verified!!");
+                            snackBar("OTP Verified!! $_pincode");
                           },
                         );
                       }

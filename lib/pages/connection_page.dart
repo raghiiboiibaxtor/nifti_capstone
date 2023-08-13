@@ -1,7 +1,7 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/pin_code.dart';
-import '../components/text_display.dart';
+//import '../components/text_display.dart';
 import '../functions/functions.dart';
 
 /* * ---------------- * (STATEFUL WIDGET) CLASS CONNECTOR (STATEFUL WIDGET) * ---------------- * */
@@ -39,10 +39,11 @@ class _ConnectorState extends State<Connector> {
   }
 
   late Map<String, Object?> friend = {};
-  //String pincode = '2917';
+  String pincode = '';
 
   _getConnectionData() async {
-    friend = await ReadUserData.getConnectionData();
+    pincode = await UserPincode.getStaticPincode();
+    friend = await ReadUserData.getConnectionData(pincode);
     //friend = buddy as Map<String, Object?>;
     setState(() {});
     return friend;
