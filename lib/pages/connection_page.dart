@@ -126,7 +126,7 @@ class _ConnectorState extends State<Connector> {
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                           color: Color.fromRGBO(115, 142, 247, 1))),
-                  const Text('OR enter theirs!',
+                  const Text('& enter theirs!',
                       style:
                           TextStyle(letterSpacing: 0.8, fontSize: 20, fontWeight: FontWeight.w700, color: Color.fromRGBO(209, 147, 246, 1))),
                   /*Text("Friends details: ${friend['firstName']}",
