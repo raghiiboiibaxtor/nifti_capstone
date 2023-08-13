@@ -5,28 +5,18 @@ import "package:nifti_locapp/components/text_display.dart";
 import "../functions/functions.dart";
 
 class ListDisplay extends StatefulWidget {
-  //final String firstName;
-  //  final String lastName;
-//   final String role;
-//   final String email;
-
-  const ListDisplay(
-      {super.key /*, required this.firstName, required this.lastName, required this.role, required this.email,*/});
+  const ListDisplay({super.key});
 
   @override
   State<ListDisplay> createState() => _ListDisplayState();
 }
 
 class _ListDisplayState extends State<ListDisplay> {
-  //late final String firstName;
-  // late final String lastName;
-  // late final String role;
-//  late final String email;
   late String code = '';
   late Map<String, Object?> friend = {};
 
   _getConnectionData() async {
-    friend = await ReadUserData.getConnectionData();
+    friend = await ReadUserData.getConnectionData(code);
     setState(() {});
     return friend;
   }
