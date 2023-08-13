@@ -23,31 +23,37 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   StreamController<ErrorAnimationType>? errorController;
 
   bool hasError = false;
-  String currentText = "";
-  //String _pincode = '';
+  String currentText = '';
   final formKey = GlobalKey<FormState>();
 
-  // late Map<String, Object?> friend = {};
+  late Map<String, Object?> friend = {};
   String pincode = '';
   String staticPin = '';
 
   _getPincode() async {
-    // staticPin = await UserPincode.getStaticPincode(pincode);
     if (staticPin != '') {
       setState(() {});
       return staticPin;
     } else {
       return staticPin = 'lame';
     }
-    // friend = await ReadUserData.getConnectionData(pincode);
-    //friend = buddy as Map<String, Object?>;
+  }
+
+  _getConnectionData(String staticPin) async {
+    if (staticPin != '') {
+      friend = await ReadUserData.getConnectionData(staticPin);
+      setState(() {});
+      return friend;
+    } else {
+      return staticPin = 'lame';
+    }
   }
 
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
-    //  _setPincode(currentText);
     _getPincode();
+    _getConnectionData(staticPin);
     super.initState();
   }
 
@@ -191,10 +197,12 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         UserPincode(pincode: currentText);
                         staticPin =
                             await UserPincode.getStaticPincode(currentText);
+                        friend = await _getConnectionData(staticPin);
                         setState(
                           () async {
                             hasError = false;
-                            snackBar("OTP Verified!! $staticPin");
+                            snackBar(
+                                "OTP Verified!! $staticPin, ${friend['firstName']}");
                           },
                         );
                       }
