@@ -1,6 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:nifti_locapp/components/connection_modal.dart';
-import 'package:nifti_locapp/components/button.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/contact_list_display.dart';
 
@@ -29,36 +27,43 @@ class _ContactsPageState extends State<ContactsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(
+        width: 390,
         child: Column(children: [
           const SizedBox(
-            height: 10,
+            height: 20,
           ),
-          ButtonComponent(
-            color: Colors.cyan,
-            text: 'Bottom Sheet',
-            onTap: () {
-              displayModalBottomSheet(
-                context,
-                '${friend['firstName']}' ' ${friend['lastName']}',
-                '${friend['bio']}',
-                '${friend['pronouns']}',
-                '${friend['industry']}',
-                '${friend['city/town']}',
-                '${friend['role']}',
-                '${friend['company']}',
-                '${friend['yearsWorked']}',
-              );
-            },
-          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            alignment: Alignment.center,
+            height: 30,
+            width: 340,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                    Color.fromRGBO(209, 147, 246, 1),
+                    Color.fromRGBO(115, 142, 247, 1),
+                    Color.fromRGBO(116, 215, 247, 1),
+                  ]),
+              borderRadius: BorderRadius.all(Radius.circular(30),
+              )
+            
+            ),
+            child: const Text(
+              'All Contacts',
+              style: TextStyle(color:  Color.fromRGBO(252, 250, 245, 1), fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+          )
+          ,
           // space between
           const SizedBox(
-            height: 5,
+            height: 20,
           ),
           const ListDisplay(),
-          //const ListDisplay(firstName: 'Dylan', lastName: 'Sash', role: 'BC Marketing', email: 'dylan.sash@gmail.com'),
         ]),
       ),
     );

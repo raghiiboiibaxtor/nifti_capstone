@@ -5,7 +5,8 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 class CopyTool extends StatelessWidget {
   final String text;
   final double fontSize;
-  const CopyTool({super.key, required this.text, required this.fontSize});
+  final double letterSpacing;
+  const CopyTool({super.key, required this.text, required this.fontSize, this.letterSpacing = 0.8});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class CopyTool extends StatelessWidget {
         showDuration: const Duration(seconds: 3),
           message: "Copy", child: GradientText(text, 
           style: TextStyle(
-            letterSpacing: .8,
+            letterSpacing: letterSpacing,
             fontSize: fontSize,
             fontWeight: FontWeight.w900,
           ),

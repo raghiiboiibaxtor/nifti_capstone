@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:nifti_locapp/components/text_display.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
+import 'package:nifti_locapp/components/connection_modal.dart';
 import '../functions/functions.dart';
 //import 'package:gradient_borders/gradient_borders.dart';
 
@@ -90,7 +91,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 8.0,
-                    horizontal: 15,
+                    horizontal: 0,
                   ),
                   child: PinCodeTextField(
                     appContext: context,
@@ -151,79 +152,173 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: Text(
-                  hasError ? "*Please fill up all the cells properly" : "",
+                  hasError ? "* Please fill up all the cells properly" : "",
                   style: const TextStyle(
                     color: Color.fromRGBO(116, 215, 247, 1),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
-              const SizedBox(
-                height: 14,
-              ),
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-                decoration: BoxDecoration(
-                    color: Colors.green.shade300,
-                    borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.green.shade200,
-                          offset: const Offset(1, -2),
-                          blurRadius: 5),
-                      BoxShadow(
-                          color: Colors.green.shade200,
-                          offset: const Offset(-1, 2),
-                          blurRadius: 5)
-                    ]),
-                child: ButtonTheme(
-                  height: 50,
-                  child: TextButton(
-                    onPressed: () async {
-                      formKey.currentState!.validate();
-                      // conditions for validating
-                      if (currentText.length != 4) {
-                        errorController!.add(ErrorAnimationType
-                            .shake); // Triggering error shake animation
-                        setState(() => hasError = true);
-                      } else {
-                        UserPincode(pincode: currentText);
-                        staticPin =
-                            await UserPincode.getStaticPincode(currentText);
-                        friend = await _getConnectionData(staticPin);
-                        setState(
-                          () async {
-                            hasError = false;
-                            snackBar(
-                                "OTP Verified!! $staticPin, ${friend['firstName']}");
-                          },
-                        );
-                      }
+              // ? Clear & Verify Buttons
+              Row(
+                children: [
+                  // ? Clear cell button
+                  IconButton(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    alignment: Alignment.centerLeft,
+                    icon: const Icon(Icons.backspace),
+                    iconSize: 33,
+                    color: const Color.fromRGBO(255, 159, 180, 1),
+                    onPressed: () {
+                      textEditingController.clear();
                     },
-                    child: Center(
-                      child: Text(
-                        "VERIFY".toUpperCase(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                  ),
+                  /*
+                  // Clear button with border - looks uneven 
+                  Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      // Button border & drop shadow
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                        ),
+                        height: 45,
+                        width: 56,
+                        decoration: const BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(203, 211, 223, 1),
+                                offset: Offset(
+                                  1.0,
+                                  1.0,
+                                ),
+                                blurRadius: 1.0,
+                                spreadRadius: 1.0,
+                              ), //BoxShadow
+                            ],
+                            color: Color.fromRGBO(255, 159, 180, 1),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(30))),
+                      ),
+                      // Clear Button
+                      ButtonComponent(
+                        onTap: () {
+                          textEditingController.clear();
+                        },
+                        text: '',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: const Color.fromRGBO(252, 247, 244, 1),
+                        fontColor: const Color.fromRGBO(255, 159, 180, 1),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 10),
+                      ),
+                      IconButton(
+                        alignment: Alignment.centerLeft,
+                      icon: const Icon(Icons.backspace),
+                      
+                      iconSize: 30,
+                      color: const Color.fromRGBO(255, 159, 180, 1),
+                     
+                      onPressed: () {
+                        textEditingController.clear();
+                      },
+                    ),
+                    ],
+                  ),*/
+
+                  // Verify Button
+                  Container(
+                    width: 270,
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 13),
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                            begin: Alignment.bottomLeft,
+                            end: Alignment.topRight,
+                            colors: [
+                              Color.fromRGBO(209, 147, 246, 1),
+                              Color.fromRGBO(115, 142, 247, 1),
+                              Color.fromRGBO(116, 215, 247, 1),
+                            ]),
+                        borderRadius: BorderRadius.circular(30),
+
+                        // Drop shadow
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(203, 211, 223, 1),
+                            offset: Offset(
+                              1.0,
+                              1.0,
+                            ),
+                            blurRadius: 1.0,
+                            spreadRadius: 1.0,
+                          ),
+                        ]),
+                    child: ButtonTheme(
+                      height: 50,
+                      // ? onPressed Functionalities
+                      child: TextButton(
+                        onPressed: () async {
+                          formKey.currentState!.validate();
+                          // conditions for validating
+                          if (currentText.length != 4) {
+                            errorController!.add(ErrorAnimationType
+                                .shake); // Triggering error shake animation
+                            setState(() => hasError = true);
+                          } else {
+                            UserPincode(pincode: currentText);
+                            staticPin =
+                                await UserPincode.getStaticPincode(currentText);
+                            friend = await _getConnectionData(staticPin);
+                            setState(
+                              () async {
+                                hasError = false;
+                                snackBar(
+                                    "OTP Verified!! $staticPin, ${friend['firstName']}");
+                                // Modal with matching connections details
+                                displayModalBottomSheet(
+                                  context,
+                                  '${friend['firstName']}'
+                                      ' ${friend['lastName']}',
+                                  '${friend['bio']}',
+                                  '${friend['pronouns']}',
+                                  '${friend['industry']}',
+                                  '${friend['city/town']}',
+                                  '${friend['role']}',
+                                  '${friend['company']}',
+                                  '${friend['yearsWorked']}',
+                                );
+                              },
+                            );
+                          }
+                        },
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                              child: TextDisplay(
+                                  text: 'CONNECT',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromRGBO(252, 247, 244, 1)),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
+
+              /*Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Flexible(
@@ -235,7 +330,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     ),
                   ),
                 ],
-              )
+              )*/
             ],
           ),
         ),

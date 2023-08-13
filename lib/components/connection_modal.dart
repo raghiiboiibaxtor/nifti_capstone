@@ -2,10 +2,6 @@ import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/components/button.dart';
 
-/*_getConnectionData() async {
-    friend = await ReadUserData.getConnectionData();
-    setState(() {});
-    return friend;*/
 
 // ? CONTACT CARD MODAL
 displayModalBottomSheet(context, String name, String bio, String pronouns, String industry, String city, String role, String company, String yearsWorked){
@@ -13,7 +9,8 @@ displayModalBottomSheet(context, String name, String bio, String pronouns, Strin
   // ? Build Context 
   showModalBottomSheet(
       context: context,
-      backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
+      barrierColor: const Color.fromARGB(179, 133, 157, 190),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(55))),
       builder: (BuildContext context) {
@@ -228,7 +225,7 @@ displayModalBottomSheet(context, String name, String bio, String pronouns, Strin
                 Stack(
                   alignment: AlignmentDirectional.center,
                   children: [
-                    // Button borader & drop shadow
+                    // Button border & drop shadow
                     Container(
                       margin: const EdgeInsets.symmetric(
                         horizontal: 15,
@@ -274,7 +271,7 @@ displayModalBottomSheet(context, String name, String bio, String pronouns, Strin
                         horizontal: 15,
                       ),
                       height: 49,
-                      width: 191,
+                      width: 187,
                       decoration: const BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -293,7 +290,7 @@ displayModalBottomSheet(context, String name, String bio, String pronouns, Strin
 
                     ButtonComponent(
                       onTap: () {},
-                      text: 'Connect',
+                      text: 'Confirm',
                       color: const Color.fromRGBO(235, 254, 244, 1),
                       fontColor: const Color.fromRGBO(121, 212, 189, 1),
                       padding: const EdgeInsets.symmetric(
