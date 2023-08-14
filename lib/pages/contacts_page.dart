@@ -14,14 +14,14 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
-  late dynamic connections = [];
+  late dynamic pincodes = [];
 
   _getAllConnectionsData() async {
-    connections = await ReadUserData.getPincodeList();
-    if (connections.isNotEmpty) {
+    pincodes = await ReadUserData.getPincodeList();
+    if (pincodes != null) {
       setState(() {});
     }
-    return connections;
+    return pincodes;
   }
 
   @override
@@ -69,10 +69,10 @@ class _ContactsPageState extends State<ContactsPage> {
           const SizedBox(
             height: 20,
           ),
-          if (connections.isNotEmpty)
+          if (pincodes != null)
             //for (int i = 0; i <= connections.length; i++)
-            ListDisplay(connections: connections),
-          Text('$connections'),
+            ListDisplay(codelist: pincodes),
+          Text('$pincodes'),
         ]),
       ),
     );

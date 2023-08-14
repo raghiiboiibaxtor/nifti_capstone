@@ -83,20 +83,19 @@ class ReadUserData {
             .get();
     late dynamic data = [];
     if (documentSnapshot.exists) {
-      final List<dynamic>? arrayField = documentSnapshot.data()?['connections'];
-      if (arrayField != null) {
-        data = arrayField;
+      final List<dynamic>? codelist = documentSnapshot.data()?['connections'];
+      if (codelist != null) {
+        data = codelist;
       } else {
         data = ['not found'];
       }
     } else {
       data = ['not exist'];
     }
-
     return data;
   }
 
-  ///////
+  //
 }
 
 // ? Adding User Details to FireStore & Storage

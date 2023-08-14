@@ -5,11 +5,10 @@ import "package:nifti_locapp/components/text_display.dart";
 import "../functions/functions.dart";
 
 class ListDisplay extends StatefulWidget {
-  final dynamic connections;
-
+  final dynamic codelist;
   const ListDisplay({
     super.key,
-    required this.connections,
+    required this.codelist,
   });
 
   @override
@@ -19,15 +18,37 @@ class ListDisplay extends StatefulWidget {
 class _ListDisplayState extends State<ListDisplay> {
   late String code = '';
   late Map<String, Object?> friend = {};
+  dynamic localCodeList = [];
+
+  // String _code = '';
+/*
+  _getCodeList(dynamic codelist) async {
+    if (codelist != null) {
+      for (int i = 0; i <= codelist.length; i++) {
+        code = await codelist[i];
+        localCodeList[i] = codelist[i];
+      }
+      return localCodeList;
+    } else {
+      return codelist['heybroken'];
+    }
+  }*/
 
   _getConnectionData() async {
-    friend = await ReadUserData.getConnectionData('4837');
+    var codelistCopy = [];
+    codelistCopy = await ReadUserData.getPincodeList();
+    for (int i = 0; i <= codelistCopy.length; i++) {
+      code = codelistCopy[i];
+    }
+    //friend = await ReadUserData.getConnectionData(code);
     setState(() {});
-    return friend;
+    return code;
+    //return friend;
   }
 
   @override
   void initState() {
+    //_getCodeList(localCodeList);
     _getConnectionData();
     super.initState();
   }
@@ -75,7 +96,8 @@ class _ListDisplayState extends State<ListDisplay> {
               children: [
                 // Full Name
                 TextDisplay(
-                    text: '${friend['firstName']}' ' ${friend['lastName']}',
+                    text: '$code, ${friend['firstName']}'
+                        ' ${friend['lastName']}',
                     fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: const Color.fromRGBO(133, 157, 194, 1)),
