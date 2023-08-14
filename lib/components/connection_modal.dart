@@ -299,7 +299,7 @@ displayModalBottomSheet(
 
                     ButtonComponent(
                       onTap: () {
-                        // TODO: find and add to contact list logic 
+                        // !  find and add to contact list logic
                         // Closes modal
                         Navigator.pop(context);
                         // set up the AlertDialog
@@ -308,11 +308,10 @@ displayModalBottomSheet(
                           context: context,
                           builder: (BuildContext context) {
                             // closes alertDialog after 1.5 seconds
-                            Future.delayed(const Duration(milliseconds: 1500), ()
-                            {
+                            Future.delayed(const Duration(milliseconds: 1500),
+                                () {
                               Navigator.pop(context);
-                            }
-                            );
+                            });
                             return alert = const AlertDialog(
                                 alignment: Alignment.bottomCenter,
                                 //insetPadding: EdgeInsets.symmetric(horizontal: 300, vertical: 200),
