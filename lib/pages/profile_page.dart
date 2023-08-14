@@ -54,15 +54,12 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   // ? get profileImage from storage
-  getProfileImageUrl(String profileImage) async {
+  _getProfileImageUrl() async {
     // get reference to image file in Firebase Storage
-    final storageReference = storage.child(currentUser.uid);
-    Reference referenceGetImage = storageReference.child('profileImage');
-    // get the imageUrl to downloadURL
-    final url = await referenceGetImage.getDownloadURL();
+    imageUrl = await ReadUserData.getProfileImageUrl();
     //imageUrl = url;
     setState(() {
-      imageUrl = url;
+      imageUrl;
     });
   }
 
@@ -149,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    getProfileImageUrl('profileImage');
+    _getProfileImageUrl();
     _getProfileData();
     getUserImagesUrl('banner', 'square1', 'square2', 'square3');
   }

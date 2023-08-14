@@ -48,10 +48,23 @@ class _ConnectorState extends State<Connector> {
     return friend;
   }
 
+  String imageUrl = '';
+
+  // ? get profileImage from storage
+  _getProfileImageUrl() async {
+    // get reference to image file in Firebase Storage
+    imageUrl = await ReadUserData.getProfileImageUrl();
+    //imageUrl = url;
+    setState(() {
+      imageUrl;
+    });
+  }
+
   @override
   initState() {
     _getProfileData();
     _getConnectionData();
+    _getProfileImageUrl();
     super.initState();
   }
 
@@ -75,10 +88,10 @@ class _ConnectorState extends State<Connector> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Stack(
+                       Stack(
                         children: [
                           // Profile picture
-                          /*userData['imageLink'] != null
+                          details['imageLink'] != null
                             ? 
                             CircleAvatar(
                                 radius: 50,
@@ -90,8 +103,8 @@ class _ConnectorState extends State<Connector> {
                                       NetworkImage(imageUrl, scale: 1.0),
                                 ),
                               )
-                            : */
-                          CircleAvatar(
+                            :
+                          const CircleAvatar(
                             radius: 50,
                             backgroundImage:
                                 AssetImage('images/defaultProfileImage.png'),
