@@ -4,17 +4,21 @@ import 'package:nifti_locapp/components/button.dart';
 import 'package:nifti_locapp/components/text_field.dart';
 import 'package:nifti_locapp/functions/frontend.dart';
 
-/* * ---------------- * (STATEFUL WIDGET) CLASS LoginPage (STATEFUL WIDGET) * ---------------- * */
+// ? LoginPage == display for existing user to login
+
+// * ---------------- * (STATEFUL WIDGET) CLASS LoginPage (STATEFUL WIDGET) * ---------------- *
 class LoginPage extends StatefulWidget {
+  // Component Variables
   final Function()? onTap;
+  // Required variables to be passed
   const LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-/* * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- * */
+// * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- *
 
-/* * ---------------- * (STATE) CLASS _LoginPageState (STATE) * ---------------- * */
+// * ---------------- * (STATE) CLASS _LoginPageState (STATE) * ---------------- *
 class _LoginPageState extends State<LoginPage> {
   // Text Controllers - used to access the user's input
   final _emailController = TextEditingController();
@@ -49,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,6 +130,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             )));
   }
-  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
-/* * ---------------- * END OF (STATE) CLASS _LoginPageState (STATE) * ---------------- * */
+// * ---------------- * END OF (STATE) CLASS _LoginPageState (STATE) * ---------------- *

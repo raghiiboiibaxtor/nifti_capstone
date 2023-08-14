@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 
+// ? DropdownMenuComponent == Custom drop down menu
+
+// * ---------------- * (STATELESS WIDGET) CLASS DropdownMenuComponent (STATELESS WIDGET) * ---------------- *
 class DropdownMenuComponent extends StatelessWidget {
+  // Component Variables
   final dynamic value;
   final double width;
   final List<String> itemsList;
   final Widget hintText;
   final Function(dynamic value) onChanged;
 
+  // Required variables to be passed
   const DropdownMenuComponent(
       {super.key,
       required this.value,
@@ -16,6 +21,7 @@ class DropdownMenuComponent extends StatelessWidget {
       required this.hintText,
       required this.onChanged});
 
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,4 +55,6 @@ class DropdownMenuComponent extends StatelessWidget {
           onChanged: (value) => onChanged(value)),
     );
   }
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
+// * ---------------- * END OF (STATELESS WIDGET) CLASS DropdownMenuComponent (STATELESS WIDGET) * ---------------- *

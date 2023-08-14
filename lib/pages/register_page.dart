@@ -1,4 +1,3 @@
-//import 'dart:js_interop';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +8,13 @@ import 'package:nifti_locapp/components/gradient_text_field.dart';
 import 'package:nifti_locapp/components/text_field_character_limit.dart';
 import 'package:nifti_locapp/components/drop_menu.dart';
 
-// * * ---------------- * (STATEFUL WIDGET) CLASS RegisterPage (STATEFUL WIDGET) * ---------------- *
+// ? RegisterPage == display for new users to add details and register account
+
+// * ---------------- * (STATEFUL WIDGET) CLASS RegisterPage (STATEFUL WIDGET) * ---------------- *
 class RegisterPage extends StatefulWidget {
+  // Component Variables
   final Function()? onTap;
+  // Required variables to be passed
   const RegisterPage({
     super.key,
     required this.onTap,
@@ -20,9 +23,9 @@ class RegisterPage extends StatefulWidget {
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
-// * * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- *
+// * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- *
 
-// * * ---------------- * (STATE) CLASS _RegisterPageState (STATE) * ---------------- *
+// * ---------------- * (STATE) CLASS _RegisterPageState (STATE) * ---------------- *
 class _RegisterPageState extends State<RegisterPage> {
   // ? Text Controllers - used to access the user's input
   final _firstNameController = TextEditingController();
@@ -504,7 +507,6 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ));
   }
-  // * * ---------------- * END OF (BUILD WIDGET) * ---------------- *
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
-
-// * * ---------------- * END OF (STATE) CLASS _RegisterPageState (STATE) * ---------------- *
+// * ---------------- * END OF (STATE) CLASS _RegisterPageState (STATE) * ---------------- *
