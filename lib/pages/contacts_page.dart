@@ -19,7 +19,7 @@ class _ContactsPageState extends State<ContactsPage> {
   // Variables
   late dynamic pincodes = [];
   late String code = '';
-  late List<Map<String, Object?>> friends;
+  late List<Map<String, Object?>> friends = [];
 
   // ? get connection data that matches array of pincodes and store in Map<> friends
   _getAllConnectionsData() async {
