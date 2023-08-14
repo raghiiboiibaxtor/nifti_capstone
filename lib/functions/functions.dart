@@ -90,9 +90,28 @@ class ReadUserData {
   }
 
   // ? Reading connection data from Firestore using otp
-  static getAllConnections() async {}
+  static getPincodeList() async {
+    final niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
+    final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(niftiFireUser)
+            .get();
+    late dynamic data = [];
+    if (documentSnapshot.exists) {
+      final List<dynamic>? codelist = documentSnapshot.data()?['connections'];
+      if (codelist != null) {
+        data = codelist;
+      } else {
+        data = ['not found'];
+      }
+    } else {
+      data = ['not exist'];
+    }
+    return data;
+  }
 
-  ///////
+  //
 }
 
 // ? Adding User Details to FireStore & Storage
