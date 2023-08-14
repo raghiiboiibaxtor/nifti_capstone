@@ -5,10 +5,10 @@ import "package:nifti_locapp/components/text_display.dart";
 import "../functions/functions.dart";
 
 class ListDisplay extends StatefulWidget {
-  final dynamic codelist;
+  //final Map<String, Object?> connection;
   const ListDisplay({
     super.key,
-    required this.codelist,
+    //required this.connection,
   });
 
   @override
@@ -18,37 +18,20 @@ class ListDisplay extends StatefulWidget {
 class _ListDisplayState extends State<ListDisplay> {
   late String code = '';
   late Map<String, Object?> friend = {};
-  dynamic localCodeList = [];
-
-  // String _code = '';
-/*
-  _getCodeList(dynamic codelist) async {
-    if (codelist != null) {
-      for (int i = 0; i <= codelist.length; i++) {
-        code = await codelist[i];
-        localCodeList[i] = codelist[i];
-      }
-      return localCodeList;
-    } else {
-      return codelist['heybroken'];
-    }
-  }*/
+  var codelistCopy = [];
 
   _getConnectionData() async {
-    var codelistCopy = [];
     codelistCopy = await ReadUserData.getPincodeList();
-    for (int i = 0; i <= codelistCopy.length; i++) {
+    for (int i = 0; i < codelistCopy.length; i++) {
       code = codelistCopy[i];
       friend = await ReadUserData.getConnectionData(code);
       setState(() {});
     }
-    //setState(() {});
     return friend;
   }
 
   @override
   void initState() {
-    //_getCodeList(localCodeList);
     _getConnectionData();
     super.initState();
   }
