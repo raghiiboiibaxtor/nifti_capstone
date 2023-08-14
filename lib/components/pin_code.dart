@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/components/text_display.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:nifti_locapp/components/connection_modal.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import '../functions/functions.dart';
+import 'package:nifti_locapp/functions/frontend.dart';
 //import 'package:gradient_borders/gradient_borders.dart';
 
 class PinCodeVerificationScreen extends StatefulWidget {
@@ -179,60 +180,6 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       textEditingController.clear();
                     },
                   ),
-                  /*
-                  // Clear button with border - looks uneven 
-                  Stack(
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      // Button border & drop shadow
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
-                        height: 45,
-                        width: 56,
-                        decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(203, 211, 223, 1),
-                                offset: Offset(
-                                  1.0,
-                                  1.0,
-                                ),
-                                blurRadius: 1.0,
-                                spreadRadius: 1.0,
-                              ), //BoxShadow
-                            ],
-                            color: Color.fromRGBO(255, 159, 180, 1),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                      ),
-                      // Clear Button
-                      ButtonComponent(
-                        onTap: () {
-                          textEditingController.clear();
-                        },
-                        text: '',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: const Color.fromRGBO(252, 247, 244, 1),
-                        fontColor: const Color.fromRGBO(255, 159, 180, 1),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 10),
-                      ),
-                      IconButton(
-                        alignment: Alignment.centerLeft,
-                      icon: const Icon(Icons.backspace),
-                      
-                      iconSize: 30,
-                      color: const Color.fromRGBO(255, 159, 180, 1),
-                     
-                      onPressed: () {
-                        textEditingController.clear();
-                      },
-                    ),
-                    ],
-                  ),*/
 
                   // Verify Button
                   Container(
@@ -281,21 +228,34 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                             setState(
                               () async {
                                 hasError = false;
-                                snackBar(
-                                    "OTP Verified!! $staticPin, ${friend['firstName']}");
-                                // Modal with matching connections details
-                                displayModalBottomSheet(
-                                  context,
-                                  '${friend['firstName']}'
-                                      ' ${friend['lastName']}',
-                                  '${friend['bio']}',
-                                  '${friend['pronouns']}',
-                                  '${friend['industry']}',
-                                  '${friend['city/town']}',
-                                  '${friend['role']}',
-                                  '${friend['company']}',
-                                  '${friend['yearsWorked']}',
-                                );
+                                if ('${friend['firstName']}' == 'null') {
+                                  displayErrorMessage(context,
+                                      "Oops! That's an invalid code. Please try again 👀");
+                                  const SizedBox(
+                                    height: 50,
+                                  );
+                                  /*snackBar(
+                                    "OTP Not Found!!");*/
+                                } else {
+                                  /*snackBar(
+                                    "OTP Verified!! $staticPin, ${friend['firstName']}");*/
+                                  // Clear code when matched
+                                  textEditingController.clear();
+                                  // Modal with matching connections details
+
+                                  displayModalBottomSheet(
+                                    context,
+                                    '${friend['firstName']}'
+                                        ' ${friend['lastName']}',
+                                    '${friend['bio']}',
+                                    '${friend['pronouns']}',
+                                    '${friend['industry']}',
+                                    '${friend['city/town']}',
+                                    '${friend['role']}',
+                                    '${friend['company']}',
+                                    '${friend['yearsWorked']}',
+                                  );
+                                }
                               },
                             );
                           }

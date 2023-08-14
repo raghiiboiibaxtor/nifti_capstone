@@ -19,7 +19,7 @@ class CopyTool extends StatelessWidget {
           style: TextStyle(
             letterSpacing: letterSpacing,
             fontSize: fontSize,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.w800,
           ),
           colors: const [Color.fromRGBO(209, 147, 246, 1),
           Color.fromRGBO(115, 142, 247, 1),

@@ -2,11 +2,18 @@ import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/components/button.dart';
 
-
 // ? CONTACT CARD MODAL
-displayModalBottomSheet(context, String name, String bio, String pronouns, String industry, String city, String role, String company, String yearsWorked){
-
-  // ? Build Context 
+displayModalBottomSheet(
+    context,
+    String name,
+    String bio,
+    String pronouns,
+    String industry,
+    String city,
+    String role,
+    String company,
+    String yearsWorked) {
+  // ? Build Context
   showModalBottomSheet(
       context: context,
       barrierColor: const Color.fromARGB(179, 133, 157, 190),
@@ -47,19 +54,18 @@ displayModalBottomSheet(context, String name, String bio, String pronouns, Strin
                 height: 5,
               ),
               // ? Display Full Name
-          
-                // First Name
-                TextDisplay(
-                  text: name,
-                  fontSize: 33,
-                  fontWeight: FontWeight.w600,
-                  color: const Color.fromRGBO(133, 157, 194, 1),
-                ),
-                // Space between first & last name
-                const SizedBox(
-                  width: 8,
-                ),
-               
+
+              // First Name
+              TextDisplay(
+                text: name,
+                fontSize: 33,
+                fontWeight: FontWeight.w600,
+                color: const Color.fromRGBO(133, 157, 194, 1),
+              ),
+              // Space between first & last name
+              const SizedBox(
+                width: 8,
+              ),
 
               // ? Display Bio
               TextDisplay(
@@ -249,7 +255,10 @@ displayModalBottomSheet(context, String name, String bio, String pronouns, Strin
                     ),
                     // Cancel Button
                     ButtonComponent(
-                      onTap: () {},
+                      onTap: () {
+                        // Closes modal
+                        Navigator.pop(context);
+                      },
                       text: 'Cancel',
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -289,7 +298,45 @@ displayModalBottomSheet(context, String name, String bio, String pronouns, Strin
                     ),
 
                     ButtonComponent(
-                      onTap: () {},
+                      onTap: () {
+                        // TODO: find and add to contact list logic 
+                        // Closes modal
+                        Navigator.pop(context);
+                        // set up the AlertDialog
+                        // show the dialog
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            // closes alertDialog after 1.5 seconds
+                            Future.delayed(const Duration(milliseconds: 1500), ()
+                            {
+                              Navigator.pop(context);
+                            }
+                            );
+                            return alert = const AlertDialog(
+                                alignment: Alignment.bottomCenter,
+                                //insetPadding: EdgeInsets.symmetric(horizontal: 300, vertical: 200),
+                                surfaceTintColor:
+                                    Color.fromARGB(0, 255, 255, 255),
+                                backgroundColor:
+                                    Color.fromRGBO(115, 142, 247, 1),
+                                titlePadding:
+                                    EdgeInsets.only(left: 20, top: 20),
+                                title: Text("You're now connected!"),
+                                titleTextStyle: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Montserrat'),
+                                contentPadding: EdgeInsets.only(
+                                    left: 20, top: 10, bottom: 20),
+                                content: Text("How nifti 😉"),
+                                contentTextStyle: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Montserrat'));
+                          },
+                        );
+                      },
                       text: 'Confirm',
                       color: const Color.fromRGBO(235, 254, 244, 1),
                       fontColor: const Color.fromRGBO(121, 212, 189, 1),
@@ -302,3 +349,9 @@ displayModalBottomSheet(context, String name, String bio, String pronouns, Strin
             ]));
       });
 } // END OF *** CONTACT CARD MODAL
+
+// Alert dialog
+AlertDialog alert = const AlertDialog(
+  title: Text(""),
+  content: Text(""),
+);
