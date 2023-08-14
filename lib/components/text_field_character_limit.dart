@@ -25,10 +25,10 @@ class CharacterLimitFieldComponent extends StatefulWidget {
 }
 /* * ---------------- * END OF (STATEFUL WIDGET) CLASS CharacterLimitFieldComponent (STATE) * ---------------- * */
 
-
 /* * ---------------- * (STATE) CLASS _RegisterPageState (STATE) * ---------------- * */
-class _CharacterLimitFieldComponentState extends State<CharacterLimitFieldComponent> {
-  // Characters counting & mex setting variables
+class _CharacterLimitFieldComponentState
+    extends State<CharacterLimitFieldComponent> {
+  // Characters counting & max setting variables
   var characterCounter = 75;
   var maxCharacters = 75;
 
@@ -79,7 +79,7 @@ class _CharacterLimitFieldComponentState extends State<CharacterLimitFieldCompon
             ),
           ),
         ));
-  } 
+  }
   /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
 }
 /* * ---------------- * END OF (STATE) CLASS _CharacterLimitFieldComponentState (STATE) * ---------------- * */

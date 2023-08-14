@@ -5,7 +5,12 @@ import "package:nifti_locapp/components/text_display.dart";
 import "../functions/functions.dart";
 
 class ListDisplay extends StatefulWidget {
-  const ListDisplay({super.key});
+  final Map<String, Object?> connections;
+
+  const ListDisplay({
+    super.key,
+    required this.connections,
+  });
 
   @override
   State<ListDisplay> createState() => _ListDisplayState();

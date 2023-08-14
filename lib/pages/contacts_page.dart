@@ -4,30 +4,35 @@ import 'package:nifti_locapp/components/contact_list_display.dart';
 
 //Contact List Page
 class ContactsPage extends StatefulWidget {
-  const ContactsPage({super.key});
+  // ContactsPage({super.key});
+  const ContactsPage({
+    super.key,
+  });
 
   @override
   State<ContactsPage> createState() => _ContactsPageState();
 }
 
 class _ContactsPageState extends State<ContactsPage> {
-  String pincode = '7128';
-  late Map<String, Object?> friend = {};
-  _getConnectionData() async {
-    friend = await ReadUserData.getConnectionData(pincode);
-    setState(() {});
-    return friend;
+  late Map<String, Object?> connections = {};
+
+  _getAllConnectionsData() async {
+    connections = await ReadUserData.getAllConnections();
+    if (connections.isNotEmpty) {
+      setState(() {});
+    }
+    return connections;
   }
 
   @override
   void initState() {
-    _getConnectionData();
+    _getAllConnectionsData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(
         width: 390,
@@ -41,29 +46,33 @@ class _ContactsPageState extends State<ContactsPage> {
             height: 30,
             width: 340,
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Color.fromRGBO(209, 147, 246, 1),
-                    Color.fromRGBO(115, 142, 247, 1),
-                    Color.fromRGBO(116, 215, 247, 1),
-                  ]),
-              borderRadius: BorderRadius.all(Radius.circular(30),
-              )
-            
-            ),
+                gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      Color.fromRGBO(209, 147, 246, 1),
+                      Color.fromRGBO(115, 142, 247, 1),
+                      Color.fromRGBO(116, 215, 247, 1),
+                    ]),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                )),
             child: const Text(
               'All Contacts',
-              style: TextStyle(color:  Color.fromRGBO(252, 250, 245, 1), fontSize: 15, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Color.fromRGBO(252, 250, 245, 1),
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold),
             ),
-          )
-          ,
+          ),
           // space between
           const SizedBox(
             height: 20,
           ),
-          const ListDisplay(),
+          if (connections.isNotEmpty)
+            for (int i = 0; i <= connections.length; i++)
+              ListDisplay(connections: connections),
+          Text('$connections'),
         ]),
       ),
     );

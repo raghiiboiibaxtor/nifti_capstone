@@ -1,3 +1,4 @@
+//import 'dart:js_interop';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -71,6 +72,11 @@ class ReadUserData {
     });
     return data;
   }
+
+  // ? Reading connection data from Firestore using otp
+  static getAllConnections() async {}
+
+  ///////
 }
 
 // ? Adding User Details to FireStore & Storage
