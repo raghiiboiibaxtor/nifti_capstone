@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+// ? FRONT END FUNCTIONS
+
+// * ---------------- * (displayErrorMessage) * ---------------- *
 // ? Error Message Snackbar Function
 void displayErrorMessage(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -22,7 +25,9 @@ void displayErrorMessage(BuildContext context, String message) {
         borderRadius: BorderRadius.circular(15.0),
       )));
 }
+// * ---------------- * END OF (displayErrorMessage) * ---------------- *
 
+// * ---------------- * (displayLoadingCircle) * ---------------- *
 // ? Loading Circle Animation Function
 void displayLoadingCircle(
   BuildContext context,
@@ -34,7 +39,9 @@ void displayLoadingCircle(
     ),
   );
 }
+// * ---------------- * END OF (displayLoadingCircle) * ---------------- *
 
+// * ---------------- * (pickImage) * ---------------- *
 // ? Select profile image functions
 pickImage() async {
   final picker = ImagePicker();
@@ -43,3 +50,4 @@ pickImage() async {
     return await selectedFile.readAsBytes();
   }
 }
+// * ---------------- * END OF (pickImage) * ---------------- *

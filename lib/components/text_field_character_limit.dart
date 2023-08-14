@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 
-/* * ---------------- * (STATEFUL WIDGET) CLASS CharacterLimitFieldComponent (STATEFUL WIDGET) * ---------------- * */
+// ? CharacterLimitFieldComponent == widget to limit & display character limits
+
+// * ---------------- * (STATEFUL WIDGET) CLASS CharacterLimitFieldComponent (STATEFUL WIDGET) * ---------------- *
 class CharacterLimitFieldComponent extends StatefulWidget {
   // Component Variables
   final TextEditingController controller;
   final String hintText;
   final double width;
   final EdgeInsetsGeometry padding;
-
   // Required variables to be passed
   const CharacterLimitFieldComponent({
     super.key,
@@ -23,16 +24,17 @@ class CharacterLimitFieldComponent extends StatefulWidget {
   State<CharacterLimitFieldComponent> createState() =>
       _CharacterLimitFieldComponentState();
 }
-/* * ---------------- * END OF (STATEFUL WIDGET) CLASS CharacterLimitFieldComponent (STATE) * ---------------- * */
+// * ---------------- * END OF (STATEFUL WIDGET) CLASS CharacterLimitFieldComponent (STATE) * ---------------- *
 
 /* * ---------------- * (STATE) CLASS _RegisterPageState (STATE) * ---------------- * */
 class _CharacterLimitFieldComponentState
     extends State<CharacterLimitFieldComponent> {
   // Characters counting & max setting variables
+
   var characterCounter = 75;
   var maxCharacters = 75;
 
-  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -80,6 +82,7 @@ class _CharacterLimitFieldComponentState
           ),
         ));
   }
+
   /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
 }
-/* * ---------------- * END OF (STATE) CLASS _CharacterLimitFieldComponentState (STATE) * ---------------- * */
+// * ---------------- * END OF (STATE) CLASS _CharacterLimitFieldComponentState (STATE) * ---------------- *
