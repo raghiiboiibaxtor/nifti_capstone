@@ -2,40 +2,30 @@ import "package:flutter/material.dart";
 import "package:nifti_locapp/components/copy_tool.dart";
 import "package:nifti_locapp/components/text_display.dart";
 
-import "../functions/functions.dart";
+// ? ListDisplay == widget to display a card with contact details
 
+// * ---------------- * (STATEFUL WIDGET) ListDisplay (STATEFUL WIDGET) * ---------------- *
 class ListDisplay extends StatefulWidget {
-  //final Map<String, Object?> connection;
-  const ListDisplay({
-    super.key,
-    //required this.connection,
-  });
+  // Component Variables
+  final String name;
+  final String role;
+  final String email;
+  // Required variables to be passed
+  const ListDisplay({super.key, this.name = '', this.role = '', this.email = ''
+      });
 
   @override
   State<ListDisplay> createState() => _ListDisplayState();
 }
+// * ---------------- * END OF (STATE) CLASS ListDisplay (STATE) * ---------------- *
 
+// * ---------------- * (STATE) CLASS _ListDisplayState (STATE) * ---------------- 
 class _ListDisplayState extends State<ListDisplay> {
-  late String code = '';
-  late Map<String, Object?> friend = {};
-  var codelistCopy = [];
-
-  _getConnectionData() async {
-    codelistCopy = await ReadUserData.getPincodeList();
-    for (int i = 0; i < codelistCopy.length; i++) {
-      code = codelistCopy[i];
-      friend = await ReadUserData.getConnectionData(code);
-      setState(() {});
-    }
-    return friend;
-  }
-
   @override
   void initState() {
-    _getConnectionData();
     super.initState();
   }
-
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -79,8 +69,7 @@ class _ListDisplayState extends State<ListDisplay> {
               children: [
                 // Full Name
                 TextDisplay(
-                    text: '$code, ${friend['firstName']}'
-                        ' ${friend['lastName']}',
+                    text: widget.name,
                     fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: const Color.fromRGBO(133, 157, 194, 1)),
@@ -88,7 +77,7 @@ class _ListDisplayState extends State<ListDisplay> {
                 SizedBox(
                   width: 260,
                   child: TextDisplay(
-                      text: '${friend['role']}',
+                      text: widget.role,
                       fontSize: 13.5,
                       fontWeight: FontWeight.w500,
                       color: const Color.fromRGBO(133, 157, 194, 1)),
@@ -113,7 +102,7 @@ class _ListDisplayState extends State<ListDisplay> {
                     // ? Email display + copy
                     GestureDetector(
                       child: CopyTool(
-                        text: '${friend['email']}',
+                        text: widget.email,
                         fontSize: 13,
                       ),
                       onTap: () {},
@@ -127,4 +116,6 @@ class _ListDisplayState extends State<ListDisplay> {
       ),
     );
   }
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
+// * ---------------- * END OF (STATE) CLASS _ListDisplayState (STATE) * ---------------- *
