@@ -39,11 +39,11 @@ class _ListDisplayState extends State<ListDisplay> {
     codelistCopy = await ReadUserData.getPincodeList();
     for (int i = 0; i <= codelistCopy.length; i++) {
       code = codelistCopy[i];
+      friend = await ReadUserData.getConnectionData(code);
+      setState(() {});
     }
-    //friend = await ReadUserData.getConnectionData(code);
-    setState(() {});
-    return code;
-    //return friend;
+    //setState(() {});
+    return friend;
   }
 
   @override
