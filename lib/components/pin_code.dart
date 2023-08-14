@@ -5,21 +5,26 @@ import 'package:nifti_locapp/components/connection_modal.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../functions/functions.dart';
 import 'package:nifti_locapp/functions/frontend.dart';
-//import 'package:gradient_borders/gradient_borders.dart';
 
+// ? PinCodeVerificationScreen == widget to display and capture user's unique pin
+
+// * ---------------- * (STATEFUL WIDGET) CLASS PinCodeVerificationScreen (STATEFUL WIDGET) * ---------------- *
 class PinCodeVerificationScreen extends StatefulWidget {
+  // Required variables to be passed
   const PinCodeVerificationScreen({
     Key? key,
     this.userPin,
   }) : super(key: key);
-
+  // Component Variables
   final String? userPin;
 
   @override
   State<PinCodeVerificationScreen> createState() =>
       _PinCodeVerificationScreenState();
 }
+// * ---------------- * END OF (STATE) CLASS PinCodeVerificationScreen (STATE) * ---------------- *
 
+// * ---------------- * (STATE) CLASS _PinCodeVerificationScreenState (STATE) * ---------------- *
 class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   TextEditingController textEditingController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
@@ -74,7 +79,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
       ),
     );
   }
-
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -277,24 +282,12 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   ),
                 ],
               ),
-
-              /*Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Flexible(
-                    child: TextButton(
-                      child: const Text("Clear"),
-                      onPressed: () {
-                        textEditingController.clear();
-                      },
-                    ),
-                  ),
-                ],
-              )*/
             ],
           ),
         ),
       ),
     );
   }
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
+// * ---------------- * END OF (STATE) CLASS _PinCodeVerificationScreenState (STATE) * ---------------- *

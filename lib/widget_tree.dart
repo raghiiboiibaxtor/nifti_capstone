@@ -4,15 +4,18 @@ import 'package:nifti_locapp/pages/connection_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';
 import 'package:nifti_locapp/pages/profile_page.dart';
 
-// THIS FILE CONTAINS THE LOGIC FOR THE APP'S TOP & BOTTOM NAV BAR
+// ? WidgetTree == App navigation through bottom nav bar + app bar
 
+// * ---------------- * (STATEFUL WIDGET) CLASS WidgetTree (STATEFUL WIDGET) * ---------------- *
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
 
   @override
   State<WidgetTree> createState() => _WidgetTreeState();
 }
+// * ---------------- * END OF (STATE) CLASS WidgetTree (STATE) * ---------------- *
 
+// * ---------------- * (STATE) CLASS _LoginPageState (STATE) * ---------------- *
 class _WidgetTreeState extends State<WidgetTree> {
   // Variables
   int currentPage = 1; // set to scanning page
@@ -23,6 +26,7 @@ class _WidgetTreeState extends State<WidgetTree> {
     ProfilePage(),
   ];
 
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +78,6 @@ class _WidgetTreeState extends State<WidgetTree> {
             unselectedFontSize: 0,
             backgroundColor: Colors.transparent,
             elevation: 0,
-            //selectedItemColor:  const Color.fromRGBO(115, 142, 247, 1),
 
             items: [
               // Contacts Icon
@@ -166,4 +169,6 @@ class _WidgetTreeState extends State<WidgetTree> {
           ),
         )));
   }
-} // End of widget_tree
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
+} 
+// * ---------------- * END OF (STATE) CLASS _WidgetTreeState (STATE) * ---------------- *

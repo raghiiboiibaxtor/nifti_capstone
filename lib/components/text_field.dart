@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-/* * ---------------- * (STATELESS WIDGET) CLASS TextFieldComponent (STATELESS WIDGET) * ---------------- * */
+// ? TextFieldComponent == custom text field widget
+
+// * ---------------- * (STATELESS WIDGET) CLASS TextFieldComponent (STATELESS WIDGET) * ---------------- *
 class TextFieldComponent extends StatelessWidget {
   // Component Variables
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
-
   // Required variables to be passed
   const TextFieldComponent({
     super.key,
@@ -15,7 +16,7 @@ class TextFieldComponent extends StatelessWidget {
     required this.obscureText,
   });
 
-  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,9 +41,8 @@ class TextFieldComponent extends StatelessWidget {
               fontSize: 15,
             ),
           ),
-        )
-        );
+        ));
   }
-  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
-/* * ---------------- * END OF (STATELESS WIDGET) CLASS TextFieldComponent (STATELESS WIDGET) * ---------------- * */
+// * ---------------- * END OF (STATELESS WIDGET) CLASS TextFieldComponent (STATELESS WIDGET) * ---------------- *

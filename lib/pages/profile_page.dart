@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:typed_data';
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,17 +9,20 @@ import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/image_selection_placeholder.dart';
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/components/copy_tool.dart';
-
 import '../functions/frontend.dart';
 
-//User's Profile Page
+// ? ProfilePage == display user's details + edit to choose banner images
+
+// * ---------------- * (STATEFUL WIDGET) CLASS ProfilePage (STATEFUL WIDGET) * ---------------- *
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
+// * ---------------- * END OF (STATE) CLASS ProfilePage (STATE) * ---------------- *
 
+// * ---------------- * (STATE) CLASS _ProfilePageState (STATE) * ---------------- *
 class _ProfilePageState extends State<ProfilePage> {
   // user
   final currentUser = FirebaseAuth.instance.currentUser!;
@@ -35,12 +37,12 @@ class _ProfilePageState extends State<ProfilePage> {
   Uint8List? _squareImage1;
   Uint8List? _squareImage2;
   Uint8List? _squareImage3;
-
   bool displayImageEdit = false;
   bool displayImages = true;
 
   late Map<String, Object?> details = {};
 
+  // ? get user's data and store in Map<> details
   _getProfileData() async {
     details = await ReadUserData.getProfileData();
     if (details.isNotEmpty) {
@@ -51,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return details;
   }
 
-  // get profileImage from storage
+  // ? get profileImage from storage
   getProfileImageUrl(String profileImage) async {
     // get reference to image file in Firebase Storage
     final storageReference = storage.child(currentUser.uid);
@@ -143,6 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  // Run functions on page load
   @override
   void initState() {
     super.initState();
@@ -151,6 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
     getUserImagesUrl('banner', 'square1', 'square2', 'square3');
   }
 
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -655,5 +659,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             )));
   }
-  //  return const Center(child: const CircularProgressIndicator());
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
+// * ---------------- * END OF (STATE) CLASS _ProfilePageState (STATE) * ---------------- *

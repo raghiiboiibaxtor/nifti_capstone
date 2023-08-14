@@ -3,12 +3,13 @@ import "package:firebase_auth/firebase_auth.dart";
 import 'package:nifti_locapp/auth/login_or_register.dart';
 import 'package:nifti_locapp/widget_tree.dart';
 
+// ? AuthPage == Checks if a user is logged in and redirects accordingly
 
-/* * ---------------- * (STATELESS WIDGET) CLASS AuthPage (STATELESS WIDGET) * ---------------- * */
+// * ---------------- * (STATELESS WIDGET) CLASS AuthPage (STATELESS WIDGET) * ---------------- * 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
-  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * (BUILD WIDGET) * ---------------- * 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +29,6 @@ class AuthPage extends StatelessWidget {
       ),
     );
   }
-  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
-/* * ---------------- * END OF (STATELESS WIDGET) CLASS AuthPage (STATELESS WIDGET) * ---------------- * */
+// * ---------------- * END OF (STATELESS WIDGET) CLASS AuthPage (STATELESS WIDGET) * ---------------- *
