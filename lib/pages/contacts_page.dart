@@ -14,10 +14,10 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
-  late Map<String, Object?> connections = {};
+  late dynamic connections = [];
 
   _getAllConnectionsData() async {
-    connections = await ReadUserData.getAllConnections();
+    connections = await ReadUserData.getPincodeList();
     if (connections.isNotEmpty) {
       setState(() {});
     }
@@ -70,8 +70,8 @@ class _ContactsPageState extends State<ContactsPage> {
             height: 20,
           ),
           if (connections.isNotEmpty)
-            for (int i = 0; i <= connections.length; i++)
-              ListDisplay(connections: connections),
+            //for (int i = 0; i <= connections.length; i++)
+            ListDisplay(connections: connections),
           Text('$connections'),
         ]),
       ),

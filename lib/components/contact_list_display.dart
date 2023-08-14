@@ -5,7 +5,7 @@ import "package:nifti_locapp/components/text_display.dart";
 import "../functions/functions.dart";
 
 class ListDisplay extends StatefulWidget {
-  final Map<String, Object?> connections;
+  final dynamic connections;
 
   const ListDisplay({
     super.key,
@@ -21,7 +21,7 @@ class _ListDisplayState extends State<ListDisplay> {
   late Map<String, Object?> friend = {};
 
   _getConnectionData() async {
-    friend = await ReadUserData.getConnectionData(code);
+    friend = await ReadUserData.getConnectionData('4837');
     setState(() {});
     return friend;
   }
