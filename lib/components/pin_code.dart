@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:nifti_locapp/components/text_display.dart';
-import 'package:nifti_locapp/components/connection_modal.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../functions/functions.dart';
-import 'package:nifti_locapp/functions/frontend.dart';
+import '../functions/frontend.dart';
+import 'package:nifti_locapp/components/button.dart';
+import 'package:nifti_locapp/components/text_display.dart';
+import 'package:nifti_locapp/components/connection_modal.dart';
 
 // ? PinCodeVerificationScreen == widget to display and capture user's unique pin
 
@@ -28,7 +29,7 @@ class PinCodeVerificationScreen extends StatefulWidget {
 class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   TextEditingController textEditingController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
-
+  // Variables
   bool hasError = false;
   String currentText = '';
   final formKey = GlobalKey<FormState>();
@@ -37,6 +38,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   String pincode = '';
   String staticPin = '';
 
+  // ? get user's code and store in staticPin
   _getPincode() async {
     if (staticPin != '') {
       setState(() {});
@@ -46,6 +48,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
     }
   }
 
+  // ? get connections data and store in Map<> friend
   _getConnectionData(String staticPin) async {
     if (staticPin != '') {
       friend = await ReadUserData.getConnectionData(staticPin);
@@ -56,6 +59,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
     }
   }
 
+  // Run functions on page load
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
@@ -70,7 +74,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
     super.dispose();
   }
 
-  // snackBar Widget
+  // ? snackBar Widget
   snackBar(String? message) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -79,6 +83,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
       ),
     );
   }
+
   // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
@@ -168,120 +173,166 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   ),
                 ),
               ),
+              // Space between
+              const SizedBox(height: 10),
+              // ? Entry prompt
+              const Text("Add Connection",
+                  style: TextStyle(
+                      letterSpacing: 0.8,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: Color.fromRGBO(134, 151, 175, 1))),
+              const Text('Tell them your code & enter theirs!',
+                  style: TextStyle(
+                      letterSpacing: 0.8,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(134, 151, 175, 1))),
               const SizedBox(
-                height: 10,
+                height: 25,
               ),
+
               // ? Clear & Verify Buttons
-              Row(
-                children: [
-                  // ? Clear cell button
-                  IconButton(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    alignment: Alignment.centerLeft,
-                    icon: const Icon(Icons.backspace),
-                    iconSize: 33,
-                    color: const Color.fromRGBO(255, 159, 180, 1),
-                    onPressed: () {
-                      textEditingController.clear();
-                    },
-                  ),
-
-                  // Verify Button
-                  Container(
-                    width: 270,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 13),
-                    decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                            begin: Alignment.bottomLeft,
-                            end: Alignment.topRight,
-                            colors: [
-                              Color.fromRGBO(209, 147, 246, 1),
-                              Color.fromRGBO(115, 142, 247, 1),
-                              Color.fromRGBO(116, 215, 247, 1),
-                            ]),
-                        borderRadius: BorderRadius.circular(30),
-
-                        // Drop shadow
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color.fromRGBO(203, 211, 223, 1),
-                            offset: Offset(
-                              1.0,
-                              1.0,
-                            ),
-                            blurRadius: 1.0,
-                            spreadRadius: 1.0,
-                          ),
-                        ]),
-                    child: ButtonTheme(
-                      height: 50,
-                      // ? onPressed Functionalities
-                      child: TextButton(
-                        onPressed: () async {
-                          formKey.currentState!.validate();
-                          // conditions for validating
-                          if (currentText.length != 4) {
-                            errorController!.add(ErrorAnimationType
-                                .shake); // Triggering error shake animation
-                            setState(() => hasError = true);
-                          } else {
-                            UserPincode(pincode: currentText);
-                            staticPin =
-                                await UserPincode.getStaticPincode(currentText);
-                            friend = await _getConnectionData(staticPin);
-                            setState(
-                              () async {
-                                hasError = false;
-                                if ('${friend['firstName']}' == 'null') {
-                                  displayErrorMessage(context,
-                                      "Oops! That's an invalid code. Please try again 👀");
-                                  const SizedBox(
-                                    height: 50,
-                                  );
-                                  /*snackBar(
-                                    "OTP Not Found!!");*/
-                                } else {
-                                  /*snackBar(
-                                    "OTP Verified!! $staticPin, ${friend['firstName']}");*/
-                                  // Clear code when matched
-                                  textEditingController.clear();
-                                  // Modal with matching connections details
-
-                                  displayModalBottomSheet(
-                                    context,
-                                    '${friend['firstName']}'
-                                        ' ${friend['lastName']}',
-                                    '${friend['bio']}',
-                                    '${friend['pronouns']}',
-                                    '${friend['industry']}',
-                                    '${friend['city/town']}',
-                                    '${friend['role']}',
-                                    '${friend['company']}',
-                                    '${friend['yearsWorked']}',
-                                  );
-                                }
-                              },
-                            );
-                          }
-                        },
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: TextDisplay(
-                                  text: 'CONNECT',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromRGBO(252, 247, 244, 1)),
-                            ),
+              Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    // Button border & drop shadow
+                    Container(
+                      height: 42,
+                      width: 80,
+                      decoration: const BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(203, 211, 223, 1),
+                              offset: Offset(
+                                1.0,
+                                1.0,
+                              ),
+                              blurRadius: 1.0,
+                              spreadRadius: 1.0,
+                            ), //BoxShadow
                           ],
+                          color: Color.fromRGBO(255, 159, 180, 1),
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                    ),
+                    // Clear Button
+                    ButtonComponent(
+                      onTap: () {
+                        textEditingController.clear();
+                      },
+                      text: 'Clear',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: const Color.fromRGBO(252, 247, 244, 1),
+                      fontColor: const Color.fromRGBO(255, 159, 180, 1),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 10),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                // ? Connect Button
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    // Button border & drop shadow
+                    Container(
+                      height: 52,
+                      width: 234,
+                      decoration: const BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(203, 211, 223, 1),
+                              offset: Offset(
+                                1.0,
+                                1.0,
+                              ),
+                              blurRadius: 1.0,
+                              spreadRadius: 1.0,
+                            ), //BoxShadow
+                          ],
+                          color: Color.fromRGBO(121, 212, 189, 1),
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                    ),
+                    // Verify Button
+                    Container(
+                      width: 230,
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(235, 254, 244, 1),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: ButtonTheme(
+                        //height: 50,
+                        // ? onPressed Functionalities
+                        child: TextButton(
+                          onPressed: () async {
+                            formKey.currentState!.validate();
+                            // conditions for validating
+                            if (currentText.length != 4) {
+                              errorController!.add(ErrorAnimationType
+                                  .shake); // Triggering error shake animation
+                              setState(() => hasError = true);
+                            } else {
+                              UserPincode(pincode: currentText);
+                              staticPin = await UserPincode.getStaticPincode(
+                                  currentText);
+                              friend = await _getConnectionData(staticPin);
+                              setState(
+                                () async {
+                                  hasError = false;
+                                  if ('${friend['firstName']}' == 'null') {
+                                    displayErrorMessage(context,
+                                        "Oops! That's an invalid code. Please try again 👀");
+                                    const SizedBox(
+                                      height: 50,
+                                    );
+                                    /*snackBar(
+                                    "OTP Not Found!!");*/
+                                  } else {
+                                    /*snackBar(
+                                    "OTP Verified!! $staticPin, ${friend['firstName']}");*/
+                                    // Clear code when matched
+                                    textEditingController.clear();
+                                    // Modal with matching connections details
+
+                                    displayModalBottomSheet(
+                                      context,
+                                      '${friend['firstName']}'
+                                          ' ${friend['lastName']}',
+                                      '${friend['bio']}',
+                                      '${friend['pronouns']}',
+                                      '${friend['industry']}',
+                                      '${friend['city/town']}',
+                                      '${friend['role']}',
+                                      '${friend['company']}',
+                                      '${friend['yearsWorked']}',
+                                    );
+                                  }
+                                },
+                              );
+                            }
+                          },
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: TextDisplay(
+                                    text: 'CONNECT',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(121, 212, 189, 1)),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ]),
             ],
           ),
         ),
