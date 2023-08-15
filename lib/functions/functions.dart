@@ -60,9 +60,9 @@ class ReadUserData {
   // ? get profileImage from storage
   static getProfileImageUrl() async {
     // user
-  final currentUser = FirebaseAuth.instance.currentUser!;
-  // Storage image variables
-  final storage = FirebaseStorage.instance.ref();
+    final currentUser = FirebaseAuth.instance.currentUser!;
+    // Storage image variables
+    final storage = FirebaseStorage.instance.ref();
 
     // get reference to image file in Firebase Storage
     final storageReference = storage.child(currentUser.uid);
@@ -84,9 +84,31 @@ class ReadUserData {
         .then((querySnapshot) {
       for (var docSnapshot in querySnapshot.docs) {
         data = docSnapshot.data();
+
+      // Get the profile image URL using the user ID
+      // ! below code == broken :( 
+      // ! when this is uncommented then none of the connection's data is displayed
+      // ! when commented this data is displayed minus the profile image 
+      /*String userId = data['userID']; 
+      String imageUrl = getConnectionImageUrl(userId);
+      data['imageLink'] = imageUrl; */
       }
     });
     return data;
+  }
+
+  // ? get connections profileImage from storage
+  static getConnectionImageUrl(String userId) async {
+    // Storage image variables
+    final storage = FirebaseStorage.instance.ref();
+    // get reference to image file in Firebase Storage
+    final storageReference = storage.child(userId); // Use the provided user ID
+    Reference referenceGetImage = storageReference.child('profileImage');
+    // get the imageUrl to downloadURL
+    final url = await referenceGetImage.getDownloadURL();
+    String imageUrl = url;
+
+    return imageUrl;
   }
 
   // ? Reading connection data from Firestore using otp
@@ -134,6 +156,7 @@ class StoreUserData {
     String company,
     String yearsWorked,
     String code,
+    String userID,
   ) async {
     // Error Variable
     String response = "Error Occured";
@@ -151,6 +174,7 @@ class StoreUserData {
         'company': company,
         'yearsWorked': yearsWorked,
         'pincode': code,
+        'userID': _niftiFireUser,
       });
       response = 'Success';
     } catch (error) {

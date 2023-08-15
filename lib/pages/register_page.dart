@@ -42,6 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _companyName = TextEditingController();
   String _yearsWorked = '';
   String _createCode = '';
+  final String _userID = '';
 
   // ? Stepper Variable
   int currentStep = 0;
@@ -143,6 +144,7 @@ class _RegisterPageState extends State<RegisterPage> {
         _companyName.text.trim(),
         _yearsWorked,
         _createCode,
+        _userID,
       );
       StoreUserData().addUserImage(_profileImage!);
       StoreUserData().updateFirestoreImageLink(_profileImage!);
