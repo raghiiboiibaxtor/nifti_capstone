@@ -125,8 +125,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 'images/defaultProfileImage.png'),
                             child: CircleAvatar(
                               radius: 40,
-                              backgroundImage:
-                                  NetworkImage('${details['imageLink']}', scale: 1.0),
+                              backgroundImage: NetworkImage(
+                                  '${details['imageLink']}',
+                                  scale: 1.0),
                             ),
                           )
                         : const CircleAvatar(
@@ -137,17 +138,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 // ? Display Full Name
-                  // Full Name
-                  TextDisplay(
-                    text: '${details['firstName']}' ' ${details['lastName']}',
-                    fontSize: 33,
-                    fontWeight: FontWeight.w600,
-                    color: const Color.fromRGBO(133, 157, 194, 1),
-                  ),
-                  // Space between first & last name
-                  const SizedBox(
-                    width: 8,
-                  ),// End of name ROW
+                // Full Name
+                TextDisplay(
+                  text: '${details['firstName']}' ' ${details['lastName']}',
+                  fontSize: 33,
+                  fontWeight: FontWeight.w600,
+                  color: const Color.fromRGBO(133, 157, 194, 1),
+                ),
+                // Space between first & last name
+                const SizedBox(
+                  width: 8,
+                ), // End of name ROW
 
                 // ? Display Bio
                 TextDisplay(
@@ -406,8 +407,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                       width: 360,
                                       height: 110,
                                       onPressed: selectBanner,
-                                      image:
-                                          NetworkImage('${details['bannerImageLink']}', scale: 1.0))
+                                      image: NetworkImage(
+                                          '${details['bannerImageLink']}',
+                                          scale: 1.0))
                                   : // Prompt text
                                   Container(
                                       alignment: Alignment.center,
@@ -443,7 +445,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                           width: 110,
                                           height: 110,
                                           onPressed: selectSquare1,
-                                          image: NetworkImage('${details['square1ImageLink']}',
+                                          image: NetworkImage(
+                                              '${details['square1ImageLink']}',
                                               scale: 1.0))
                                       :
                                       // Will show as empty space while keeping image spacing the same
@@ -466,7 +469,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                           width: 110,
                                           height: 110,
                                           onPressed: selectSquare2,
-                                          image: NetworkImage('${details['square2ImageLink']}',
+                                          image: NetworkImage(
+                                              '${details['square2ImageLink']}',
                                               scale: 1.0))
                                       : // Will show as empty space while keeping image spacing the same
                                       Container(
@@ -488,7 +492,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                           width: 110,
                                           height: 110,
                                           onPressed: selectSquare3,
-                                          image: NetworkImage('${details['square3ImageLink']}',
+                                          image: NetworkImage(
+                                              '${details['square3ImageLink']}',
                                               scale: 1.0))
                                       : // Will show as empty space while keeping image spacing the same
                                       Container(
