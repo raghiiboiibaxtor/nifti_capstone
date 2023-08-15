@@ -57,22 +57,6 @@ class ReadUserData {
     return data;
   }
 
-  // ? get profileImage from storage
-  static getProfileImageUrl() async {
-    // user
-  final currentUser = FirebaseAuth.instance.currentUser!;
-  // Storage image variables
-  final storage = FirebaseStorage.instance.ref();
-
-    // get reference to image file in Firebase Storage
-    final storageReference = storage.child(currentUser.uid);
-    Reference referenceGetImage = storageReference.child('profileImage');
-    // get the imageUrl to downloadURL
-    final url = await referenceGetImage.getDownloadURL();
-    String imageUrl = url;
-    return imageUrl;
-  }
-
   // ? Reading connection data from Firestore using otp
   static getConnectionData(String pincode) async {
     // ? Finding the pincode in Firestore
@@ -110,8 +94,6 @@ class ReadUserData {
     }
     return data;
   }
-
-  //
 }
 
 // ? Adding User Details to FireStore & Storage
@@ -134,6 +116,7 @@ class StoreUserData {
     String company,
     String yearsWorked,
     String code,
+    String userID,
   ) async {
     // Error Variable
     String response = "Error Occured";
@@ -151,6 +134,7 @@ class StoreUserData {
         'company': company,
         'yearsWorked': yearsWorked,
         'pincode': code,
+        'userID': _niftiFireUser,
       });
       response = 'Success';
     } catch (error) {

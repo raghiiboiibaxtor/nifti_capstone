@@ -12,7 +12,8 @@ displayModalBottomSheet(
     String city,
     String role,
     String company,
-    String yearsWorked) {
+    String yearsWorked,
+    String profileImageUrl) {
   // ? Build Context
   showModalBottomSheet(
       context: context,
@@ -26,27 +27,19 @@ displayModalBottomSheet(
             padding:
                 const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 15),
             child: ListView(children: [
-              const Stack(
+              Stack(
                 children: [
                   // Profile picture
-                  /*userData['imageLink'] != null
-                            ? 
-                            CircleAvatar(
-                                radius: 45,
-                                backgroundImage: const AssetImage(
-                                    'images/defaultProfileImage.png'),
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundImage:
-                                      NetworkImage(imageUrl, scale: 1.0),
-                                ),
-                              )
-                            : */
                   CircleAvatar(
                     radius: 45,
                     backgroundImage:
-                        AssetImage('images/defaultProfileImage.png'),
-                  ),
+                        const AssetImage('images/defaultProfileImage.png'),
+                    child: CircleAvatar(
+                      radius: 40,
+                      backgroundImage:
+                          NetworkImage(profileImageUrl, scale: 1.0),
+                    ),
+                  )
                 ],
               ),
               // Space between

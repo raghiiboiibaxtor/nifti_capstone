@@ -27,8 +27,12 @@ class Connector extends StatefulWidget {
 
 // * ---------------- * (STATE) CLASS _ConnectorState (STATE) * ---------------- *
 class _ConnectorState extends State<Connector> {
+  // Variables
   late Map<String, Object?> details = {};
+  late Map<String, Object?> friend = {};
+  String pincode = '';
 
+  // ? get user's data and store in Map<> details
   _getProfileData() async {
     details = await ReadUserData.getProfileData();
     if (details.isNotEmpty) {
@@ -39,32 +43,18 @@ class _ConnectorState extends State<Connector> {
     return details;
   }
 
-  late Map<String, Object?> friend = {};
-  String pincode = '';
-
+  // ? get connection's code data
   _getConnectionData() async {
     friend = await ReadUserData.getConnectionData(pincode);
     setState(() {});
     return friend;
   }
 
-  String imageUrl = '';
-
-  // ? get profileImage from storage
-  _getProfileImageUrl() async {
-    // get reference to image file in Firebase Storage
-    imageUrl = await ReadUserData.getProfileImageUrl();
-    //imageUrl = url;
-    setState(() {
-      imageUrl;
-    });
-  }
-
+  // Run functions on page load
   @override
   initState() {
     _getProfileData();
     _getConnectionData();
-    _getProfileImageUrl();
     super.initState();
   }
 
@@ -77,9 +67,6 @@ class _ConnectorState extends State<Connector> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Center(
                 child: Column(
-                    //crossAxisAlignment: CrossAxisAlignment.center,
-                    //mainAxisAlignment: MainAxisAlignment.center,
-                    //crossAxisAlignment: CrossAxisAlignment.top,
                     children: [
                   const SizedBox(
                     height: 70,
@@ -100,7 +87,7 @@ class _ConnectorState extends State<Connector> {
                                 child: CircleAvatar(
                                   radius: 45,
                                   backgroundImage:
-                                      NetworkImage(imageUrl, scale: 1.0),
+                                      NetworkImage('${details['imageLink']}', scale: 1.0),
                                 ),
                               )
                             :

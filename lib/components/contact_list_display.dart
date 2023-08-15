@@ -10,21 +10,28 @@ class ListDisplay extends StatefulWidget {
   final String name;
   final String role;
   final String email;
+  final String profileImageUrl;
   // Required variables to be passed
-  const ListDisplay({super.key, this.name = '', this.role = '', this.email = ''
-      });
+  const ListDisplay({
+    super.key,
+    this.name = '',
+    this.role = '',
+    this.email = '',
+    this.profileImageUrl = '',
+  });
 
   @override
   State<ListDisplay> createState() => _ListDisplayState();
 }
 // * ---------------- * END OF (STATE) CLASS ListDisplay (STATE) * ---------------- *
 
-// * ---------------- * (STATE) CLASS _ListDisplayState (STATE) * ---------------- 
+// * ---------------- * (STATE) CLASS _ListDisplayState (STATE) * ----------------
 class _ListDisplayState extends State<ListDisplay> {
   @override
   void initState() {
     super.initState();
   }
+
   // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
@@ -38,26 +45,19 @@ class _ListDisplayState extends State<ListDisplay> {
         height: 90,
         child: Row(
           children: [
-            const Stack(
+            Stack(
               children: [
                 // Profile picture
-                /*friend['imageLink']  != null
-                            ? 
-                            CircleAvatar(
-                                radius: 45,
-                                backgroundImage: const AssetImage(
-                                    'images/defaultProfileImage.png'),
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundImage:
-                                      NetworkImage(imageUrl, scale: 1.0),
-                                ),
-                              )
-                            : */
                 CircleAvatar(
                   radius: 35,
-                  backgroundImage: AssetImage('images/defaultProfileImage.png'),
-                ),
+                  backgroundImage:
+                      const AssetImage('images/defaultProfileImage.png'),
+                  child: CircleAvatar(
+                    radius: 32,
+                    backgroundImage:
+                        NetworkImage(widget.profileImageUrl, scale: 1.0),
+                  ),
+                )
               ],
             ),
             // space between

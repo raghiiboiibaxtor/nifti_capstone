@@ -30,6 +30,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   TextEditingController textEditingController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
   // Variables
+  String imageUrl = '';
   bool hasError = false;
   String currentText = '';
   final formKey = GlobalKey<FormState>();
@@ -65,6 +66,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
     errorController = StreamController<ErrorAnimationType>();
     _getPincode();
     _getConnectionData(staticPin);
+    // _getConnectionImageUrl();
     super.initState();
   }
 
@@ -309,6 +311,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                                       '${friend['role']}',
                                       '${friend['company']}',
                                       '${friend['yearsWorked']}',
+                                      '${friend['imageLink']}',
                                     );
                                   }
                                 },

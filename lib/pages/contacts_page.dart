@@ -20,6 +20,7 @@ class _ContactsPageState extends State<ContactsPage> {
   late dynamic pincodes = [];
   late String code = '';
   late List<Map<String, Object?>> friends = [];
+  String imageUrl = '';
 
   // ? get connection data that matches array of pincodes and store in Map<> friends
   _getAllConnectionsData() async {
@@ -47,6 +48,7 @@ class _ContactsPageState extends State<ContactsPage> {
           name: '${friend['firstName']} ${friend['lastName']}',
           role: '${friend['role']}',
           email: '${friend['email']}',
+          profileImageUrl: '${friend['imageLink']}',
         ),
       );
     }
@@ -57,6 +59,7 @@ class _ContactsPageState extends State<ContactsPage> {
   @override
   void initState() {
     _getAllConnectionsData();
+
     super.initState();
   }
 

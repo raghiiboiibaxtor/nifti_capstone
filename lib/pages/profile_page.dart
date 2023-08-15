@@ -28,18 +28,12 @@ class _ProfilePageState extends State<ProfilePage> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   // Storage image variables
   final storage = FirebaseStorage.instance.ref();
-  String imageUrl = '';
-  String bannerUrl = '';
-  String square1Url = '';
-  String square2Url = '';
-  String square3Url = '';
   Uint8List? _bannerImage;
   Uint8List? _squareImage1;
   Uint8List? _squareImage2;
   Uint8List? _squareImage3;
   bool displayImageEdit = false;
   bool displayImages = true;
-
   late Map<String, Object?> details = {};
 
   // ? get user's data and store in Map<> details
@@ -51,44 +45,6 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     }
     return details;
-  }
-
-  // ? get profileImage from storage
-  _getProfileImageUrl() async {
-    // get reference to image file in Firebase Storage
-    imageUrl = await ReadUserData.getProfileImageUrl();
-    //imageUrl = url;
-    setState(() {
-      imageUrl;
-    });
-  }
-
-  // ? get pageImages from storage
-  Future getUserImagesUrl(
-    String banner,
-    String square1,
-    String square2,
-    String square3,
-  ) async {
-    // get reference to image file in Firebase Storage
-    final storageReference = storage.child(currentUser.uid);
-    Reference referenceGetBanner = storageReference.child('banner');
-    Reference referenceGetSquare1 = storageReference.child('square1');
-    Reference referenceGetSquare2 = storageReference.child('square2');
-    Reference referenceGetSquare3 = storageReference.child('square3');
-
-    // get the imageUrl to downloadURL
-    final url = await referenceGetBanner.getDownloadURL();
-    final url1 = await referenceGetSquare1.getDownloadURL();
-    final url2 = await referenceGetSquare2.getDownloadURL();
-    final url3 = await referenceGetSquare3.getDownloadURL();
-
-    setState(() {
-      bannerUrl = url;
-      square1Url = url1;
-      square2Url = url2;
-      square3Url = url3;
-    });
   }
 
   // ? Save images when save icon selected
@@ -146,9 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _getProfileImageUrl();
     _getProfileData();
-    getUserImagesUrl('banner', 'square1', 'square2', 'square3');
   }
 
   // * ---------------- * (BUILD WIDGET) * ---------------- *
@@ -172,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: CircleAvatar(
                               radius: 40,
                               backgroundImage:
-                                  NetworkImage(imageUrl, scale: 1.0),
+                                  NetworkImage('${details['imageLink']}', scale: 1.0),
                             ),
                           )
                         : const CircleAvatar(
@@ -183,10 +137,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 // ? Display Full Name
-                Row(children: [
-                  // First Name
+                  // Full Name
                   TextDisplay(
-                    text: details['firstName'].toString(),
+                    text: '${details['firstName']}' ' ${details['lastName']}',
                     fontSize: 33,
                     fontWeight: FontWeight.w600,
                     color: const Color.fromRGBO(133, 157, 194, 1),
@@ -194,19 +147,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   // Space between first & last name
                   const SizedBox(
                     width: 8,
-                  ),
-                  // Last Name
-                  TextDisplay(
-                    text: details['lastName'].toString(),
-                    fontSize: 33,
-                    fontWeight: FontWeight.w600,
-                    color: const Color.fromRGBO(133, 157, 194, 1),
-                  ),
-                ]), // End of name ROW
+                  ),// End of name ROW
 
                 // ? Display Bio
                 TextDisplay(
-                  text: details['bio'].toString(),
+                  text: '${details['bio']}',
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   color: const Color.fromRGBO(133, 157, 194, 1),
@@ -242,7 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   // City / Town
                   TextDisplay(
-                    text: details['city/town'].toString(),
+                    text: '${details['city/town']}',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: const Color.fromRGBO(209, 147, 246, 1),
@@ -284,7 +229,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     // Role
                     TextDisplay(
-                      text: details['role'].toString(),
+                      text: '${details['role']}',
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
                       color: const Color.fromRGBO(133, 157, 194, 1),
@@ -310,14 +255,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     // Company
                     TextDisplay(
-                      text: details['company'].toString(),
+                      text: '${details['company']}',
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                       color: const Color.fromRGBO(133, 157, 194, 1),
                     ),
                   ],
                 ),
-
+                // Space between
                 const SizedBox(
                   height: 5,
                 ),
@@ -336,14 +281,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     // Years worked
                     TextDisplay(
-                      text: details['yearsWorked'].toString(),
+                      text: '${details['yearsWorked']}',
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                       color: const Color.fromRGBO(133, 157, 194, 1),
                     ),
                   ],
                 ),
-
+                // Space between
                 const SizedBox(
                   height: 5,
                 ),
@@ -363,7 +308,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     // ? Email display + copy
                     GestureDetector(
                       child: CopyTool(
-                        text: details['email'].toString(),
+                        text: '${details['email']}',
                         fontSize: 14,
                       ),
                       onTap: () {},
@@ -436,9 +381,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         saveImages();
                         // Timer delay added to show updated images
                         Timer(const Duration(seconds: 1), () {
-                          // get images to display on profile
-                          getUserImagesUrl(
-                              'banner', 'square1', 'square2', 'square3');
                           setState(() {
                             displayImageEdit = false;
                             displayImages = true;
@@ -465,7 +407,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       height: 110,
                                       onPressed: selectBanner,
                                       image:
-                                          NetworkImage(bannerUrl, scale: 1.0))
+                                          NetworkImage('${details['bannerImageLink']}', scale: 1.0))
                                   : // Prompt text
                                   Container(
                                       alignment: Alignment.center,
@@ -501,7 +443,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           width: 110,
                                           height: 110,
                                           onPressed: selectSquare1,
-                                          image: NetworkImage(square1Url,
+                                          image: NetworkImage('${details['square1ImageLink']}',
                                               scale: 1.0))
                                       :
                                       // Will show as empty space while keeping image spacing the same
@@ -524,7 +466,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           width: 110,
                                           height: 110,
                                           onPressed: selectSquare2,
-                                          image: NetworkImage(square2Url,
+                                          image: NetworkImage('${details['square2ImageLink']}',
                                               scale: 1.0))
                                       : // Will show as empty space while keeping image spacing the same
                                       Container(
@@ -546,7 +488,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           width: 110,
                                           height: 110,
                                           onPressed: selectSquare3,
-                                          image: NetworkImage(square3Url,
+                                          image: NetworkImage('${details['square3ImageLink']}',
                                               scale: 1.0))
                                       : // Will show as empty space while keeping image spacing the same
                                       Container(
