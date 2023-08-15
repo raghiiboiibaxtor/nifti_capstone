@@ -26,7 +26,7 @@ class CreateRandom {
 }
 
 /////\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\\\\\\\\\\
-// ! FIREBASE 🔥 ------------------------------- 🔥
+// ! FIRESTORE 🔥 ------------------------------- 🔥
 //
 
 class UserPincode {
@@ -143,6 +143,42 @@ class StoreUserData {
     return response;
   }
 
+  static updateConnectionsPincode(String pincode) async {
+    var collectionReference = FirebaseFirestore.instance.collection('users');
+    var niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
+    String pin = await UserPincode.getStaticPincode(pincode);
+    try {
+      final DocumentSnapshot<Map<String, dynamic>> docSnapshot =
+          await collectionReference.doc(niftiFireUser).get();
+
+      if (docSnapshot.exists) {
+        final List<dynamic>? snapshot = docSnapshot.data()?['connections'];
+
+        if (snapshot != null) {
+          final code = [...snapshot, pin]; // Add your new element
+
+          await collectionReference.doc(niftiFireUser).update({
+            'connections': code,
+          });
+        }
+      } else {}
+    } catch (e) {
+      //print('Error updating array: $e');
+    }
+
+    /*  if (pincode != '') {
+      pincode = 'notnull';
+      await collectionReference
+          .doc(niftiFireUser)
+          .update({"connections": pincode});
+      return pincode;
+    } else {
+      return pincode = 'lame';
+    }*/
+  }
+
+// ! FIREBASE-STORAGE 🔥💿 ------------------------------- 💿🔥
+
   // ? Update Add profile image to storage
   Future addUserImage(Uint8List file) async {
     // Reference points to object in memory
@@ -152,10 +188,10 @@ class StoreUserData {
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirectory =
         referenceRoot.child(_niftiFireUser.toString());
-    // Create reference for image storage
+    // ? Create reference for image storage
     Reference referenceImageUpload = referenceDirectory.child('profileImage');
 
-    // UploadTask upload data to remote storage
+    // ? UploadTask upload data to remote storage
     UploadTask uploadTask = referenceImageUpload.putData(file);
     // TaskSnapshot represents current state of an aync task
     TaskSnapshot snapshot = await uploadTask;

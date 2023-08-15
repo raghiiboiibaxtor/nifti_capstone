@@ -312,6 +312,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                                       '${friend['company']}',
                                       '${friend['yearsWorked']}',
                                       '${friend['imageLink']}',
+                                      '${friend['pincode']}',
                                     );
                                   }
                                 },
