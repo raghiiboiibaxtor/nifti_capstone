@@ -60,23 +60,13 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
     }
   }
 
-   // ? get profileImage from storage
-  _getConnectionImageUrl() async {
-    // get reference to image file in Firebase Storage
-    imageUrl = await ReadUserData.getConnectionImageUrl('');
-    //imageUrl = url;
-    setState(() {
-      imageUrl;
-    });
-  }
-
   // Run functions on page load
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     _getPincode();
     _getConnectionData(staticPin);
-    _getConnectionImageUrl();
+    // _getConnectionImageUrl();
     super.initState();
   }
 
@@ -321,7 +311,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                                       '${friend['role']}',
                                       '${friend['company']}',
                                       '${friend['yearsWorked']}',
-                                      imageUrl,
+                                      '${friend['imageLink']}',
                                     );
                                   }
                                 },

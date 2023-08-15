@@ -84,31 +84,9 @@ class ReadUserData {
         .then((querySnapshot) {
       for (var docSnapshot in querySnapshot.docs) {
         data = docSnapshot.data();
-
-      // Get the profile image URL using the user ID
-      // ! below code == broken :( 
-      // ! when this is uncommented then none of the connection's data is displayed
-      // ! when commented this data is displayed minus the profile image 
-      /*String userId = data['userID']; 
-      String imageUrl = getConnectionImageUrl(userId);
-      data['imageLink'] = imageUrl; */
       }
     });
     return data;
-  }
-
-  // ? get connections profileImage from storage
-  static getConnectionImageUrl(String userId) async {
-    // Storage image variables
-    final storage = FirebaseStorage.instance.ref();
-    // get reference to image file in Firebase Storage
-    final storageReference = storage.child(userId); // Use the provided user ID
-    Reference referenceGetImage = storageReference.child('profileImage');
-    // get the imageUrl to downloadURL
-    final url = await referenceGetImage.getDownloadURL();
-    String imageUrl = url;
-
-    return imageUrl;
   }
 
   // ? Reading connection data from Firestore using otp
@@ -132,8 +110,6 @@ class ReadUserData {
     }
     return data;
   }
-
-  //
 }
 
 // ? Adding User Details to FireStore & Storage
