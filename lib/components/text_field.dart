@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 // * ---------------- * (STATELESS WIDGET) CLASS TextFieldComponent (STATELESS WIDGET) * ---------------- *
 class TextFieldComponent extends StatelessWidget {
-  // Component Variables
+  // ? Component Variables
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
-  // Required variables to be passed
+  // ? Required variables to be passed
   const TextFieldComponent({
     super.key,
     required this.controller,

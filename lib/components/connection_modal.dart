@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/components/button.dart';
-
 import '../functions/functions.dart';
 
 // ? CONTACT CARD MODAL
 displayModalBottomSheet(
+    // ? Passing required variables for modal display
     context,
     String name,
     String bio,
@@ -32,7 +32,7 @@ displayModalBottomSheet(
             child: ListView(children: [
               Stack(
                 children: [
-                  // Profile picture
+                  // ? Profile picture
                   CircleAvatar(
                     radius: 45,
                     backgroundImage:
@@ -45,20 +45,20 @@ displayModalBottomSheet(
                   )
                 ],
               ),
-              // Space between
+              // ? Space between
               const SizedBox(
                 height: 5,
               ),
               // ? Display Full Name
 
-              // First Name
+              // ? First Name
               TextDisplay(
                 text: name,
                 fontSize: 33,
                 fontWeight: FontWeight.w600,
                 color: const Color.fromRGBO(133, 157, 194, 1),
               ),
-              // Space between first & last name
+              // ? Space between first & last name
               const SizedBox(
                 width: 8,
               ),
@@ -70,36 +70,36 @@ displayModalBottomSheet(
                 fontWeight: FontWeight.w500,
                 color: const Color.fromRGBO(133, 157, 194, 1),
               ),
-              // Space between bio and tags
+              // ? Space between bio and tags
               const SizedBox(
                 height: 5,
               ),
 
               // ? Tags = Pronouns, Industry, City
               Wrap(children: [
-                // Pronouns
+                // ? Pronouns
                 TextDisplay(
                   text: '$pronouns   |',
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: const Color.fromRGBO(116, 215, 247, 1),
                 ),
-                // Space between tags
+                // ? Space between tags
                 const SizedBox(
                   width: 10,
                 ),
-                // Industry / Field
+                // ? Industry / Field
                 TextDisplay(
                   text: '$industry   |',
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: const Color.fromRGBO(115, 142, 247, 1),
                 ),
-                // Space between tags
+                // ? Space between tags
                 const SizedBox(
                   width: 10,
                 ),
-                // City / Town
+                // ? City / Town
                 TextDisplay(
                   text: city,
                   fontSize: 14,
@@ -108,16 +108,16 @@ displayModalBottomSheet(
                 )
               ]), // End of Tag ROW
 
-              // Space between
+              // ? Space between
               const SizedBox(
                 height: 7,
               ),
 
-              // Divide line
+              // ? Divide line
               const Divider(
                   thickness: 0.5, color: Color.fromRGBO(133, 157, 194, 0.422)),
 
-              // Space between divide & role
+              // ? Space between divide & role
               const SizedBox(
                 height: 7,
               ),
@@ -129,7 +129,7 @@ displayModalBottomSheet(
                 color: Color.fromRGBO(133, 157, 194, 1),
               ),
 
-              // Space between
+              // ? Space between
               const SizedBox(
                 height: 10,
               ),
@@ -142,11 +142,11 @@ displayModalBottomSheet(
                     size: 15,
                     color: Color.fromRGBO(133, 157, 194, 1),
                   ),
-                  // Space between icon & role
+                  // ? Space between icon & role
                   const SizedBox(
                     width: 5,
                   ),
-                  // Role
+                  // ? Role
                   TextDisplay(
                     text: role,
                     fontSize: 14,
@@ -156,7 +156,7 @@ displayModalBottomSheet(
                 ],
               ),
 
-              // Space between
+              // ? Space between
               const SizedBox(
                 height: 5,
               ),
@@ -169,11 +169,11 @@ displayModalBottomSheet(
                     size: 14,
                     color: Color.fromRGBO(133, 157, 194, 1),
                   ),
-                  // Space between icon & company
+                  // ? Space between icon & company
                   const SizedBox(
                     width: 7,
                   ),
-                  // Company
+                  // ? Company
                   TextDisplay(
                     text: company,
                     fontSize: 13,
@@ -183,7 +183,7 @@ displayModalBottomSheet(
                 ],
               ),
 
-              // Space between
+              // ? Space between
               const SizedBox(
                 height: 5,
               ),
@@ -196,11 +196,11 @@ displayModalBottomSheet(
                     size: 14,
                     color: Color.fromRGBO(133, 157, 194, 1),
                   ),
-                  // Space between icon & years
+                  // ? Space between icon & years
                   const SizedBox(
                     width: 7,
                   ),
-                  // Years worked
+                  // ? Years worked
                   TextDisplay(
                     text: yearsWorked,
                     fontSize: 13,
@@ -214,7 +214,7 @@ displayModalBottomSheet(
                 height: 5,
               ),
 
-              // Divide line
+              // ? Divide line
               const Divider(
                   thickness: 0.5, color: Color.fromRGBO(133, 157, 194, 0.422)),
 
@@ -227,7 +227,7 @@ displayModalBottomSheet(
                 Stack(
                   alignment: AlignmentDirectional.center,
                   children: [
-                    // Button border & drop shadow
+                    // ? Button border & drop shadow
                     Container(
                       margin: const EdgeInsets.symmetric(
                         horizontal: 15,
@@ -244,15 +244,15 @@ displayModalBottomSheet(
                               ),
                               blurRadius: 1.0,
                               spreadRadius: 1.0,
-                            ), //BoxShadow
+                            ), // ? BoxShadow
                           ],
                           color: Color.fromRGBO(255, 159, 180, 1),
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                     ),
-                    // Cancel Button
+                    // ? Cancel Button
                     ButtonComponent(
                       onTap: () {
-                        // Closes modal
+                        // ? Closes modal
                         if (context.mounted) {
                           Navigator.pop(context);
                         }
@@ -268,11 +268,11 @@ displayModalBottomSheet(
                   ],
                 ),
 
-                // Confirm Button
+                // ? Confirm Button
                 Stack(
                   alignment: AlignmentDirectional.center,
                   children: [
-                    // Button borader & drop shadow
+                    // ? Button borader & drop shadow
                     Container(
                       margin: const EdgeInsets.symmetric(
                         horizontal: 15,
@@ -289,7 +289,7 @@ displayModalBottomSheet(
                               ),
                               blurRadius: 1.0,
                               spreadRadius: 1.0,
-                            ), //BoxShadow
+                            ), // ? BoxShadow
                           ],
                           color: Color.fromRGBO(121, 212, 189, 1),
                           borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -297,25 +297,23 @@ displayModalBottomSheet(
 
                     ButtonComponent(
                       onTap: () async {
-                        // !  find and add to contact list logic
+                        // ?  find and add to contact list logic
                         await StoreUserData.updateConnectionsPincode(pincode);
-                        // Closes modal
+                        // ? Closes modal
                         if (context.mounted) {
                           Navigator.pop(context);
-
-                          // set up the AlertDialog
-                          // show the dialog
+                          // ? Set up the AlertDialog
+                          // ? Show the dialog
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              // closes alertDialog after 1.5 seconds
+                              // ? Closes alertDialog after 1.5 seconds
                               Future.delayed(const Duration(milliseconds: 1500),
                                   () {
                                 Navigator.pop(context);
                               });
                               return alert = const AlertDialog(
                                   alignment: Alignment.bottomCenter,
-                                  //insetPadding: EdgeInsets.symmetric(horizontal: 300, vertical: 200),
                                   surfaceTintColor:
                                       Color.fromARGB(0, 255, 255, 255),
                                   backgroundColor:
@@ -349,9 +347,9 @@ displayModalBottomSheet(
               ]),
             ]));
       });
-} // END OF *** CONTACT CARD MODAL
+} // ? END OF *** CONTACT CARD MODAL
 
-// Alert dialog
+// ? Alert dialog
 AlertDialog alert = const AlertDialog(
   title: Text(""),
   content: Text(""),

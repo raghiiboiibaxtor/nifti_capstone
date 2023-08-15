@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 // * ---------------- * (STATEFUL WIDGET) CLASS ImageDisplay (STATEFUL WIDGET) * ---------------- *
 class ImageDisplay extends StatefulWidget {
-  // Component Variables
+  // ? Component Variables
   final double width;
   final double height;
   final ImageProvider image;
   final Function()? onPressed;
-  // Required variables to be passed
+  // ? Required variables to be passed
   const ImageDisplay(
       {super.key,
       required this.width,

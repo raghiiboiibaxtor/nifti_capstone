@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:nifti_locapp/components/copy_tool.dart";
 import "package:nifti_locapp/components/text_display.dart";
 
-// ? ListDisplay == widget to display a card with contact details
+//  ListDisplay == widget to display a card with contact details
 
 // * ---------------- * (STATEFUL WIDGET) ListDisplay (STATEFUL WIDGET) * ---------------- *
 class ListDisplay extends StatefulWidget {
@@ -11,7 +11,7 @@ class ListDisplay extends StatefulWidget {
   final String role;
   final String email;
   final String profileImageUrl;
-  // Required variables to be passed
+  // ? Required variables to be passed
   const ListDisplay({
     super.key,
     this.name = '',
@@ -37,7 +37,6 @@ class _ListDisplayState extends State<ListDisplay> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0.1,
-      // color: Colors.transparent,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         alignment: AlignmentDirectional.topStart,
@@ -47,7 +46,7 @@ class _ListDisplayState extends State<ListDisplay> {
           children: [
             Stack(
               children: [
-                // Profile picture
+                // ? Profile picture
                 CircleAvatar(
                   radius: 35,
                   backgroundImage:
@@ -60,20 +59,20 @@ class _ListDisplayState extends State<ListDisplay> {
                 )
               ],
             ),
-            // space between
+            // ? Space between
             const SizedBox(
               width: 10,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Full Name
+                // ? Full Name
                 TextDisplay(
                     text: widget.name,
                     fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: const Color.fromRGBO(133, 157, 194, 1)),
-                // Role
+                // ? Role
                 SizedBox(
                   width: 260,
                   child: TextDisplay(
@@ -83,7 +82,7 @@ class _ListDisplayState extends State<ListDisplay> {
                       color: const Color.fromRGBO(133, 157, 194, 1)),
                 ),
 
-                // space between
+                // ? Space between
                 const SizedBox(
                   height: 3,
                 ),
@@ -95,7 +94,7 @@ class _ListDisplayState extends State<ListDisplay> {
                       size: 15,
                       color: Color.fromRGBO(209, 147, 246, 1),
                     ),
-                    // Space between icon & years
+                    // ? Space between icon & years
                     const SizedBox(
                       width: 7,
                     ),

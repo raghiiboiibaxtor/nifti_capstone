@@ -12,9 +12,9 @@ import 'package:nifti_locapp/components/drop_menu.dart';
 
 // * ---------------- * (STATEFUL WIDGET) CLASS RegisterPage (STATEFUL WIDGET) * ---------------- *
 class RegisterPage extends StatefulWidget {
-  // Component Variables
+  // ? Component Variables
   final Function()? onTap;
-  // Required variables to be passed
+  // ? Required variables to be passed
   const RegisterPage({
     super.key,
     required this.onTap,
@@ -170,12 +170,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    // Space between next widget
+                    // ? Space between next widget
                     const SizedBox(height: 20),
-                    // Name prompt
+                    // ? Name prompt
                     Row(
                       children: [
-                        // First name
+                        // ? First name
                         GradientTextFieldComponent(
                           padding: const EdgeInsets.only(left: 0),
                           width: 150,
@@ -183,7 +183,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           hintText: 'First Name *',
                           obscureText: false,
                         ),
-                        // Last name
+                        // ? Last name
                         GradientTextFieldComponent(
                           padding: const EdgeInsets.only(left: 20.0),
                           width: 170,
@@ -193,10 +193,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ],
                     ),
-                    // Space between next widget
+                    // ? Space between next widget
                     const SizedBox(height: 20),
 
-                    //Email Textfield
+                    // ? Email Textfield
                     GradientTextFieldComponent(
                       padding: const EdgeInsets.symmetric(horizontal: 0.0),
                       width: 350,
@@ -204,36 +204,39 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintText: 'Email *',
                       obscureText: false,
                     ),
-                    // Space between next widget
+                    // ? Space between next widget
                     const SizedBox(height: 20),
 
-                    //Password Textfield
+                    // ? Password Textfield
                     GradientTextFieldComponent(
                         padding: const EdgeInsets.symmetric(horizontal: 0),
                         width: 350,
                         controller: _passwordController,
                         hintText: 'Password *',
                         obscureText: true),
-                    // Space between next widget
+                    // ? Space between next widget
                     const SizedBox(height: 5),
 
-                    // Password prompt
-                    const TextDisplay(text: '                                                     6 characters minimum',
-                        fontSize: 11,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromRGBO(133, 157, 194, 1),),
-                    
-                    // Space between next widget
+                    // ? Password prompt
+                    const TextDisplay(
+                      text:
+                          '                                                     6 characters minimum',
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(133, 157, 194, 1),
+                    ),
+
+                    // ? Space between next widget
                     const SizedBox(height: 15),
 
-                    // Confirm Password Textfield
+                    // ? Confirm Password Textfield
                     GradientTextFieldComponent(
                         padding: const EdgeInsets.symmetric(horizontal: 0.0),
                         width: 350,
                         controller: _confirmPasswordController,
                         hintText: 'Confirm Password *',
                         obscureText: true),
-                    // Space between next widget
+                    // ? Space between next widget
                     const SizedBox(height: 25),
                   ],
                 ),
@@ -249,7 +252,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Personal prompt
+                // ? Personal prompt
                 const Text(
                   'A little about you...                                                  ',
                   style: TextStyle(
@@ -257,7 +260,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                // Space between next widget
+                // ? Space between next widget
                 const SizedBox(height: 20),
 
                 Row(
@@ -284,7 +287,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ],
                     ),
-                    // Space between next widget
+                    // ? Space between next widget
                     const SizedBox(width: 50),
                     // ? Pronoun dropdown selector
                     DropdownMenuComponent(
@@ -300,20 +303,20 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ],
                 ),
-                // Space between next widget
+                // ? Space between next widget
                 const SizedBox(height: 20),
 
-                //Bio Textfield
+                // ? Bio Textfield
                 CharacterLimitFieldComponent(
                   controller: _bio,
                   hintText: 'Bio',
                   width: 350,
                   padding: const EdgeInsets.symmetric(horizontal: 0.0),
                 ),
-                // Space between next widget
+                // ? Space between next widget
                 const SizedBox(height: 10),
 
-                //City Textfield
+                // ? City Textfield
                 GradientTextFieldComponent(
                   padding: const EdgeInsets.symmetric(horizontal: 0.0),
                   width: 350,
@@ -321,10 +324,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: 'City / Town',
                   obscureText: false,
                 ),
-                // Space between next widget
+                // ? Space between next widget
                 const SizedBox(height: 20),
 
-                // Role prompt
+                // ? Role prompt
                 const Text(
                   '...and your current role                                            ',
                   style: TextStyle(
@@ -332,32 +335,32 @@ class _RegisterPageState extends State<RegisterPage> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                // Space between next widget
+                // ? Space between next widget
                 const SizedBox(height: 20),
 
-                //Role Title Textfield
+                // ? Role Title Textfield
                 GradientTextFieldComponent(
                     padding: const EdgeInsets.symmetric(horizontal: 0),
                     width: 350,
                     controller: _roleTitle,
                     hintText: 'Title',
                     obscureText: false),
-                // Space between next widget
+                // ? Space between next widget
                 const SizedBox(height: 20),
 
-                //Industry Textfield
+                // ? Industry Textfield
                 GradientTextFieldComponent(
                     padding: const EdgeInsets.symmetric(horizontal: 0),
                     width: 350,
                     controller: _industry,
                     hintText: 'Industry',
                     obscureText: false),
-                // Space between next widget
+                // ? Space between next widget
                 const SizedBox(height: 20),
 
                 Row(
                   children: [
-                    // Place of Work/Study Textfield
+                    // ? Place of Work/Study Textfield
                     GradientTextFieldComponent(
                       padding: const EdgeInsets.only(left: 0),
                       width: 190,
@@ -380,7 +383,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ],
                 ),
-                // Space between next widget
+                // ? Space between next widget
                 const SizedBox(height: 20),
               ],
             ),
@@ -392,9 +395,9 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-        //resizeToAvoidBottomInset: false,
-        // Top bar that contains Nifti Logo
+
+        // ? resizeToAvoidBottomInset: false,
+        // ? Top bar that contains Nifti Logo
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
           title: SizedBox(
@@ -402,7 +405,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Image.asset('images/nifti_logo.png'),
           ),
         ),
-        // Colour & Font theme for Stepper Widget
+        // ? Colour & Font theme for Stepper Widget
         body: Theme(
           data: ThemeData(
             colorScheme: const ColorScheme.light(
@@ -417,7 +420,8 @@ class _RegisterPageState extends State<RegisterPage> {
             currentStep: currentStep,
             // ? Change to next step
             onStepContinue: () {
-              if (currentStep < (stepList().length - 1) && passwordConfirmed()) {
+              if (currentStep < (stepList().length - 1) &&
+                  passwordConfirmed()) {
                 setState(() {
                   currentStep += 1;
                 });
@@ -443,7 +447,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   // ? If first step = show Next button to continue & cancel prompt to go back to login page
                   if (!isLastStep) ...[
-                    // Next Button
+                    // ? Next Button
                     Expanded(
                         child: ElevatedButton(
                       onPressed: details.onStepContinue,
@@ -458,7 +462,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(
                       width: 30,
                     ),
-                    // Cancel Prompt
+                    // ? Cancel Prompt
                     Expanded(
                         child: GestureDetector(
                       onTap: widget.onTap,
@@ -474,7 +478,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   // ? If final step = show Confirm button to save info & back prompt to go to previous step
                   if (isLastStep) ...[
-                    // Confirm Button
+                    // ? Confirm Button
                     Expanded(
                         child: ElevatedButton(
                       onPressed: details.onStepContinue,
@@ -489,7 +493,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(
                       width: 30,
                     ),
-                    // Back Prompt
+                    // ? Back Prompt
                     Expanded(
                       child: GestureDetector(
                         onTap: details.onStepCancel,

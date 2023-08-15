@@ -11,14 +11,13 @@ import 'package:nifti_locapp/components/connection_modal.dart';
 
 // * ---------------- * (STATEFUL WIDGET) CLASS PinCodeVerificationScreen (STATEFUL WIDGET) * ---------------- *
 class PinCodeVerificationScreen extends StatefulWidget {
-  // Required variables to be passed
+  // ? Required variables to be passed
   const PinCodeVerificationScreen({
     Key? key,
-    this.userPin,
+    this.userPin, // ? Constructing obj and required variables
   }) : super(key: key);
-  // Component Variables
+  // ? Component Variables
   final String? userPin;
-
   @override
   State<PinCodeVerificationScreen> createState() =>
       _PinCodeVerificationScreenState();
@@ -29,7 +28,7 @@ class PinCodeVerificationScreen extends StatefulWidget {
 class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   TextEditingController textEditingController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
-  // Variables
+  // ? Variables
   String imageUrl = '';
   bool hasError = false;
   String currentText = '';
@@ -45,7 +44,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
       setState(() {});
       return staticPin;
     } else {
-      return staticPin = 'lame';
+      return staticPin = 'Pin not found';
     }
   }
 
@@ -56,17 +55,16 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
       setState(() {});
       return friend;
     } else {
-      return staticPin = 'lame';
+      return staticPin = 'Pin not found';
     }
   }
 
-  // Run functions on page load
+  // ? Run functions on page load
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     _getPincode();
     _getConnectionData(staticPin);
-    // _getConnectionImageUrl();
     super.initState();
   }
 
@@ -146,9 +144,6 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     onCompleted: (v) {
                       debugPrint("Completed");
                     },
-                    // onTap: () {
-                    //   print("Pressed");
-                    // },
                     onChanged: (value) {
                       debugPrint(value);
                       setState(() {
@@ -157,8 +152,8 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     },
                     beforeTextPaste: (text) {
                       debugPrint("Allowing to paste $text");
-                      //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                      //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                      // ? if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                      // ? but you can show anything you want here, like your pop up saying wrong paste format or etc
                       return true;
                     },
                   ),
@@ -175,7 +170,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   ),
                 ),
               ),
-              // Space between
+              // ? Space between
               const SizedBox(height: 10),
               // ? Entry prompt
               const Text("Add Connection",
@@ -254,12 +249,12 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                               ),
                               blurRadius: 1.0,
                               spreadRadius: 1.0,
-                            ), //BoxShadow
+                            ),
                           ],
                           color: Color.fromRGBO(121, 212, 189, 1),
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                     ),
-                    // Verify Button
+                    // ? Verify Button
                     Container(
                       width: 230,
                       decoration: BoxDecoration(
@@ -267,15 +262,14 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: ButtonTheme(
-                        //height: 50,
                         // ? onPressed Functionalities
                         child: TextButton(
                           onPressed: () async {
                             formKey.currentState!.validate();
-                            // conditions for validating
+                            // ? Conditions for validating
                             if (currentText.length != 4) {
                               errorController!.add(ErrorAnimationType
-                                  .shake); // Triggering error shake animation
+                                  .shake); // ? Triggering error shake animation
                               setState(() => hasError = true);
                             } else {
                               UserPincode(pincode: currentText);
@@ -291,14 +285,10 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                                     const SizedBox(
                                       height: 50,
                                     );
-                                    /*snackBar(
-                                    "OTP Not Found!!");*/
                                   } else {
-                                    /*snackBar(
-                                    "OTP Verified!! $staticPin, ${friend['firstName']}");*/
-                                    // Clear code when matched
+                                    // ? Clear code when matched
                                     textEditingController.clear();
-                                    // Modal with matching connections details
+                                    // ? Modal with matching connections details
 
                                     displayModalBottomSheet(
                                       context,
