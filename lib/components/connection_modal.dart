@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/components/button.dart';
 
+import '../functions/functions.dart';
+
 // ? CONTACT CARD MODAL
 displayModalBottomSheet(
     context,
@@ -13,7 +15,8 @@ displayModalBottomSheet(
     String role,
     String company,
     String yearsWorked,
-    String profileImageUrl) {
+    String profileImageUrl,
+    String pincode) {
   // ? Build Context
   showModalBottomSheet(
       context: context,
@@ -250,7 +253,9 @@ displayModalBottomSheet(
                     ButtonComponent(
                       onTap: () {
                         // Closes modal
-                        Navigator.pop(context);
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                        }
                       },
                       text: 'Cancel',
                       fontSize: 14,
@@ -291,43 +296,47 @@ displayModalBottomSheet(
                     ),
 
                     ButtonComponent(
-                      onTap: () {
+                      onTap: () async {
                         // !  find and add to contact list logic
+                        await StoreUserData.updateConnectionsPincode(pincode);
                         // Closes modal
-                        Navigator.pop(context);
-                        // set up the AlertDialog
-                        // show the dialog
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            // closes alertDialog after 1.5 seconds
-                            Future.delayed(const Duration(milliseconds: 1500),
-                                () {
-                              Navigator.pop(context);
-                            });
-                            return alert = const AlertDialog(
-                                alignment: Alignment.bottomCenter,
-                                //insetPadding: EdgeInsets.symmetric(horizontal: 300, vertical: 200),
-                                surfaceTintColor:
-                                    Color.fromARGB(0, 255, 255, 255),
-                                backgroundColor:
-                                    Color.fromRGBO(115, 142, 247, 1),
-                                titlePadding:
-                                    EdgeInsets.only(left: 20, top: 20),
-                                title: Text("You're now connected!"),
-                                titleTextStyle: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Montserrat'),
-                                contentPadding: EdgeInsets.only(
-                                    left: 20, top: 10, bottom: 20),
-                                content: Text("How nifti 😉"),
-                                contentTextStyle: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Montserrat'));
-                          },
-                        );
+                        if (context.mounted) {
+                          Navigator.pop(context);
+
+                          // set up the AlertDialog
+                          // show the dialog
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              // closes alertDialog after 1.5 seconds
+                              Future.delayed(const Duration(milliseconds: 1500),
+                                  () {
+                                Navigator.pop(context);
+                              });
+                              return alert = const AlertDialog(
+                                  alignment: Alignment.bottomCenter,
+                                  //insetPadding: EdgeInsets.symmetric(horizontal: 300, vertical: 200),
+                                  surfaceTintColor:
+                                      Color.fromARGB(0, 255, 255, 255),
+                                  backgroundColor:
+                                      Color.fromRGBO(115, 142, 247, 1),
+                                  titlePadding:
+                                      EdgeInsets.only(left: 20, top: 20),
+                                  title: Text("You're now connected!"),
+                                  titleTextStyle: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Montserrat'),
+                                  contentPadding: EdgeInsets.only(
+                                      left: 20, top: 10, bottom: 20),
+                                  content: Text("How nifti 😉"),
+                                  contentTextStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Montserrat'));
+                            },
+                          );
+                        }
                       },
                       text: 'Confirm',
                       color: const Color.fromRGBO(235, 254, 244, 1),
