@@ -5,14 +5,14 @@ import 'package:gradient_borders/gradient_borders.dart';
 
 // * ---------------- * (STATELESS WIDGET) CLASS DropdownMenuComponent (STATELESS WIDGET) * ---------------- *
 class DropdownMenuComponent extends StatelessWidget {
-  // Component Variables
+  // ? Component Variables
   final dynamic value;
   final double width;
   final List<String> itemsList;
   final Widget hintText;
   final Function(dynamic value) onChanged;
 
-  // Required variables to be passed
+  // ? Required variables to be passed
   const DropdownMenuComponent(
       {super.key,
       required this.value,

@@ -6,12 +6,12 @@ import 'package:gradient_borders/gradient_borders.dart';
 
 // * ---------------- * (STATEFUL WIDGET) CLASS CharacterLimitFieldComponent (STATEFUL WIDGET) * ---------------- *
 class CharacterLimitFieldComponent extends StatefulWidget {
-  // Component Variables
+  // ? Component Variables
   final TextEditingController controller;
   final String hintText;
   final double width;
   final EdgeInsetsGeometry padding;
-  // Required variables to be passed
+  // ? Required variables to be passed
   const CharacterLimitFieldComponent({
     super.key,
     required this.controller,

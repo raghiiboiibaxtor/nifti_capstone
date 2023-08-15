@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 // * ---------------- * (STATEFUL WIDGET) CLASS ImageSelectionBox (STATEFUL WIDGET) * ---------------- *
 class ImageSelectionBox extends StatefulWidget {
-  // Component Variables
+  // ? Component Variables
   final double width;
   final double height;
   final Function()? onPressed;
-  // Required variables to be passed
+  // ? Required variables to be passed
   const ImageSelectionBox(
       {super.key,
       required this.width,

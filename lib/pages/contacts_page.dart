@@ -24,17 +24,18 @@ class _ContactsPageState extends State<ContactsPage> {
 
   // ? get connection data that matches array of pincodes and store in Map<> friends
   _getAllConnectionsData() async {
-    pincodes = await ReadUserData.getPincodeList();
+    pincodes = await ReadUserData
+        .getPincodeList(); // ? Assigning pincodes with map of Firestore > document > connections []
     if (pincodes != null) {
       friends = [];
       for (int i = 0; i <= pincodes.length; i++) {
-        code = pincodes[i];
-        Map<String, Object?> friendData =
-            await ReadUserData.getConnectionData(code);
-        friends.add(friendData);
-        setState(() {});
+        code = pincodes[i]; // ? Extracting the user pincode
+        Map<String, Object?> friendData = await ReadUserData.getConnectionData(
+            code); // ? grabbing the object associated with user pincode
+        friends.add(friendData); // ? Copying obj into friends
+        setState(() {}); // ? Changing ui
       }
-      setState(() {});
+      setState(() {}); // ? Resetting ui
     }
   }
 
@@ -42,9 +43,11 @@ class _ContactsPageState extends State<ContactsPage> {
   List<Widget> _friendListDisplay() {
     List<Widget> friendsList = [];
     for (int i = 0; i < friends.length; i++) {
-      Map<String, Object?> friend = friends[i];
+      Map<String, Object?> friend =
+          friends[i]; // ? Copying connection info into list for ui extraction
       friendsList.add(
         ListDisplay(
+          // ? Variables to be passed to list
           name: '${friend['firstName']} ${friend['lastName']}',
           role: '${friend['role']}',
           email: '${friend['email']}',
@@ -55,11 +58,10 @@ class _ContactsPageState extends State<ContactsPage> {
     return friendsList;
   }
 
-  // Run functions on page load
+  // ? Run functions on page load
   @override
   void initState() {
     _getAllConnectionsData();
-
     super.initState();
   }
 
@@ -99,13 +101,13 @@ class _ContactsPageState extends State<ContactsPage> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          // space between
+          // ? Space between
           const SizedBox(
             height: 20,
           ),
           // ? Contact List
           if (pincodes == null)
-            // Text prompt
+            // ? Text prompt
             const TextDisplay(
               text: 'No friends to show yet!',
               fontSize: 18,
@@ -113,7 +115,7 @@ class _ContactsPageState extends State<ContactsPage> {
               color: Color.fromRGBO(115, 142, 247, 1),
             )
           else
-            // Display contact list
+            // ? Display contact list
             Column(
               children: _friendListDisplay(),
             )

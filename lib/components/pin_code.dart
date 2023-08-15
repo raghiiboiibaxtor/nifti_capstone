@@ -14,11 +14,10 @@ class PinCodeVerificationScreen extends StatefulWidget {
   // ? Required variables to be passed
   const PinCodeVerificationScreen({
     Key? key,
-    this.userPin,
+    this.userPin, // ? Constructing obj and required variables
   }) : super(key: key);
   // ? Component Variables
   final String? userPin;
-
   @override
   State<PinCodeVerificationScreen> createState() =>
       _PinCodeVerificationScreenState();
@@ -45,7 +44,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
       setState(() {});
       return staticPin;
     } else {
-      return staticPin = 'lame';
+      return staticPin = 'Pin not found';
     }
   }
 
@@ -56,7 +55,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
       setState(() {});
       return friend;
     } else {
-      return staticPin = 'lame';
+      return staticPin = 'Pin not found';
     }
   }
 

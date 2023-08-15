@@ -5,14 +5,14 @@ import 'package:gradient_borders/gradient_borders.dart';
 
 // * ---------------- * (STATELESS WIDGET) CLASS GradientTextFieldComponent (STATELESS WIDGET) * ---------------- *
 class GradientTextFieldComponent extends StatelessWidget {
-  // Component variables
+  // ? Component variables
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
   final double width;
   final EdgeInsetsGeometry padding;
 
-  // Required variables to be passed
+  // ? Required variables to be passed
   const GradientTextFieldComponent({
     super.key,
     required this.controller,

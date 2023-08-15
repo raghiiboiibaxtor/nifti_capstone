@@ -24,9 +24,9 @@ class ProfilePage extends StatefulWidget {
 
 // * ---------------- * (STATE) CLASS _ProfilePageState (STATE) * ---------------- *
 class _ProfilePageState extends State<ProfilePage> {
-  // user
+  // ? Grabbing user
   final currentUser = FirebaseAuth.instance.currentUser!;
-  // Storage image variables
+  // ? Storage image variables
   final storage = FirebaseStorage.instance.ref();
   Uint8List? _bannerImage;
   Uint8List? _squareImage1;
@@ -65,18 +65,14 @@ class _ProfilePageState extends State<ProfilePage> {
   void selectBanner() async {
     Uint8List banner = await pickImage();
     _bannerImage = banner;
-    setState(() {
-      //_bannerImage = banner;
-    });
+    setState(() {});
   }
 
   // ? image selection function
   void selectSquare1() async {
     Uint8List square1 = await pickImage();
     _squareImage1 = square1;
-    setState(() {
-      //_squareImage1 = square1;
-    });
+    setState(() {});
   }
 
   // ? image selection function
@@ -84,21 +80,17 @@ class _ProfilePageState extends State<ProfilePage> {
     Uint8List square2 = await pickImage();
     _squareImage2 = square2;
 
-    setState(() {
-      //_squareImage2 = square2;
-    });
+    setState(() {});
   }
 
   // ? image selection function
   void selectSquare3() async {
     Uint8List square3 = await pickImage();
     _squareImage3 = square3;
-    setState(() {
-      //_squareImage3 = square3;
-    });
+    setState(() {});
   }
 
-  // Run functions on page load
+  // ? Run functions on page load
   @override
   void initState() {
     super.initState();
@@ -138,17 +130,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 // ? Display Full Name
-                // Full Name
+
                 TextDisplay(
                   text: '${details['firstName']}' ' ${details['lastName']}',
                   fontSize: 33,
                   fontWeight: FontWeight.w600,
                   color: const Color.fromRGBO(133, 157, 194, 1),
                 ),
-                // Space between first & last name
+                // ? Space between first & last name
                 const SizedBox(
                   width: 8,
-                ), // End of name ROW
+                ), // ? End of name ROW
 
                 // ? Display Bio
                 TextDisplay(
@@ -157,51 +149,51 @@ class _ProfilePageState extends State<ProfilePage> {
                   fontWeight: FontWeight.w500,
                   color: const Color.fromRGBO(133, 157, 194, 1),
                 ),
-                // Space between bio and tags
+                // ? Space between bio and tags
                 const SizedBox(
                   height: 5,
                 ),
 
                 // ? Tags = Pronouns, Industry, City
                 Wrap(children: [
-                  // Pronouns
+                  // ? Pronouns
                   TextDisplay(
                     text: '${details['pronouns']}   |',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: const Color.fromRGBO(116, 215, 247, 1),
                   ),
-                  // Space between tags
+                  // ? Space between tags
                   const SizedBox(
                     width: 10,
                   ),
-                  // Industry / Field
+                  // ? Industry / Field
                   TextDisplay(
                     text: '${details['industry']}   |',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: const Color.fromRGBO(115, 142, 247, 1),
                   ),
-                  // Space between tags
+                  // ? Space between tags
                   const SizedBox(
                     width: 10,
                   ),
-                  // City / Town
+                  // ? City / Town
                   TextDisplay(
                     text: '${details['city/town']}',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: const Color.fromRGBO(209, 147, 246, 1),
                   )
-                ]), // End of Tag ROW
+                ]), // ? End of Tag ROW
 
-                // faint DIVIDE line
-                // Divide line
+                // ? faint DIVIDE line
+                // ? Divide line
                 const Divider(
                     thickness: 0.5,
                     color: Color.fromRGBO(133, 157, 194, 0.422)),
 
-                // Space between divide & role
+                // ? Space between divide & role
                 const SizedBox(
                   height: 7,
                 ),
@@ -224,11 +216,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 15,
                       color: Color.fromRGBO(133, 157, 194, 1),
                     ),
-                    // Space between icon & role
+                    // ? Space between icon & role
                     const SizedBox(
                       width: 5,
                     ),
-                    // Role
+                    // ? Role
                     TextDisplay(
                       text: '${details['role']}',
                       fontSize: 14,
@@ -250,11 +242,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 14,
                       color: Color.fromRGBO(133, 157, 194, 1),
                     ),
-                    // Space between icon & company
+                    // ? Space between icon & company
                     const SizedBox(
                       width: 7,
                     ),
-                    // Company
+                    // ? Company
                     TextDisplay(
                       text: '${details['company']}',
                       fontSize: 13,
@@ -263,7 +255,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ],
                 ),
-                // Space between
+                // ? Space between
                 const SizedBox(
                   height: 5,
                 ),
@@ -276,11 +268,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 14,
                       color: Color.fromRGBO(133, 157, 194, 1),
                     ),
-                    // Space between icon & years
+                    // ? Space between icon & years
                     const SizedBox(
                       width: 7,
                     ),
-                    // Years worked
+                    // ? Years worked
                     TextDisplay(
                       text: '${details['yearsWorked']}',
                       fontSize: 13,
@@ -289,7 +281,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ],
                 ),
-                // Space between
+                // ? Space between
                 const SizedBox(
                   height: 5,
                 ),
@@ -302,7 +294,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 15,
                       color: Color.fromRGBO(209, 147, 246, 1),
                     ),
-                    // Space between icon & years
+                    // ? Space between icon & years
                     const SizedBox(
                       width: 7,
                     ),
@@ -316,12 +308,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ],
                 ),
-                // faint DIVIDE line
-                // Divide line
+                // ? faint DIVIDE line
+                // ? Divide line
                 const Divider(
                     thickness: 0.5,
                     color: Color.fromRGBO(133, 157, 194, 0.422)),
-                // Space between divide & role
+                // ? Space between divide & role
                 const SizedBox(
                   height: 7,
                 ),
@@ -337,8 +329,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
 
                 // ? Media & Content
-                // if no content = show "Welcome to your media space, add some photos that represent you! + add button"
-                // else == display media content
+                // ? if no content = show "Welcome to your media space, add some photos that represent you! + add button"
+                // ? else == display media content
                 Row(children: [
                   const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -356,11 +348,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Color.fromRGBO(133, 157, 194, 1),
                         ),
                       ]),
-                  // space between
+                  // ? space between
                   const SizedBox(width: 99),
 
                   if (!displayImageEdit)
-                    // Edit Button
+                    // ? Edit Button
                     IconButton(
                       color: const Color.fromRGBO(115, 142, 247, 1),
                       iconSize: 25,
@@ -373,14 +365,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       icon: const Icon(Icons.add_circle),
                     )
                   else
-                    // Save Button
+                    // ? Save Button
                     IconButton(
                       color: const Color.fromRGBO(115, 142, 247, 1),
                       iconSize: 25,
                       onPressed: () {
-                        // Save selected images
+                        // ? Save selected images
                         saveImages();
-                        // Timer delay added to show updated images
+                        // ? Timer delay added to show updated images
                         Timer(const Duration(seconds: 1), () {
                           setState(() {
                             displayImageEdit = false;
@@ -410,7 +402,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       image: NetworkImage(
                                           '${details['bannerImageLink']}',
                                           scale: 1.0))
-                                  : // Prompt text
+                                  : // ? Prompt text
                                   Container(
                                       alignment: Alignment.center,
                                       width: 360,
@@ -430,12 +422,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                     )
                             ],
                           ),
-                          // Space between
+                          // ? Space between
                           const SizedBox(
                             height: 15,
                           ),
 
-                          // Square Row
+                          // ? Square Row
                           Row(
                             children: [
                               Stack(
@@ -449,7 +441,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                               '${details['square1ImageLink']}',
                                               scale: 1.0))
                                       :
-                                      // Will show as empty space while keeping image spacing the same
+                                      // ? Will show as empty space while keeping image spacing the same
                                       Container(
                                           width: 110,
                                           height: 110,
@@ -472,7 +464,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           image: NetworkImage(
                                               '${details['square2ImageLink']}',
                                               scale: 1.0))
-                                      : // Will show as empty space while keeping image spacing the same
+                                      : // ? Will show as empty space while keeping image spacing the same
                                       Container(
                                           width: 110,
                                           height: 110,
@@ -495,7 +487,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           image: NetworkImage(
                                               '${details['square3ImageLink']}',
                                               scale: 1.0))
-                                      : // Will show as empty space while keeping image spacing the same
+                                      : // ? Will show as empty space while keeping image spacing the same
                                       Container(
                                           width: 110,
                                           height: 110,
@@ -531,14 +523,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                     )
                             ],
                           ),
-                          // Space between
+                          // ? Space between
                           const SizedBox(
                             height: 15,
                           ),
 
-                          // Banner
+                          // ? Banner
 
-                          // Square Row
+                          // ? Square Row
                           Row(
                             children: [
                               Stack(

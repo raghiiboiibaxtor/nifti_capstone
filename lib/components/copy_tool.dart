@@ -6,11 +6,11 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 // * ---------------- * (STATELESS WIDGET) CLASS CopyTool (STATELESS WIDGET) * ---------------- *
 class CopyTool extends StatelessWidget {
-  // Component Variables
+  // ? Component Variables
   final String text;
   final double fontSize;
   final double letterSpacing;
-  // Required variables to be passed
+  // ? Required variables to be passed
   const CopyTool(
       {super.key,
       required this.text,

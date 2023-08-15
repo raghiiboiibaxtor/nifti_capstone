@@ -6,18 +6,18 @@ import 'package:nifti_locapp/auth/auth.dart';
 
 // * ---------------- * (main)* ---------------- * */
 void main() async {
-  // Access to native code
+  // ? Access to native code
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
-// * ---------------- * (STATELESS WIDGET) CLASS MyApp (STATELESS WIDGET) * ---------------- * 
+// * ---------------- * (STATELESS WIDGET) CLASS MyApp (STATELESS WIDGET) * ---------------- *
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // * ---------------- * (BUILD WIDGET) * ---------------- * 
-  // This widget is the root of your application.
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
+  // ? This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

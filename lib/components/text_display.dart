@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 // * ---------------- * (STATELESS WIDGET) CLASS TextDisplay (STATELESS WIDGET) * ---------------- *
 class TextDisplay extends StatelessWidget {
-  // Component Variables
+  // ? Component Variables
   final String text;
   final double fontSize;
   final FontWeight fontWeight;
   final Color color;
-  // Required variables to be passed
+  // ? Required variables to be passed
   const TextDisplay(
       {super.key,
       required this.text,

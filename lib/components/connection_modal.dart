@@ -5,6 +5,7 @@ import '../functions/functions.dart';
 
 // ? CONTACT CARD MODAL
 displayModalBottomSheet(
+    // ? Passing required variables for modal display
     context,
     String name,
     String bio,

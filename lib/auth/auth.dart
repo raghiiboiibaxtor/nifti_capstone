@@ -5,11 +5,11 @@ import 'package:nifti_locapp/widget_tree.dart';
 
 // ? AuthPage == Checks if a user is logged in and redirects accordingly
 
-// * ---------------- * (STATELESS WIDGET) CLASS AuthPage (STATELESS WIDGET) * ---------------- * 
+// * ---------------- * (STATELESS WIDGET) CLASS AuthPage (STATELESS WIDGET) * ---------------- *
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
-  // * ---------------- * (BUILD WIDGET) * ---------------- * 
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,10 +19,10 @@ class AuthPage extends StatelessWidget {
         builder: (context, snapshot) {
           // ? Check if user is logged in to the app
           if (snapshot.hasData) {
-            // Display the app contents if logged in
+            // ? Display the app contents if logged in
             return const WidgetTree();
           } else {
-            // Display the Login/Register pages if not logged in
+            // ? Display the Login/Register pages if not logged in
             return const LoginOrRegister();
           }
         },

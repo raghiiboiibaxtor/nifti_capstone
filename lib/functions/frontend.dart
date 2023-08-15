@@ -15,9 +15,9 @@ void displayErrorMessage(BuildContext context, String message) {
             color: Color.fromRGBO(99, 145, 255, 1)),
       ),
       duration: const Duration(seconds: 5),
-      width: 300.0, // Width of the SnackBar.
+      width: 300.0, // ? Width of the SnackBar.
       padding: const EdgeInsets.all(
-        10.0, // Inner padding for SnackBar content.
+        10.0, // ? Inner padding for SnackBar content.
       ),
       backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
       behavior: SnackBarBehavior.floating,
