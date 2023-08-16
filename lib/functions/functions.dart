@@ -148,6 +148,7 @@ class StoreUserData {
         'yearsWorked': yearsWorked,
         'pincode': code,
         'userID': _niftiFireUser,
+        'connections': [],
       });
       response = 'Success';
     } catch (error) {
