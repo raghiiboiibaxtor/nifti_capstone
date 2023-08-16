@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 
-/* * ---------------- * (STATELESS WIDGET) CLASS GradientTextFieldComponent (STATELESS WIDGET) * ---------------- * */
+// ? GradientTextFieldComponent == custom text field widget with a gradient border
+
+// * ---------------- * (STATELESS WIDGET) CLASS GradientTextFieldComponent (STATELESS WIDGET) * ---------------- *
 class GradientTextFieldComponent extends StatelessWidget {
-  // Component variables
+  // ? Component variables
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
   final double width;
   final EdgeInsetsGeometry padding;
 
-  // Required variables to be passed
+  // ? Required variables to be passed
   const GradientTextFieldComponent({
     super.key,
     required this.controller,
@@ -20,7 +22,7 @@ class GradientTextFieldComponent extends StatelessWidget {
     required this.padding,
   });
 
-  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,9 +39,14 @@ class GradientTextFieldComponent extends StatelessWidget {
             decoration: InputDecoration(
               hintText: hintText,
               border: GradientOutlineInputBorder(
-                  gradient: const LinearGradient(colors: [Color.fromRGBO(209, 147, 246, 1), Color.fromRGBO(115, 142, 247, 1), Color.fromRGBO(116, 215, 247, 1)]),
-                  width: 2,
-                  borderRadius: BorderRadius.circular(25),),
+                gradient: const LinearGradient(colors: [
+                  Color.fromRGBO(209, 147, 246, 1),
+                  Color.fromRGBO(115, 142, 247, 1),
+                  Color.fromRGBO(116, 215, 247, 1)
+                ]),
+                width: 2,
+                borderRadius: BorderRadius.circular(25),
+              ),
               contentPadding: const EdgeInsets.only(
                 left: 20.0,
                 right: 20.0,
@@ -49,10 +56,8 @@ class GradientTextFieldComponent extends StatelessWidget {
               fontSize: 15,
             ),
           ),
-        )
-        );
-        
+        ));
   }
-  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
-/* * ---------------- * END OF (STATELESS WIDGET) CLASS GradientTextFieldComponent (STATELESS WIDGET) * ---------------- * */
+// * ---------------- * END OF (STATELESS WIDGET) CLASS GradientTextFieldComponent (STATELESS WIDGET) * ---------------- *

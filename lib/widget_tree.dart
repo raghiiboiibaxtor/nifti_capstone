@@ -4,30 +4,34 @@ import 'package:nifti_locapp/pages/connection_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';
 import 'package:nifti_locapp/pages/profile_page.dart';
 
-// THIS FILE CONTAINS THE LOGIC FOR THE APP'S TOP & BOTTOM NAV BAR
+// ? WidgetTree == App navigation through bottom nav bar + app bar
 
+// * ---------------- * (STATEFUL WIDGET) CLASS WidgetTree (STATEFUL WIDGET) * ---------------- *
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
 
   @override
   State<WidgetTree> createState() => _WidgetTreeState();
 }
+// * ---------------- * END OF (STATE) CLASS WidgetTree (STATE) * ---------------- *
 
+// * ---------------- * (STATE) CLASS _LoginPageState (STATE) * ---------------- *
 class _WidgetTreeState extends State<WidgetTree> {
-  // Variables
+  // ? Variables
   int currentPage = 1; // set to scanning page
-  // List of page widgets
+  // ? List of page widgets
   List<Widget> pages = const [
     ContactsPage(),
     ConnectPage(),
     ProfilePage(),
   ];
 
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        // Top bar that contains Nifti Logo
+        // ? Top bar that contains Nifti Logo
         appBar: AppBar(
           toolbarHeight: 35,
           backgroundColor: Colors.transparent,
@@ -46,7 +50,7 @@ class _WidgetTreeState extends State<WidgetTree> {
                 ))
           ],
         ),
-        // Body of the page
+        // ? Body of the page
         body: pages.elementAt(currentPage),
         // ? Navigation Bar containing page options
         bottomNavigationBar: SafeArea(
@@ -74,10 +78,9 @@ class _WidgetTreeState extends State<WidgetTree> {
             unselectedFontSize: 0,
             backgroundColor: Colors.transparent,
             elevation: 0,
-            //selectedItemColor:  const Color.fromRGBO(115, 142, 247, 1),
 
             items: [
-              // Contacts Icon
+              // ? Contacts Icon
               BottomNavigationBarItem(
                   icon: const Icon(
                     Icons.format_list_bulleted_rounded,
@@ -107,7 +110,7 @@ class _WidgetTreeState extends State<WidgetTree> {
                         ),
                         size: 30),
                   )),
-              // Scan Icon
+              // ? Scan Icon
               BottomNavigationBarItem(
                   icon: const Icon(
                     Icons.add_circle,
@@ -131,7 +134,7 @@ class _WidgetTreeState extends State<WidgetTree> {
                     child: const Icon(Icons.add_circle,
                         color: Color.fromRGBO(115, 142, 247, 1), size: 30),
                   )),
-              // Profile Icon
+              // ? Profile Icon
               BottomNavigationBarItem(
                   icon: const Icon(
                     Icons.person_pin_rounded,
@@ -156,7 +159,7 @@ class _WidgetTreeState extends State<WidgetTree> {
                         color: Color.fromRGBO(116, 215, 247, 1), size: 30),
                   )),
             ],
-            // Logic to show selected page
+            // ? Logic to show selected page
             currentIndex: currentPage,
             onTap: (int value) {
               setState(() {
@@ -166,4 +169,6 @@ class _WidgetTreeState extends State<WidgetTree> {
           ),
         )));
   }
-} // End of widget_tree
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
+} 
+// * ---------------- * END OF (STATE) CLASS _WidgetTreeState (STATE) * ---------------- *

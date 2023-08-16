@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:nifti_locapp/pages/login_page.dart';
 import 'package:nifti_locapp/pages/register_page.dart';
 
-/* * ---------------- * (STATEFUL WIDGET) CLASS LoginOrRegister (STATEFUL WIDGET) * ---------------- * */
+// ? LoginOrRegister == toggle for login and register page 
+
+// * ---------------- * (STATEFUL WIDGET) CLASS LoginOrRegister (STATEFUL WIDGET) * ---------------- * 
 class LoginOrRegister extends StatefulWidget {
   const LoginOrRegister({super.key});
 
   @override
   State<LoginOrRegister> createState() => _LoginOrRegisterState();
 }
-/* * ---------------- * END OF (STATEFUL WIDGET) CLASS LoginOrRegister (STATE) * ---------------- * */
+// * ---------------- * END OF (STATEFUL WIDGET) CLASS LoginOrRegister (STATE) * ---------------- *
 
-/* * ---------------- * (STATE) CLASS _LoginOrRegisterState (STATE) * ---------------- * */
+// * ---------------- * (STATE) CLASS _LoginOrRegisterState (STATE) * ---------------- *
 class _LoginOrRegisterState extends State<LoginOrRegister> {
   // ? Initially show login page
   bool showLoginPage = true;
@@ -23,7 +25,7 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
     });
   }
 
-  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     if (showLoginPage){
@@ -33,6 +35,6 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
       return RegisterPage(onTap: togglePages);
     }
   }
-  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
-/* * ---------------- * END OF (STATE) CLASS _LoginOrRegisterState (STATE) * ---------------- * */
+// * ---------------- * END OF (STATE) CLASS _LoginOrRegisterState (STATE) * ---------------- *

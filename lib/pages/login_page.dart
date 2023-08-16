@@ -4,23 +4,27 @@ import 'package:nifti_locapp/components/button.dart';
 import 'package:nifti_locapp/components/text_field.dart';
 import 'package:nifti_locapp/functions/frontend.dart';
 
-/* * ---------------- * (STATEFUL WIDGET) CLASS LoginPage (STATEFUL WIDGET) * ---------------- * */
+// ? LoginPage == display for existing user to login
+
+// * ---------------- * (STATEFUL WIDGET) CLASS LoginPage (STATEFUL WIDGET) * ---------------- *
 class LoginPage extends StatefulWidget {
+  // ? Component Variables
   final Function()? onTap;
+  // ? Required variables to be passed
   const LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-/* * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- * */
+// * ---------------- * END OF (STATE) CLASS RegisterPage (STATE) * ---------------- *
 
-/* * ---------------- * (STATE) CLASS _LoginPageState (STATE) * ---------------- * */
+// * ---------------- * (STATE) CLASS _LoginPageState (STATE) * ---------------- *
 class _LoginPageState extends State<LoginPage> {
-  // Text Controllers - used to access the user's input
+  // ? Text Controllers - used to access the user's input
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // Dispose controllers when not using for memory management
+  // ? Dispose controllers when not using for memory management
   @override
   void dispose() {
     _emailController.dispose();
@@ -30,26 +34,26 @@ class _LoginPageState extends State<LoginPage> {
 
   // ? Email & Password Login Method
   Future login() async {
-    // Loading Animation
+    // ? Loading Animation
     displayLoadingCircle(context);
 
-    // Sign in check
+    // ? Sign in check
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      // pop loading circle
+      // ? pop loading circle
       if (context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (error) {
-      // pop loading circle
+      // ? pop loading circle
       Navigator.pop(context);
-      // Display error message
+      // ? Display error message
       displayErrorMessage(context, error.message!);
     }
   }
 
-  /* * ---------------- * (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,36 +70,36 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Nifti Logo
+                      // ? Nifti Logo
                       const Image(
                           image: AssetImage('images/nifti_logo_white.png')),
 
-                      // Email Textfield
+                      // ? Email Textfield
                       TextFieldComponent(
                           controller: _emailController,
                           hintText: 'Email',
                           obscureText: false),
-                      // Space between next widget
+                      // ? Space between next widget
                       const SizedBox(height: 20),
 
-                      //Password Textfield
+                      // ? Password Textfield
                       TextFieldComponent(
                           controller: _passwordController,
                           hintText: 'Password',
                           obscureText: true),
-                      // Space between next widget
+                      // ? Space between next widget
                       const SizedBox(height: 25),
 
-                      // Login Button
+                      // ? Login Button
                       ButtonComponent(
                         onTap: login,
                         text: 'LOGIN',
                         color: const Color.fromRGBO(79, 219, 245, 1),
                       ),
-                      // Space between next widget
+                      // ? Space between next widget
                       const SizedBox(height: 30),
 
-                      // Register button - Redirects user to registration process
+                      // ? Register button - Redirects user to registration process
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -126,6 +130,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             )));
   }
-  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
-/* * ---------------- * END OF (STATE) CLASS _LoginPageState (STATE) * ---------------- * */
+// * ---------------- * END OF (STATE) CLASS _LoginPageState (STATE) * ---------------- *

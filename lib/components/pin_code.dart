@@ -1,43 +1,80 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-//import 'package:gradient_borders/gradient_borders.dart';
+import '../functions/functions.dart';
+import '../functions/frontend.dart';
+import 'package:nifti_locapp/components/button.dart';
+import 'package:nifti_locapp/components/text_display.dart';
+import 'package:nifti_locapp/components/connection_modal.dart';
 
+// ? PinCodeVerificationScreen == widget to display and capture user's unique pin
+
+// * ---------------- * (STATEFUL WIDGET) CLASS PinCodeVerificationScreen (STATEFUL WIDGET) * ---------------- *
 class PinCodeVerificationScreen extends StatefulWidget {
+  // ? Required variables to be passed
   const PinCodeVerificationScreen({
     Key? key,
-    this.userPin,
+    this.userPin, // ? Constructing obj and required variables
   }) : super(key: key);
-
+  // ? Component Variables
   final String? userPin;
-
   @override
   State<PinCodeVerificationScreen> createState() =>
       _PinCodeVerificationScreenState();
 }
+// * ---------------- * END OF (STATE) CLASS PinCodeVerificationScreen (STATE) * ---------------- *
 
+// * ---------------- * (STATE) CLASS _PinCodeVerificationScreenState (STATE) * ---------------- *
 class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   TextEditingController textEditingController = TextEditingController();
   StreamController<ErrorAnimationType>? errorController;
-
+  // ? Variables
+  String imageUrl = '';
   bool hasError = false;
-  String currentText = "";
+  String currentText = '';
   final formKey = GlobalKey<FormState>();
 
+  late Map<String, Object?> friend = {};
+  String pincode = '';
+  String staticPin = '';
+
+  // ? get user's code and store in staticPin
+  _getPincode() async {
+    if (staticPin != '') {
+      setState(() {});
+      return staticPin;
+    } else {
+      return staticPin = 'Pin not found';
+    }
+  }
+
+  // ? get connections data and store in Map<> friend
+  _getConnectionData(String staticPin) async {
+    if (staticPin != '') {
+      friend = await ReadUserData.getConnectionData(staticPin);
+      setState(() {});
+      return friend;
+    } else {
+      return staticPin = 'Pin not found';
+    }
+  }
+
+  // ? Run functions on page load
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+    _getPincode();
+    _getConnectionData(staticPin);
     super.initState();
   }
 
   @override
   void dispose() {
     errorController!.close();
-
     super.dispose();
   }
 
-  // snackBar Widget
+  // ? snackBar Widget
   snackBar(String? message) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -47,6 +84,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
     );
   }
 
+  // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +102,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 8.0,
-                    horizontal: 15,
+                    horizontal: 0,
                   ),
                   child: PinCodeTextField(
                     appContext: context,
@@ -106,9 +144,6 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     onCompleted: (v) {
                       debugPrint("Completed");
                     },
-                    // onTap: () {
-                    //   print("Pressed");
-                    // },
                     onChanged: (value) {
                       debugPrint(value);
                       setState(() {
@@ -117,98 +152,187 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     },
                     beforeTextPaste: (text) {
                       debugPrint("Allowing to paste $text");
-                      //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                      //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                      // ? if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                      // ? but you can show anything you want here, like your pop up saying wrong paste format or etc
                       return true;
                     },
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: Text(
-                  hasError ? "*Please fill up all the cells properly" : "",
+                  hasError ? "* Please fill up all the cells properly" : "",
                   style: const TextStyle(
                     color: Color.fromRGBO(116, 215, 247, 1),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
+              // ? Space between
+              const SizedBox(height: 10),
+              // ? Entry prompt
+              const Text("Add Connection",
+                  style: TextStyle(
+                      letterSpacing: 0.8,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: Color.fromRGBO(134, 151, 175, 1))),
+              const Text('Tell them your code & enter theirs!',
+                  style: TextStyle(
+                      letterSpacing: 0.8,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(134, 151, 175, 1))),
               const SizedBox(
-                height: 20,
+                height: 25,
               ),
-              const SizedBox(
-                height: 14,
-              ),
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-                decoration: BoxDecoration(
-                    color: Colors.green.shade300,
-                    borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.green.shade200,
-                          offset: const Offset(1, -2),
-                          blurRadius: 5),
-                      BoxShadow(
-                          color: Colors.green.shade200,
-                          offset: const Offset(-1, 2),
-                          blurRadius: 5)
-                    ]),
-                child: ButtonTheme(
-                  height: 50,
-                  child: TextButton(
-                    onPressed: () {
-                      formKey.currentState!.validate();
-                      // conditions for validating
-                      if (currentText.length != 4 || currentText != "1234") {
-                        errorController!.add(ErrorAnimationType
-                            .shake); // Triggering error shake animation
-                        setState(() => hasError = true);
-                      } else {
-                        setState(
-                          () {
-                            hasError = false;
-                            snackBar("OTP Verified!!");
+
+              // ? Clear & Verify Buttons
+              Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    // Button border & drop shadow
+                    Container(
+                      height: 42,
+                      width: 80,
+                      decoration: const BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(203, 211, 223, 1),
+                              offset: Offset(
+                                1.0,
+                                1.0,
+                              ),
+                              blurRadius: 1.0,
+                              spreadRadius: 1.0,
+                            ), //BoxShadow
+                          ],
+                          color: Color.fromRGBO(255, 159, 180, 1),
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                    ),
+                    // Clear Button
+                    ButtonComponent(
+                      onTap: () {
+                        textEditingController.clear();
+                      },
+                      text: 'Clear',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: const Color.fromRGBO(252, 247, 244, 1),
+                      fontColor: const Color.fromRGBO(255, 159, 180, 1),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 10),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                // ? Connect Button
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    // Button border & drop shadow
+                    Container(
+                      height: 52,
+                      width: 234,
+                      decoration: const BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(203, 211, 223, 1),
+                              offset: Offset(
+                                1.0,
+                                1.0,
+                              ),
+                              blurRadius: 1.0,
+                              spreadRadius: 1.0,
+                            ),
+                          ],
+                          color: Color.fromRGBO(121, 212, 189, 1),
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
+                    ),
+                    // ? Verify Button
+                    Container(
+                      width: 230,
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(235, 254, 244, 1),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: ButtonTheme(
+                        // ? onPressed Functionalities
+                        child: TextButton(
+                          onPressed: () async {
+                            formKey.currentState!.validate();
+                            // ? Conditions for validating
+                            if (currentText.length != 4) {
+                              errorController!.add(ErrorAnimationType
+                                  .shake); // ? Triggering error shake animation
+                              setState(() => hasError = true);
+                            } else {
+                              UserPincode(pincode: currentText);
+                              staticPin = await UserPincode.getStaticPincode(
+                                  currentText);
+                              friend = await _getConnectionData(staticPin);
+                              setState(
+                                () async {
+                                  hasError = false;
+                                  if ('${friend['firstName']}' == 'null') {
+                                    displayErrorMessage(context,
+                                        "Oops! That's an invalid code. Please try again 👀");
+                                    const SizedBox(
+                                      height: 50,
+                                    );
+                                  } else {
+                                    // ? Clear code when matched
+                                    textEditingController.clear();
+                                    // ? Modal with matching connections details
+
+                                    displayModalBottomSheet(
+                                      context,
+                                      '${friend['firstName']}'
+                                          ' ${friend['lastName']}',
+                                      '${friend['bio']}',
+                                      '${friend['pronouns']}',
+                                      '${friend['industry']}',
+                                      '${friend['city/town']}',
+                                      '${friend['role']}',
+                                      '${friend['company']}',
+                                      '${friend['yearsWorked']}',
+                                      '${friend['imageLink']}',
+                                      '${friend['pincode']}',
+                                    );
+                                  }
+                                },
+                              );
+                            }
                           },
-                        );
-                      }
-                    },
-                    child: Center(
-                      child: Text(
-                        "VERIFY".toUpperCase(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: TextDisplay(
+                                    text: 'CONNECT',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(121, 212, 189, 1)),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Flexible(
-                    child: TextButton(
-                      child: const Text("Clear"),
-                      onPressed: () {
-                        textEditingController.clear();
-                      },
-                    ),
-                  ),
-                ],
-              )
+              ]),
             ],
           ),
         ),
       ),
     );
   }
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
+// * ---------------- * END OF (STATE) CLASS _PinCodeVerificationScreenState (STATE) * ---------------- *

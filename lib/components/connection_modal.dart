@@ -1,23 +1,27 @@
 import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/components/button.dart';
+import '../functions/functions.dart';
 
 // ? CONTACT CARD MODAL
-displayModalBottomSheet(context) {
-  String firstName = 'Dylan';
-  String lastName = 'Sash';
-  String bio = 'Born to travel & do cool things.';
-  String pronouns = 'She / They';
-  String industry = 'Marketing';
-  String city = 'Dunedin';
-  String role = 'Bachelor of Marketing & Communication';
-  String company = 'Otago University';
-  String yearsWorked = '3+ years';
-
-  // ? Build Context 
+displayModalBottomSheet(
+    // ? Passing required variables for modal display
+    context,
+    String name,
+    String bio,
+    String pronouns,
+    String industry,
+    String city,
+    String role,
+    String company,
+    String yearsWorked,
+    String profileImageUrl,
+    String pincode) {
+  // ? Build Context
   showModalBottomSheet(
       context: context,
-      backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
+      barrierColor: const Color.fromARGB(179, 133, 157, 190),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(55))),
       builder: (BuildContext context) {
@@ -26,54 +30,38 @@ displayModalBottomSheet(context) {
             padding:
                 const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 15),
             child: ListView(children: [
-              const Stack(
+              Stack(
                 children: [
-                  // Profile picture
-                  /*userData['imageLink'] != null
-                            ? 
-                            CircleAvatar(
-                                radius: 45,
-                                backgroundImage: const AssetImage(
-                                    'images/defaultProfileImage.png'),
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundImage:
-                                      NetworkImage(imageUrl, scale: 1.0),
-                                ),
-                              )
-                            : */
+                  // ? Profile picture
                   CircleAvatar(
                     radius: 45,
                     backgroundImage:
-                        AssetImage('images/defaultProfileImage.png'),
-                  ),
+                        const AssetImage('images/defaultProfileImage.png'),
+                    child: CircleAvatar(
+                      radius: 40,
+                      backgroundImage:
+                          NetworkImage(profileImageUrl, scale: 1.0),
+                    ),
+                  )
                 ],
               ),
-              // Space between
+              // ? Space between
               const SizedBox(
                 height: 5,
               ),
               // ? Display Full Name
-              Row(children: [
-                // First Name
-                TextDisplay(
-                  text: firstName,
-                  fontSize: 33,
-                  fontWeight: FontWeight.w600,
-                  color: const Color.fromRGBO(133, 157, 194, 1),
-                ),
-                // Space between first & last name
-                const SizedBox(
-                  width: 8,
-                ),
-                // Last Name
-                TextDisplay(
-                  text: lastName,
-                  fontSize: 33,
-                  fontWeight: FontWeight.w600,
-                  color: const Color.fromRGBO(133, 157, 194, 1),
-                ),
-              ]),
+
+              // ? First Name
+              TextDisplay(
+                text: name,
+                fontSize: 33,
+                fontWeight: FontWeight.w600,
+                color: const Color.fromRGBO(133, 157, 194, 1),
+              ),
+              // ? Space between first & last name
+              const SizedBox(
+                width: 8,
+              ),
 
               // ? Display Bio
               TextDisplay(
@@ -82,36 +70,36 @@ displayModalBottomSheet(context) {
                 fontWeight: FontWeight.w500,
                 color: const Color.fromRGBO(133, 157, 194, 1),
               ),
-              // Space between bio and tags
+              // ? Space between bio and tags
               const SizedBox(
                 height: 5,
               ),
 
               // ? Tags = Pronouns, Industry, City
               Wrap(children: [
-                // Pronouns
+                // ? Pronouns
                 TextDisplay(
                   text: '$pronouns   |',
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: const Color.fromRGBO(116, 215, 247, 1),
                 ),
-                // Space between tags
+                // ? Space between tags
                 const SizedBox(
                   width: 10,
                 ),
-                // Industry / Field
+                // ? Industry / Field
                 TextDisplay(
                   text: '$industry   |',
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: const Color.fromRGBO(115, 142, 247, 1),
                 ),
-                // Space between tags
+                // ? Space between tags
                 const SizedBox(
                   width: 10,
                 ),
-                // City / Town
+                // ? City / Town
                 TextDisplay(
                   text: city,
                   fontSize: 14,
@@ -120,16 +108,16 @@ displayModalBottomSheet(context) {
                 )
               ]), // End of Tag ROW
 
-              // Space between
+              // ? Space between
               const SizedBox(
                 height: 7,
               ),
 
-              // Divide line
+              // ? Divide line
               const Divider(
                   thickness: 0.5, color: Color.fromRGBO(133, 157, 194, 0.422)),
 
-              // Space between divide & role
+              // ? Space between divide & role
               const SizedBox(
                 height: 7,
               ),
@@ -141,7 +129,7 @@ displayModalBottomSheet(context) {
                 color: Color.fromRGBO(133, 157, 194, 1),
               ),
 
-              // Space between
+              // ? Space between
               const SizedBox(
                 height: 10,
               ),
@@ -154,11 +142,11 @@ displayModalBottomSheet(context) {
                     size: 15,
                     color: Color.fromRGBO(133, 157, 194, 1),
                   ),
-                  // Space between icon & role
+                  // ? Space between icon & role
                   const SizedBox(
                     width: 5,
                   ),
-                  // Role
+                  // ? Role
                   TextDisplay(
                     text: role,
                     fontSize: 14,
@@ -168,7 +156,7 @@ displayModalBottomSheet(context) {
                 ],
               ),
 
-              // Space between
+              // ? Space between
               const SizedBox(
                 height: 5,
               ),
@@ -181,11 +169,11 @@ displayModalBottomSheet(context) {
                     size: 14,
                     color: Color.fromRGBO(133, 157, 194, 1),
                   ),
-                  // Space between icon & company
+                  // ? Space between icon & company
                   const SizedBox(
                     width: 7,
                   ),
-                  // Company
+                  // ? Company
                   TextDisplay(
                     text: company,
                     fontSize: 13,
@@ -195,7 +183,7 @@ displayModalBottomSheet(context) {
                 ],
               ),
 
-              // Space between
+              // ? Space between
               const SizedBox(
                 height: 5,
               ),
@@ -208,11 +196,11 @@ displayModalBottomSheet(context) {
                     size: 14,
                     color: Color.fromRGBO(133, 157, 194, 1),
                   ),
-                  // Space between icon & years
+                  // ? Space between icon & years
                   const SizedBox(
                     width: 7,
                   ),
-                  // Years worked
+                  // ? Years worked
                   TextDisplay(
                     text: yearsWorked,
                     fontSize: 13,
@@ -226,7 +214,7 @@ displayModalBottomSheet(context) {
                 height: 5,
               ),
 
-              // Divide line
+              // ? Divide line
               const Divider(
                   thickness: 0.5, color: Color.fromRGBO(133, 157, 194, 0.422)),
 
@@ -239,7 +227,7 @@ displayModalBottomSheet(context) {
                 Stack(
                   alignment: AlignmentDirectional.center,
                   children: [
-                    // Button borader & drop shadow
+                    // ? Button border & drop shadow
                     Container(
                       margin: const EdgeInsets.symmetric(
                         horizontal: 15,
@@ -256,14 +244,19 @@ displayModalBottomSheet(context) {
                               ),
                               blurRadius: 1.0,
                               spreadRadius: 1.0,
-                            ), //BoxShadow
+                            ), // ? BoxShadow
                           ],
                           color: Color.fromRGBO(255, 159, 180, 1),
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                     ),
-                    // Cancel Button
+                    // ? Cancel Button
                     ButtonComponent(
-                      onTap: () {},
+                      onTap: () {
+                        // ? Closes modal
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                        }
+                      },
                       text: 'Cancel',
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -275,17 +268,17 @@ displayModalBottomSheet(context) {
                   ],
                 ),
 
-                // Confirm Button
+                // ? Confirm Button
                 Stack(
                   alignment: AlignmentDirectional.center,
                   children: [
-                    // Button borader & drop shadow
+                    // ? Button borader & drop shadow
                     Container(
                       margin: const EdgeInsets.symmetric(
                         horizontal: 15,
                       ),
                       height: 49,
-                      width: 191,
+                      width: 187,
                       decoration: const BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -296,15 +289,54 @@ displayModalBottomSheet(context) {
                               ),
                               blurRadius: 1.0,
                               spreadRadius: 1.0,
-                            ), //BoxShadow
+                            ), // ? BoxShadow
                           ],
                           color: Color.fromRGBO(121, 212, 189, 1),
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                     ),
 
                     ButtonComponent(
-                      onTap: () {},
-                      text: 'Connect',
+                      onTap: () async {
+                        // ?  find and add to contact list logic
+                        await StoreUserData.updateConnectionsPincode(pincode);
+                        // ? Closes modal
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                          // ? Set up the AlertDialog
+                          // ? Show the dialog
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              // ? Closes alertDialog after 1.5 seconds
+                              Future.delayed(const Duration(milliseconds: 1500),
+                                  () {
+                                Navigator.pop(context);
+                              });
+                              return alert = const AlertDialog(
+                                  alignment: Alignment.bottomCenter,
+                                  surfaceTintColor:
+                                      Color.fromARGB(0, 255, 255, 255),
+                                  backgroundColor:
+                                      Color.fromRGBO(115, 142, 247, 1),
+                                  titlePadding:
+                                      EdgeInsets.only(left: 20, top: 20),
+                                  title: Text("You're now connected!"),
+                                  titleTextStyle: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Montserrat'),
+                                  contentPadding: EdgeInsets.only(
+                                      left: 20, top: 10, bottom: 20),
+                                  content: Text("How nifti 😉"),
+                                  contentTextStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Montserrat'));
+                            },
+                          );
+                        }
+                      },
+                      text: 'Confirm',
                       color: const Color.fromRGBO(235, 254, 244, 1),
                       fontColor: const Color.fromRGBO(121, 212, 189, 1),
                       padding: const EdgeInsets.symmetric(
@@ -315,4 +347,10 @@ displayModalBottomSheet(context) {
               ]),
             ]));
       });
-} // END OF *** CONTACT CARD MODAL
+} // ? END OF *** CONTACT CARD MODAL
+
+// ? Alert dialog
+AlertDialog alert = const AlertDialog(
+  title: Text(""),
+  content: Text(""),
+);
