@@ -1,3 +1,4 @@
+//import 'dart:js_interop';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -164,6 +165,7 @@ class StoreUserData {
     String pin = await UserPincode.getStaticPincode(
         pincode); // ? Ensuring we grab the correct pincode by accessing the static pincode getter
     try {
+      late dynamic code = [];
       final DocumentSnapshot<Map<String, dynamic>> docSnapshot =
           await collectionReference
               .doc(niftiFireUser)
@@ -173,12 +175,22 @@ class StoreUserData {
         final List<dynamic>? snapshot = docSnapshot.data()?[
             'connections']; // ? Duplicating the 'connections' array from user firestore document
 
-        if (snapshot != null) {
-          final code = [
-            ...snapshot,
-            pin
-          ]; // ? Copying the existing data and adding the new pincode to the array
-
+        if (snapshot!.isEmpty) {
+          await collectionReference.doc(niftiFireUser).update({
+            'connections': FieldValue.arrayUnion([pin])
+          });
+        } else {
+          for (int i = 0; i < (snapshot.length + 1); i++) {
+            if (snapshot.contains(pin)) {
+              // ? do nothing;
+              code = [...snapshot];
+            } else {
+              code = [
+                ...snapshot,
+                pin
+              ]; // ? Copying the existing data and adding the new pincode to the array
+            }
+          }
           await collectionReference.doc(niftiFireUser).update({
             'connections':
                 code, // ? Pushing the new array for appending within the desired firestore document
@@ -186,6 +198,7 @@ class StoreUserData {
         }
       } else {}
     } catch (e) {
+      // ? Catching errors
       return "Sorry! Error adding connection.";
     }
   }
