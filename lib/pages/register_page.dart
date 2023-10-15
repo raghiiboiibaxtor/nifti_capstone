@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nifti_locapp/components/button.dart';
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/functions/frontend.dart';
@@ -480,7 +481,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   if (isLastStep) ...[
                     // ? Confirm Button
                     Expanded(
-                        child: ElevatedButton(
+                      child: ButtonComponent(onTap:  details.onStepContinue, text: 'Confirm', color: const Color.fromRGBO(115, 142, 247, 1)),
+                        /*child: ElevatedButton(
                       onPressed: details.onStepContinue,
                       child: const Text(
                         'Confirm',
@@ -489,7 +491,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             fontSize: 15,
                             letterSpacing: 0.5),
                       ),
-                    )),
+                    )*/),
                     const SizedBox(
                       width: 30,
                     ),
