@@ -21,7 +21,7 @@ class ButtonComponent extends StatelessWidget {
     required this.color,
     this.fontSize = 18,
     this.fontWeight = FontWeight.bold,
-    this.fontColor = const Color.fromRGBO(252, 250, 245, 1),
+    this.fontColor = const Color.fromARGB(255, 255, 255, 255),
     this.padding = const EdgeInsets.all(10),
   });
 

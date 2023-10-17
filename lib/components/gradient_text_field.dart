@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
+import 'package:nifti_locapp/components/app_theme.dart';
 
 // ? GradientTextFieldComponent == custom text field widget with a gradient border
 
@@ -30,8 +31,8 @@ class GradientTextFieldComponent extends StatelessWidget {
         child: Container(
           width: width,
           decoration: BoxDecoration(
-              color: const Color.fromRGBO(252, 250, 245, 1),
-              border: Border.all(color: Colors.white),
+              color: niftiOffWhite,
+              border: Border.all(color: niftiWhite),
               borderRadius: BorderRadius.circular(25)),
           child: TextField(
             controller: controller,
@@ -39,11 +40,7 @@ class GradientTextFieldComponent extends StatelessWidget {
             decoration: InputDecoration(
               hintText: hintText,
               border: GradientOutlineInputBorder(
-                gradient: const LinearGradient(colors: [
-                  Color.fromRGBO(209, 147, 246, 1),
-                  Color.fromRGBO(115, 142, 247, 1),
-                  Color.fromRGBO(116, 215, 247, 1)
-                ]),
+                gradient: niftiGradient,
                 width: 2,
                 borderRadius: BorderRadius.circular(25),
               ),
