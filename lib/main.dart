@@ -23,9 +23,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: const ColorScheme.light(
-          background: Color.fromRGBO(252, 250, 245, 1),
-        ),
         fontFamily: 'Montserrat',
         useMaterial3: true,
       ),
