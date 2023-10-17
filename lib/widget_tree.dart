@@ -37,33 +37,42 @@ class _WidgetTreeState extends State<WidgetTree> {
           shape: const RoundedRectangleBorder(
               borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(40))),
-          iconTheme: CupertinoIconThemeData(color: niftiGrey, size: 25),
+          // ? Appbar Theme
+          iconTheme: CupertinoIconThemeData(color: niftiGrey, size: 23),
           elevation: 2,
           shadowColor: niftiGreyShadow,
           surfaceTintColor: niftiOffWhite,
           toolbarHeight: 40,
+          centerTitle: true,
+          // ? Notifications
+          leading: IconButton(
+            onPressed: () {
+              //FirebaseAuth.instance.signOut();
+            },
+            icon: const Icon(
+              CupertinoIcons.bell,
+              semanticLabel: 'Notifications',
+            ),
+          ),
+          // ? Nifti Logo
           title: SizedBox(
             width: 70,
             child: Image.asset('images/nifti_logo.png'),
           ),
-          actions: [ 
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    //FirebaseAuth.instance.signOut();
-                  },
-                  //icon: Image.asset('images/settings_icon.png'),
-                  icon: const Icon(
-                    CupertinoIcons.gear,
-                    semanticLabel: 'Settings',
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.only(right: 7)
-                ),
-              ],
-          )
-           
+          // ? Settings
+          actions: [
+            //const Padding(padding: EdgeInsets.only(right: 7)),
+            IconButton(
+              onPressed: () {
+                //FirebaseAuth.instance.signOut();
+              },
+              //icon: Image.asset('images/settings_icon.png'),
+              icon: const Icon(
+                CupertinoIcons.gear,
+                semanticLabel: 'Settings',
+              ),
+            ),
+            const Padding(padding: EdgeInsets.only(right: 7)),
           ],
         ),
         // ? Body of the page
