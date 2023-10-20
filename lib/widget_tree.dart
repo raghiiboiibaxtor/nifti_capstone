@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:advanced_icon/advanced_icon.dart';
 import 'package:nifti_locapp/components/app_theme.dart';
 import 'package:nifti_locapp/pages/connection_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';
 import 'package:nifti_locapp/pages/profile_page.dart';
+import 'package:circle_nav_bar/circle_nav_bar.dart';
 
 // ? WidgetTree == App navigation through bottom nav bar + app bar
 
@@ -78,22 +80,16 @@ class _WidgetTreeState extends State<WidgetTree> {
         // ? Body of the page
         body: pages.elementAt(currentPage),
         // ? Navigation Bar containing page options
-        bottomNavigationBar: SafeArea(
+        /*bottomNavigationBar: SafeArea(
             child: Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 15,
           ),
           height: 55,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Color.fromRGBO(209, 147, 246, 1),
-                    Color.fromRGBO(115, 142, 247, 1),
-                    Color.fromRGBO(116, 215, 247, 1),
-                  ]),
-              borderRadius: BorderRadius.all(Radius.circular(30))),
+          
+          decoration: BoxDecoration(
+              color: niftiOffWhite,
+              borderRadius: const BorderRadius.all(Radius.circular(30))),
           child: BottomNavigationBar(
             useLegacyColorScheme: false,
             showSelectedLabels: false,
@@ -192,8 +188,138 @@ class _WidgetTreeState extends State<WidgetTree> {
               });
             },
           ),
-        )));
+        ))*/
+
+        //child: Icon(CupertinoIcons.group),
+        //child: Icon(CupertinoIcons.question),
+        //child: Icon(CupertinoIcons.smiley),
+
+        bottomNavigationBar: Stack(
+          children: [
+            Container(
+              color: Colors.transparent,
+              child: CircleNavBar(
+                onTap: (int value) {
+                  setState(() {
+                    currentPage = value;
+                  });
+                },
+                elevation: 3,
+                shadowColor: niftiGreyShadow,
+                activeIndex: currentPage,
+                cornerRadius:
+                    const BorderRadius.only(topLeft: Radius.circular(23)),
+                activeIcons: [
+                  AdvancedIcon(
+                    icon: CupertinoIcons.person_2,
+                    gradient: niftiGradient,
+                    size: 30,
+                  ),
+                  const SizedBox(
+                    height:  0.01,
+                    width: 0.2,
+                    child: Image(
+                    image: AssetImage('images/nifti_icon_gradient.png'),
+                    semanticLabel: 'Connect',
+                  ),
+                  ),
+                   
+                  // Profile Active Icon
+                  AdvancedIcon(
+                    icon: CupertinoIcons.smiley,
+                    gradient: niftiGradient,
+                    size: 30,
+                  ),
+                  //Icon(CupertinoIcons.group, color: niftiGrey),
+                  //Icon(CupertinoIcons.question, color: niftiGrey),
+                  //Icon(CupertinoIcons.smiley, color: niftiGrey),
+                ],
+                inactiveIcons: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 25,
+                        child: Icon(
+                          CupertinoIcons.person_2,
+                          color: niftiGrey,
+                          semanticLabel: 'Contacts',
+                          size: 25,
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image(
+                        image: const AssetImage('images/nifti_icon_grey.png'),
+                        color: niftiGrey,
+                        semanticLabel: 'Connect',
+                        height: 25,
+                      ),
+                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 25,
+                        child: Icon(
+                          CupertinoIcons.smiley,
+                          color: niftiGrey,
+                          semanticLabel: 'Profile',
+                          size: 25,
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                    ],
+                  ),
+                ],
+                height: 75,
+                circleWidth: 53,
+                color: niftiOffWhite,
+              ),
+            ),
+            // ? Navbar Text Labels
+            Container(
+              margin: const EdgeInsets.only(left: 37, top: 42),
+              child: Text(
+                'Contacts',
+                style: TextStyle(
+                  color: niftiGrey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 168, top: 42),
+              child: Text(
+                'Connect',
+                style: TextStyle(
+                  color: niftiGrey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 305, top: 42),
+              child: Text(
+                'Profile',
+                style: TextStyle(
+                  color: niftiGrey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ));
   }
   // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
-} 
+}
 // * ---------------- * END OF (STATE) CLASS _WidgetTreeState (STATE) * ---------------- *
