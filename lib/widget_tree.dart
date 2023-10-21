@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:advanced_icon/advanced_icon.dart';
 import 'package:nifti_locapp/components/app_theme.dart';
 import 'package:nifti_locapp/pages/connection_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';
@@ -40,12 +39,18 @@ class _WidgetTreeState extends State<WidgetTree> {
               borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(40))),
           // ? Appbar Theme
-          iconTheme: CupertinoIconThemeData(color: niftiGrey, size: 23),
+          iconTheme: CupertinoIconThemeData(color: niftiOffWhite, size: 23),
           elevation: 2,
           shadowColor: niftiGreyShadow,
           surfaceTintColor: niftiOffWhite,
           toolbarHeight: 40,
           centerTitle: true,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: niftiGradient,
+                borderRadius:
+                    const BorderRadius.only(bottomRight: Radius.circular(40))),
+          ),
           // ? Notifications
           leading: IconButton(
             onPressed: () {
@@ -59,7 +64,7 @@ class _WidgetTreeState extends State<WidgetTree> {
           // ? Nifti Logo
           title: SizedBox(
             width: 70,
-            child: Image.asset('images/nifti_logo.png'),
+            child: Image.asset('images/nifti_logo_white.png'),
           ),
           // ? Settings
           actions: [
@@ -193,12 +198,13 @@ class _WidgetTreeState extends State<WidgetTree> {
         //child: Icon(CupertinoIcons.group),
         //child: Icon(CupertinoIcons.question),
         //child: Icon(CupertinoIcons.smiley),
-
+        // ? Nav bar
         bottomNavigationBar: Stack(
           children: [
             Container(
               color: Colors.transparent,
               child: CircleNavBar(
+                // ? show selected page
                 onTap: (int value) {
                   setState(() {
                     currentPage = value;
@@ -207,33 +213,24 @@ class _WidgetTreeState extends State<WidgetTree> {
                 elevation: 3,
                 shadowColor: niftiGreyShadow,
                 activeIndex: currentPage,
+                height: 75,
+                circleWidth: 53,
+                gradient: niftiGradient,
+                circleGradient: niftiGradient,
+                color: niftiOffWhite,
                 cornerRadius:
-                    const BorderRadius.only(topLeft: Radius.circular(23)),
+                    const BorderRadius.only(topLeft: Radius.circular(33)),
+                // ? Selected Icons
                 activeIcons: [
-                  AdvancedIcon(
-                    icon: CupertinoIcons.person_2,
-                    gradient: niftiGradient,
+                  Icon(CupertinoIcons.person_2, color: niftiOffWhite, size: 30),
+                  Icon(
+                    Icons.share_outlined,
+                    color: niftiOffWhite,
                     size: 30,
                   ),
-                  const SizedBox(
-                    height:  0.01,
-                    width: 0.2,
-                    child: Image(
-                    image: AssetImage('images/nifti_icon_gradient.png'),
-                    semanticLabel: 'Connect',
-                  ),
-                  ),
-                   
-                  // Profile Active Icon
-                  AdvancedIcon(
-                    icon: CupertinoIcons.smiley,
-                    gradient: niftiGradient,
-                    size: 30,
-                  ),
-                  //Icon(CupertinoIcons.group, color: niftiGrey),
-                  //Icon(CupertinoIcons.question, color: niftiGrey),
-                  //Icon(CupertinoIcons.smiley, color: niftiGrey),
+                  Icon(CupertinoIcons.smiley, color: niftiOffWhite, size: 30),
                 ],
+                // ? Unselected Icons
                 inactiveIcons: [
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -242,7 +239,7 @@ class _WidgetTreeState extends State<WidgetTree> {
                         height: 25,
                         child: Icon(
                           CupertinoIcons.person_2,
-                          color: niftiGrey,
+                          color: niftiOffWhite,
                           semanticLabel: 'Contacts',
                           size: 25,
                         ),
@@ -253,11 +250,14 @@ class _WidgetTreeState extends State<WidgetTree> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image(
-                        image: const AssetImage('images/nifti_icon_grey.png'),
-                        color: niftiGrey,
-                        semanticLabel: 'Connect',
+                      SizedBox(
                         height: 25,
+                        child: Icon(
+                          Icons.share_outlined,
+                          color: niftiOffWhite,
+                          semanticLabel: 'Connect',
+                          size: 25,
+                        ),
                       ),
                       const Padding(padding: EdgeInsets.only(bottom: 25)),
                     ],
@@ -269,7 +269,7 @@ class _WidgetTreeState extends State<WidgetTree> {
                         height: 25,
                         child: Icon(
                           CupertinoIcons.smiley,
-                          color: niftiGrey,
+                          color: niftiOffWhite,
                           semanticLabel: 'Profile',
                           size: 25,
                         ),
@@ -278,9 +278,6 @@ class _WidgetTreeState extends State<WidgetTree> {
                     ],
                   ),
                 ],
-                height: 75,
-                circleWidth: 53,
-                color: niftiOffWhite,
               ),
             ),
             // ? Navbar Text Labels
@@ -289,7 +286,7 @@ class _WidgetTreeState extends State<WidgetTree> {
               child: Text(
                 'Contacts',
                 style: TextStyle(
-                  color: niftiGrey,
+                  color: niftiOffWhite,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
@@ -300,7 +297,7 @@ class _WidgetTreeState extends State<WidgetTree> {
               child: Text(
                 'Connect',
                 style: TextStyle(
-                  color: niftiGrey,
+                  color: niftiOffWhite,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
@@ -311,7 +308,7 @@ class _WidgetTreeState extends State<WidgetTree> {
               child: Text(
                 'Profile',
                 style: TextStyle(
-                  color: niftiGrey,
+                  color: niftiOffWhite,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
