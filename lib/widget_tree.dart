@@ -4,6 +4,7 @@ import 'package:nifti_locapp/components/app_theme.dart';
 import 'package:nifti_locapp/pages/connection_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';
 import 'package:nifti_locapp/pages/profile_page.dart';
+import 'package:circle_nav_bar/circle_nav_bar.dart';
 
 // ? WidgetTree == App navigation through bottom nav bar + app bar
 
@@ -38,12 +39,18 @@ class _WidgetTreeState extends State<WidgetTree> {
               borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(40))),
           // ? Appbar Theme
-          iconTheme: CupertinoIconThemeData(color: niftiGrey, size: 23),
+          iconTheme: CupertinoIconThemeData(color: niftiOffWhite, size: 23),
           elevation: 2,
           shadowColor: niftiGreyShadow,
           surfaceTintColor: niftiOffWhite,
           toolbarHeight: 40,
           centerTitle: true,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: niftiGradient,
+                borderRadius:
+                    const BorderRadius.only(bottomRight: Radius.circular(40))),
+          ),
           // ? Notifications
           leading: IconButton(
             onPressed: () {
@@ -57,7 +64,7 @@ class _WidgetTreeState extends State<WidgetTree> {
           // ? Nifti Logo
           title: SizedBox(
             width: 70,
-            child: Image.asset('images/nifti_logo.png'),
+            child: Image.asset('images/nifti_logo_white.png'),
           ),
           // ? Settings
           actions: [
@@ -78,22 +85,16 @@ class _WidgetTreeState extends State<WidgetTree> {
         // ? Body of the page
         body: pages.elementAt(currentPage),
         // ? Navigation Bar containing page options
-        bottomNavigationBar: SafeArea(
+        /*bottomNavigationBar: SafeArea(
             child: Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 15,
           ),
           height: 55,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Color.fromRGBO(209, 147, 246, 1),
-                    Color.fromRGBO(115, 142, 247, 1),
-                    Color.fromRGBO(116, 215, 247, 1),
-                  ]),
-              borderRadius: BorderRadius.all(Radius.circular(30))),
+          
+          decoration: BoxDecoration(
+              color: niftiOffWhite,
+              borderRadius: const BorderRadius.all(Radius.circular(30))),
           child: BottomNavigationBar(
             useLegacyColorScheme: false,
             showSelectedLabels: false,
@@ -192,8 +193,130 @@ class _WidgetTreeState extends State<WidgetTree> {
               });
             },
           ),
-        )));
+        ))*/
+
+        //child: Icon(CupertinoIcons.group),
+        //child: Icon(CupertinoIcons.question),
+        //child: Icon(CupertinoIcons.smiley),
+        // ? Nav bar
+        bottomNavigationBar: Stack(
+          children: [
+            Container(
+              color: Colors.transparent,
+              child: CircleNavBar(
+                // ? show selected page
+                onTap: (int value) {
+                  setState(() {
+                    currentPage = value;
+                  });
+                },
+                elevation: 3,
+                shadowColor: niftiGreyShadow,
+                activeIndex: currentPage,
+                height: 75,
+                circleWidth: 53,
+                gradient: niftiGradient,
+                circleGradient: niftiGradient,
+                color: niftiOffWhite,
+                cornerRadius:
+                    const BorderRadius.only(topLeft: Radius.circular(33)),
+                // ? Selected Icons
+                activeIcons: [
+                  Icon(CupertinoIcons.person_2, color: niftiOffWhite, size: 30),
+                  Icon(
+                    Icons.share_outlined,
+                    color: niftiOffWhite,
+                    size: 30,
+                  ),
+                  Icon(CupertinoIcons.smiley, color: niftiOffWhite, size: 30),
+                ],
+                // ? Unselected Icons
+                inactiveIcons: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 25,
+                        child: Icon(
+                          CupertinoIcons.person_2,
+                          color: niftiOffWhite,
+                          semanticLabel: 'Contacts',
+                          size: 25,
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 25,
+                        child: Icon(
+                          Icons.share_outlined,
+                          color: niftiOffWhite,
+                          semanticLabel: 'Connect',
+                          size: 25,
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 25,
+                        child: Icon(
+                          CupertinoIcons.smiley,
+                          color: niftiOffWhite,
+                          semanticLabel: 'Profile',
+                          size: 25,
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // ? Navbar Text Labels
+            Container(
+              margin: const EdgeInsets.only(left: 37, top: 42),
+              child: Text(
+                'Contacts',
+                style: TextStyle(
+                  color: niftiOffWhite,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 168, top: 42),
+              child: Text(
+                'Connect',
+                style: TextStyle(
+                  color: niftiOffWhite,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 305, top: 42),
+              child: Text(
+                'Profile',
+                style: TextStyle(
+                  color: niftiOffWhite,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ));
   }
   // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
-} 
+}
 // * ---------------- * END OF (STATE) CLASS _WidgetTreeState (STATE) * ---------------- *
