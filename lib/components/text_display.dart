@@ -9,13 +9,16 @@ class TextDisplay extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   final Color color;
+  final double letterSpacing;
   // ? Required variables to be passed
   const TextDisplay(
       {super.key,
       required this.text,
-      required this.fontSize,
-      required this.fontWeight,
-      required this.color});
+      this.fontSize = 12,
+      this.fontWeight = FontWeight.normal,
+      this.color = const Color.fromRGBO(116, 142, 183, 1),
+      this.letterSpacing = 0,
+      });
 
   // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
@@ -29,6 +32,7 @@ class TextDisplay extends StatelessWidget {
             fontSize: fontSize,
             fontWeight: fontWeight,
             color: color,
+            letterSpacing: letterSpacing,
           ),
         )
       ],
