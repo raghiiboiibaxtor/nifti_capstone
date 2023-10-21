@@ -17,3 +17,4 @@ Color niftiWhite = const Color.fromRGBO(255, 255, 255, 1);
 Color niftiOffWhite = const Color.fromRGBO(255, 254, 253, 1);
 Color niftiGrey = const Color.fromRGBO(116, 142, 183, 1);
 Color niftiGreyShadow = const Color.fromRGBO(116, 142, 183, 0.55);
+Color niftiLightGrey = const Color.fromRGBO(193, 197, 203, 1);
