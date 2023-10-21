@@ -54,7 +54,7 @@ class _WidgetTreeState extends State<WidgetTree> {
           // ? Notifications
           leading: IconButton(
             onPressed: () {
-              //FirebaseAuth.instance.signOut();
+              // ! Notification pop-up logic
             },
             icon: const Icon(
               CupertinoIcons.bell,
@@ -71,6 +71,7 @@ class _WidgetTreeState extends State<WidgetTree> {
             //const Padding(padding: EdgeInsets.only(right: 7)),
             IconButton(
               onPressed: () {
+                // ! Settings page redirection
                 //FirebaseAuth.instance.signOut();
               },
               //icon: Image.asset('images/settings_icon.png'),
@@ -85,120 +86,6 @@ class _WidgetTreeState extends State<WidgetTree> {
         // ? Body of the page
         body: pages.elementAt(currentPage),
         // ? Navigation Bar containing page options
-        /*bottomNavigationBar: SafeArea(
-            child: Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 15,
-          ),
-          height: 55,
-          
-          decoration: BoxDecoration(
-              color: niftiOffWhite,
-              borderRadius: const BorderRadius.all(Radius.circular(30))),
-          child: BottomNavigationBar(
-            useLegacyColorScheme: false,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            iconSize: 26,
-            selectedFontSize: 0,
-            unselectedFontSize: 0,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-
-            items: [
-              // ? Contacts Icon
-              BottomNavigationBarItem(
-                  icon: const Icon(
-                    Icons.format_list_bulleted_rounded,
-                    color: Color.fromRGBO(252, 250, 245, 1),
-                  ),
-                  label: 'Contacts',
-                  activeIcon: Container(
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(252, 250, 245, 0.5),
-                          offset: Offset.zero,
-                          spreadRadius: 5,
-                        )
-                      ],
-                      color: Color.fromRGBO(252, 250, 245, 1),
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: const Icon(Icons.format_list_bulleted_rounded,
-                        color: Color.fromRGBO(
-                          209,
-                          147,
-                          246,
-                          1,
-                        ),
-                        size: 30),
-                  )),
-              // ? Scan Icon
-              BottomNavigationBarItem(
-                  icon: const Icon(
-                    Icons.add_circle,
-                    color: Color.fromRGBO(252, 250, 245, 1),
-                  ),
-                  label: 'Scan',
-                  activeIcon: Container(
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(252, 250, 245, 0.5),
-                          offset: Offset.zero,
-                          spreadRadius: 5,
-                        )
-                      ],
-                      color: Color.fromRGBO(252, 250, 245, 1),
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: const Icon(Icons.add_circle,
-                        color: Color.fromRGBO(115, 142, 247, 1), size: 30),
-                  )),
-              // ? Profile Icon
-              BottomNavigationBarItem(
-                  icon: const Icon(
-                    Icons.person_pin_rounded,
-                    color: Color.fromRGBO(252, 250, 245, 1),
-                  ),
-                  label: 'Scan',
-                  activeIcon: Container(
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(252, 250, 245, 0.5),
-                          offset: Offset.zero,
-                          spreadRadius: 5,
-                        )
-                      ],
-                      color: Color.fromRGBO(252, 250, 245, 1),
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: const Icon(Icons.person_pin_rounded,
-                        color: Color.fromRGBO(116, 215, 247, 1), size: 30),
-                  )),
-            ],
-            // ? Logic to show selected page
-            currentIndex: currentPage,
-            onTap: (int value) {
-              setState(() {
-                currentPage = value;
-              });
-            },
-          ),
-        ))*/
-
-        //child: Icon(CupertinoIcons.group),
-        //child: Icon(CupertinoIcons.question),
-        //child: Icon(CupertinoIcons.smiley),
-        // ? Nav bar
         bottomNavigationBar: Stack(
           children: [
             Container(

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 // ? ButtonComponent == custom button widget
@@ -12,6 +13,7 @@ class ButtonComponent extends StatelessWidget {
   final FontWeight fontWeight;
   final Color fontColor;
   final EdgeInsetsGeometry padding;
+  final double letterSpacing;
 
   // Required & optional variables to be passed
   const ButtonComponent({
@@ -23,6 +25,7 @@ class ButtonComponent extends StatelessWidget {
     this.fontWeight = FontWeight.bold,
     this.fontColor = const Color.fromARGB(255, 255, 255, 255),
     this.padding = const EdgeInsets.all(10),
+    this.letterSpacing = 1,
   });
 
   // * ---------------- * (BUILD WIDGET) * ---------------- *
@@ -45,7 +48,7 @@ class ButtonComponent extends StatelessWidget {
                         color: fontColor,
                         fontSize: fontSize,
                         fontWeight: fontWeight,
-                        letterSpacing: 1),
+                        letterSpacing: letterSpacing,),
                   ),
                 ))));
   }
