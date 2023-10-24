@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nifti_locapp/components/app_theme.dart';
 import 'package:nifti_locapp/pages/connection_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';

@@ -14,6 +14,8 @@ class ButtonComponent extends StatelessWidget {
   final Color fontColor;
   final EdgeInsetsGeometry padding;
   final double letterSpacing;
+  final double height;
+  final double width;
 
   // Required & optional variables to be passed
   const ButtonComponent({
@@ -26,6 +28,9 @@ class ButtonComponent extends StatelessWidget {
     this.fontColor = const Color.fromARGB(255, 255, 255, 255),
     this.padding = const EdgeInsets.all(10),
     this.letterSpacing = 1,
+    this.width = 360,
+    this.height = 45,
+    
   });
 
   // * ---------------- * (BUILD WIDGET) * ---------------- *
@@ -41,6 +46,8 @@ class ButtonComponent extends StatelessWidget {
                   color: color,
                   borderRadius: BorderRadius.circular(30),
                 ),
+                width: width,
+                height: height,
                 child: Center(
                   child: Text(
                     text,
