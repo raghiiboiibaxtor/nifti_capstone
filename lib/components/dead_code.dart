@@ -443,4 +443,219 @@
                         ],
                       )
                     : Container(),
+
+    /*child: ListView(
+              children: [
+                // ? Primary Info
+                Stack(
+                  children: [
+                    details['imageLink'] != null
+                        ? CircleAvatar(
+                            radius: 45,
+                            backgroundImage: const AssetImage(
+                                'images/defaultProfileImage.png'),
+                            child: CircleAvatar(
+                              radius: 40,
+                              backgroundImage: NetworkImage(
+                                  '${details['imageLink']}',
+                                  scale: 1.0),
+                            ),
+                          )
+                        : const CircleAvatar(
+                            radius: 45,
+                            backgroundImage:
+                                AssetImage('images/defaultProfileImage.png'),
+                          ),
+                  ],
+                ),
+                // ? Display Full Name
+
+                TextDisplay(
+                  text: '${details['firstName']}' ' ${details['lastName']}',
+                  fontSize: 33,
+                  fontWeight: FontWeight.w600,
+                  color: const Color.fromRGBO(133, 157, 194, 1),
+                ),
+                // ? Space between first & last name
+                const SizedBox(
+                  width: 8,
+                ), // ? End of name ROW
+
+                // ? Display Bio
+                TextDisplay(
+                  text: '${details['bio']}',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: const Color.fromRGBO(133, 157, 194, 1),
+                ),
+                // ? Space between bio and tags
+                const SizedBox(
+                  height: 5,
+                ),
+
+                // ? Tags = Pronouns, Industry, City
+                Wrap(children: [
+                  // ? Pronouns
+                  TextDisplay(
+                    text: '${details['pronouns']}   |',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: const Color.fromRGBO(116, 215, 247, 1),
+                  ),
+                  // ? Space between tags
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  // ? Industry / Field
+                  TextDisplay(
+                    text: '${details['industry']}   |',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: const Color.fromRGBO(115, 142, 247, 1),
+                  ),
+                  // ? Space between tags
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  // ? City / Town
+                  TextDisplay(
+                    text: '${details['city/town']}',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: const Color.fromRGBO(209, 147, 246, 1),
+                  )
+                ]), // ? End of Tag ROW
+
+                // ? faint DIVIDE line
+                // ? Divide line
+                const Divider(
+                    thickness: 0.5,
+                    color: Color.fromRGBO(133, 157, 194, 0.422)),
+
+                // ? Space between divide & role
+                const SizedBox(
+                  height: 7,
+                ),
+                // ? Current Role Title
+                const TextDisplay(
+                  text: 'Current Role',
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: Color.fromRGBO(133, 157, 194, 1),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+
+                // ? ROW == icon & role title
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.diamond_outlined,
+                      size: 15,
+                      color: Color.fromRGBO(133, 157, 194, 1),
+                    ),
+                    // ? Space between icon & role
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    // ? Role
+                    TextDisplay(
+                      text: '${details['role']}',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: const Color.fromRGBO(133, 157, 194, 1),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(
+                  height: 5,
+                ),
+
+                // ? ROW == icon & company
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.push_pin_outlined,
+                      size: 14,
+                      color: Color.fromRGBO(133, 157, 194, 1),
+                    ),
+                    // ? Space between icon & company
+                    const SizedBox(
+                      width: 7,
+                    ),
+                    // ? Company
+                    TextDisplay(
+                      text: '${details['company']}',
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: const Color.fromRGBO(133, 157, 194, 1),
+                    ),
+                  ],
+                ),
+                // ? Space between
+                const SizedBox(
+                  height: 5,
+                ),
+
+                // ? ROW == icon & years worked
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.access_time_rounded,
+                      size: 14,
+                      color: Color.fromRGBO(133, 157, 194, 1),
+                    ),
+                    // ? Space between icon & years
+                    const SizedBox(
+                      width: 7,
+                    ),
+                    // ? Years worked
+                    TextDisplay(
+                      text: '${details['yearsWorked']}',
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: const Color.fromRGBO(133, 157, 194, 1),
+                    ),
+                  ],
+                ),
+                // ? Space between
+                const SizedBox(
+                  height: 5,
+                ),
+
+                // ? Contact Info
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.mail_outline,
+                      size: 15,
+                      color: Color.fromRGBO(209, 147, 246, 1),
+                    ),
+                    // ? Space between icon & years
+                    const SizedBox(
+                      width: 7,
+                    ),
+                    // ? Email display + copy
+                    GestureDetector(
+                      child: CopyTool(
+                        text: '${details['email']}',
+                        fontSize: 14,
+                      ),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+                // ? faint DIVIDE line
+                // ? Divide line
+                const Divider(
+                    thickness: 0.5,
+                    color: Color.fromRGBO(133, 157, 194, 0.422)),
+                // ? Space between divide & role
+                const SizedBox(
+                  height: 7,
+                ),
+              ],
+            )*/
  */
