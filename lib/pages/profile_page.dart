@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nifti_locapp/components/app_theme.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/components/text_display.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:social_media_buttons/social_media_buttons.dart';
 
 // ? ProfilePage == display user's details + edit to choose banner images
 
@@ -55,12 +58,14 @@ class _ProfilePageState extends State<ProfilePage> {
               Row(
                 children: [
                   // Page title
-                  Text('PROFILE',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: niftiGrey,
-                      )),
+                  Text(
+                    'PROFILE',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: niftiGrey,
+                    ),
+                  ),
                   const SizedBox(
                     width: 213,
                   ),
@@ -90,20 +95,22 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     height: 590,
                     decoration: BoxDecoration(
-                        gradient: niftiGradient,
-                        boxShadow: [
-                          BoxShadow(
-                              color: niftiGreyShadow,
-                              spreadRadius: 1.0,
-                              blurRadius: 3.0,
-                              offset: const Offset(0, 1)),
-                        ],
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(1),
-                          topRight: Radius.circular(70),
-                          bottomLeft: Radius.circular(70),
-                          bottomRight: Radius.circular(70),
-                        )),
+                      gradient: niftiGradient,
+                      boxShadow: [
+                        BoxShadow(
+                          color: niftiGreyShadow,
+                          spreadRadius: 1.0,
+                          blurRadius: 3.0,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(1),
+                        topRight: Radius.circular(50),
+                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
+                      ),
+                    ),
                   ),
                   // Profile Container
                   Container(
@@ -112,9 +119,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(1),
-                        topRight: Radius.circular(70),
-                        bottomLeft: Radius.circular(70),
-                        bottomRight: Radius.circular(70),
+                        topRight: Radius.circular(50),
+                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
                       ),
                       color: Colors.white,
                     ),
@@ -153,9 +160,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         width: 100,
                                         height: 25,
                                         decoration: BoxDecoration(
-                                            gradient: niftiGradient,
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
+                                          gradient: niftiGradient,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
                                       ),
                                       // Pronouns
                                       Container(
@@ -163,9 +171,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         width: 97,
                                         height: 23,
                                         decoration: BoxDecoration(
-                                            color: niftiWhite,
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
+                                          color: niftiWhite,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
                                         child: Text(
                                           '${details['pronouns']}',
                                           style: TextStyle(
@@ -177,9 +186,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ],
                                   )
-                                : const SizedBox()
+                                : const SizedBox(),
                           ],
                         ),
+                        // Spacing
                         const SizedBox(
                           height: 15,
                         ),
@@ -191,6 +201,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           fontWeight: FontWeight.w900,
                           letterSpacing: 1,
                         ),
+                        // Divider + spacing
                         const SizedBox(
                           height: 5,
                         ),
@@ -200,248 +211,406 @@ class _ProfilePageState extends State<ProfilePage> {
                           endIndent: 20,
                           color: niftiLightBlue,
                         ),
+                        const SizedBox(
+                          height: 5,
+                        ), // End of divider + spacing
                         // ? Display About
                         Container(
-                            alignment: AlignmentDirectional.topStart,
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextDisplay(
-                                  text: 'About Me',
-                                  color: niftiLightGrey,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                TextDisplay(
-                                  text: '${details['bio']}',
-                                ),
-                              ],
-                            ))
+                          alignment: AlignmentDirectional.topStart,
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextDisplay(
+                                text: 'About Me',
+                                color: niftiLightGrey,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              // Bio + check
+                              details['bio'] != ''
+                                  ? TextDisplay(
+                                      text: '${details['bio']}',
+                                      fontSize: 13,
+                                    )
+                                  : TextDisplay(
+                                      text:
+                                          'EDIT YOUR PROFILE TO GIVE YOUR CONTACTS A CHEEKY INSIGHT TO YOU! 🥳',
+                                      fontSize: 13,
+                                      color: niftiDarkBlue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              // Tags == Industry & City
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // Industry
+                                  details['industry'] != ''
+                                      ? Row(
+                                          children: [
+                                            Icon(
+                                              CupertinoIcons.building_2_fill,
+                                              size: 14,
+                                              color: niftiGrey,
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            TextDisplay(
+                                              text: '${details['industry']}',
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox(),
+                                  // City / Town
+                                  details['city/town'] != ''
+                                      ? Row(
+                                          children: [
+                                            Icon(
+                                              Icons.location_on_outlined,
+                                              size: 14,
+                                              color: niftiGrey,
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            TextDisplay(
+                                              text: '${details['city/town']}',
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox(),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Divider + spacing
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Divider(
+                          thickness: 1,
+                          indent: 20,
+                          endIndent: 20,
+                          color: niftiLightBlue,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ), // End of divider + spacing
+                        // ? Display Role / Study
+                        Container(
+                          alignment: AlignmentDirectional.topStart,
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextDisplay(
+                                text: 'Current Role / Study',
+                                color: niftiLightGrey,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              details['role'] != ''
+                                  ? Row(
+                                      children: [
+                                        Icon(
+                                          CupertinoIcons.star,
+                                          size: 14,
+                                          color: niftiGrey,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        TextDisplay(
+                                          text: '${details['role']}',
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              // Tags == Company & Years Worked
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // Industry
+                                  details['company'] != ''
+                                      ? Row(
+                                          children: [
+                                            Icon(
+                                              CupertinoIcons.pin,
+                                              size: 13,
+                                              color: niftiGrey,
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            TextDisplay(
+                                              text: '${details['company']}',
+                                              fontSize: 13,
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox(),
+                                  // City / Town
+                                  details['yearsWorked'] != ''
+                                      ? Row(
+                                          children: [
+                                            Icon(
+                                              CupertinoIcons.time,
+                                              size: 13,
+                                              color: niftiGrey,
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            TextDisplay(
+                                              text: '${details['yearsWorked']}',
+                                              fontSize: 13,
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox(),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Divider + spacing
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Divider(
+                          thickness: 1,
+                          indent: 20,
+                          endIndent: 20,
+                          color: niftiLightBlue,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ), // End of divider + spacing
+                        // ? Contact details
+                        Container(
+                          alignment: AlignmentDirectional.topStart,
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextDisplay(
+                                text: 'Get In Touch',
+                                color: niftiLightGrey,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+
+                              // Display email + copy function
+                              details['email'] != ''
+                                  ? Stack(
+                                      alignment: Alignment.centerLeft,
+                                      children: [
+                                        // Base shape
+                                        Container(
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 1.0,
+                                                blurRadius: 3.0,
+                                                offset: const Offset(0, 1),
+                                              ),
+                                            ],
+                                            color: niftiWhite,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(1),
+                                              topRight: Radius.circular(20),
+                                              bottomLeft: Radius.circular(20),
+                                              bottomRight: Radius.circular(20),
+                                            ),
+                                          ),
+                                        ),
+                                        // Icon Shape
+                                        Container(
+                                          height: 30,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 0.5,
+                                                blurRadius: 3.0,
+                                                offset: const Offset(0, 1),
+                                              ),
+                                            ],
+                                            color: niftiWhite,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(1),
+                                              bottomLeft: Radius.circular(17),
+                                            ),
+                                          ),
+                                          child: Icon(
+                                            CupertinoIcons.mail,
+                                            color: niftiGrey,
+                                            size: 17,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            const SizedBox(
+                                              width: 40,
+                                            ),
+                                            TextButton(
+                                              style: ButtonStyle(
+                                                overlayColor:
+                                                    // removing spash visuals
+                                                    MaterialStateProperty.all(
+                                                        Colors.transparent),
+                                              ),
+                                              onPressed: () {
+                                                // ! Copy / Open Mail App Function
+                                              },
+                                              child: GradientText(
+                                                '${details['email']}',
+                                                colors: const [
+                                                  Color.fromRGBO(
+                                                      209, 147, 246, 1),
+                                                  Color.fromRGBO(
+                                                      115, 142, 247, 1),
+                                                  Color.fromRGBO(
+                                                      116, 215, 247, 1),
+                                                ],
+                                                style: const TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : // If no email, then don't show UI
+                                  Container(),
+                              // Contact Links
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // ? Website, Social, & Contact Links
+                                  // Website Link
+                                  details['website'] != ''
+                                      ? Container(
+                                          padding:
+                                              const EdgeInsets.only(right: 23),
+                                          child: IconButton(
+                                            onPressed: () {
+                                              // ! open link function
+                                            },
+                                            icon: const Icon(
+                                                CupertinoIcons.globe),
+                                            color: niftiGrey,
+                                            style: ButtonStyle(
+                                              overlayColor:
+                                                  // removing spash visuals
+                                                  MaterialStateProperty.all(
+                                                      Colors.transparent),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),
+                                  // Github Link
+                                  details['github'] != ''
+                                      ? Container(
+                                          padding:
+                                              const EdgeInsets.only(right: 23),
+                                          child: SocialMediaButton.github(
+                                            onTap: () {
+                                              // ! open link function
+                                            },
+                                            size: 25,
+                                            color: niftiGrey,
+                                          ),
+                                        )
+                                      : Container(),
+                                  // Linkedin Link
+                                  details['linkedin'] != ''
+                                      ? Container(
+                                          padding:
+                                              const EdgeInsets.only(right: 23),
+                                          child: SocialMediaButton.linkedin(
+                                            onTap: () {
+                                              // ! open link function
+                                            },
+                                            size: 25,
+                                            color: niftiGrey,
+                                          ),
+                                        )
+                                      : Container(),
+                                  // Instagram Link
+                                  details['instagram'] != ''
+                                      ? Container(
+                                          padding:
+                                              const EdgeInsets.only(right: 23),
+                                          child: SocialMediaButton.instagram(
+                                            onTap: () {
+                                              // ! open link function
+                                            },
+                                            size: 25,
+                                            color: niftiGrey,
+                                          ),
+                                        )
+                                      : Container(),
+                                  // Phone number
+                                  details['phone'] != ''
+                                      ? IconButton(
+                                          onPressed: () {
+                                            // ! open link function
+                                          },
+                                          icon:
+                                              const Icon(CupertinoIcons.phone),
+                                          color: niftiGrey,
+                                          style: ButtonStyle(
+                                            overlayColor:
+                                                // removing spash visuals
+                                                MaterialStateProperty.all(
+                                                    Colors.transparent),
+                                          ),
+                                        )
+                                      : Container(),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
-          /*child: ListView(
-              children: [
-                // ? Primary Info
-                Stack(
-                  children: [
-                    details['imageLink'] != null
-                        ? CircleAvatar(
-                            radius: 45,
-                            backgroundImage: const AssetImage(
-                                'images/defaultProfileImage.png'),
-                            child: CircleAvatar(
-                              radius: 40,
-                              backgroundImage: NetworkImage(
-                                  '${details['imageLink']}',
-                                  scale: 1.0),
-                            ),
-                          )
-                        : const CircleAvatar(
-                            radius: 45,
-                            backgroundImage:
-                                AssetImage('images/defaultProfileImage.png'),
-                          ),
-                  ],
-                ),
-                // ? Display Full Name
-
-                TextDisplay(
-                  text: '${details['firstName']}' ' ${details['lastName']}',
-                  fontSize: 33,
-                  fontWeight: FontWeight.w600,
-                  color: const Color.fromRGBO(133, 157, 194, 1),
-                ),
-                // ? Space between first & last name
-                const SizedBox(
-                  width: 8,
-                ), // ? End of name ROW
-
-                // ? Display Bio
-                TextDisplay(
-                  text: '${details['bio']}',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: const Color.fromRGBO(133, 157, 194, 1),
-                ),
-                // ? Space between bio and tags
-                const SizedBox(
-                  height: 5,
-                ),
-
-                // ? Tags = Pronouns, Industry, City
-                Wrap(children: [
-                  // ? Pronouns
-                  TextDisplay(
-                    text: '${details['pronouns']}   |',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: const Color.fromRGBO(116, 215, 247, 1),
-                  ),
-                  // ? Space between tags
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  // ? Industry / Field
-                  TextDisplay(
-                    text: '${details['industry']}   |',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: const Color.fromRGBO(115, 142, 247, 1),
-                  ),
-                  // ? Space between tags
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  // ? City / Town
-                  TextDisplay(
-                    text: '${details['city/town']}',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: const Color.fromRGBO(209, 147, 246, 1),
-                  )
-                ]), // ? End of Tag ROW
-
-                // ? faint DIVIDE line
-                // ? Divide line
-                const Divider(
-                    thickness: 0.5,
-                    color: Color.fromRGBO(133, 157, 194, 0.422)),
-
-                // ? Space between divide & role
-                const SizedBox(
-                  height: 7,
-                ),
-                // ? Current Role Title
-                const TextDisplay(
-                  text: 'Current Role',
-                  fontSize: 11,
-                  fontWeight: FontWeight.w500,
-                  color: Color.fromRGBO(133, 157, 194, 1),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-
-                // ? ROW == icon & role title
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.diamond_outlined,
-                      size: 15,
-                      color: Color.fromRGBO(133, 157, 194, 1),
-                    ),
-                    // ? Space between icon & role
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    // ? Role
-                    TextDisplay(
-                      text: '${details['role']}',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: const Color.fromRGBO(133, 157, 194, 1),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(
-                  height: 5,
-                ),
-
-                // ? ROW == icon & company
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.push_pin_outlined,
-                      size: 14,
-                      color: Color.fromRGBO(133, 157, 194, 1),
-                    ),
-                    // ? Space between icon & company
-                    const SizedBox(
-                      width: 7,
-                    ),
-                    // ? Company
-                    TextDisplay(
-                      text: '${details['company']}',
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: const Color.fromRGBO(133, 157, 194, 1),
-                    ),
-                  ],
-                ),
-                // ? Space between
-                const SizedBox(
-                  height: 5,
-                ),
-
-                // ? ROW == icon & years worked
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.access_time_rounded,
-                      size: 14,
-                      color: Color.fromRGBO(133, 157, 194, 1),
-                    ),
-                    // ? Space between icon & years
-                    const SizedBox(
-                      width: 7,
-                    ),
-                    // ? Years worked
-                    TextDisplay(
-                      text: '${details['yearsWorked']}',
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: const Color.fromRGBO(133, 157, 194, 1),
-                    ),
-                  ],
-                ),
-                // ? Space between
-                const SizedBox(
-                  height: 5,
-                ),
-
-                // ? Contact Info
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.mail_outline,
-                      size: 15,
-                      color: Color.fromRGBO(209, 147, 246, 1),
-                    ),
-                    // ? Space between icon & years
-                    const SizedBox(
-                      width: 7,
-                    ),
-                    // ? Email display + copy
-                    GestureDetector(
-                      child: CopyTool(
-                        text: '${details['email']}',
-                        fontSize: 14,
-                      ),
-                      onTap: () {},
-                    ),
-                  ],
-                ),
-                // ? faint DIVIDE line
-                // ? Divide line
-                const Divider(
-                    thickness: 0.5,
-                    color: Color.fromRGBO(133, 157, 194, 0.422)),
-                // ? Space between divide & role
-                const SizedBox(
-                  height: 7,
-                ),
-              ],
-            )*/
         ));
   }
   // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
