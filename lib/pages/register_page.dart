@@ -520,7 +520,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             // ? Cancel
-                            CTACancelButton(onTap: () {}),
+                            CTACancelButton(
+                              onTap: widget.onTap,
+                            ),
+
                             const SizedBox(
                               width: 6,
                             ),
@@ -531,8 +534,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 // Check if the First Name text controller is empty
                                 if (_firstNameController.text.isEmpty) {
                                   // Display an error message or take appropriate action
-                                  displayErrorMessage(context,
-                                      'Please enter your first name');
+                                  displayErrorMessage(
+                                      context, 'Please enter your first name');
                                 } else {
                                   // If both validation and non-empty First Name check pass, proceed with registration
                                   register();
