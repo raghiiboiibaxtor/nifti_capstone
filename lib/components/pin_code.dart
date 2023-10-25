@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../functions/functions.dart';
 import '../functions/frontend.dart';
-import 'package:nifti_locapp/components/button.dart';
+import 'package:nifti_locapp/components/cta_button.dart';
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/components/connection_modal.dart';
 
@@ -214,12 +214,14 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                     ),
                     // Clear Button
-                    ButtonComponent(
+                    CTAButton(
                       onTap: () {
                         textEditingController.clear();
                       },
                       text: 'Clear',
-                      fontSize: 14,
+                      fontSize: 13,
+                      width: 76,
+                      height: 38,
                       fontWeight: FontWeight.w500,
                       color: const Color.fromRGBO(252, 247, 244, 1),
                       fontColor: const Color.fromRGBO(255, 159, 180, 1),
