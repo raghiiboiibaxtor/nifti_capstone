@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nifti_locapp/components/app_theme.dart';
 
 // ? FRONT END FUNCTIONS
 
@@ -7,22 +8,24 @@ import 'package:image_picker/image_picker.dart';
 // ? Error Message Snackbar Function
 void displayErrorMessage(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    showCloseIcon: true,
+    closeIconColor: niftiPink,
       content: Text(
         message,
-        style: const TextStyle(
-            fontSize: 15,
+        style: TextStyle(
+            fontSize: 14,
             fontWeight: FontWeight.bold,
-            color: Color.fromRGBO(99, 145, 255, 1)),
+            color: niftiPink),
       ),
       duration: const Duration(seconds: 5),
-      width: 300.0, // ? Width of the SnackBar.
-      padding: const EdgeInsets.all(
-        10.0, // ? Inner padding for SnackBar content.
-      ),
-      backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
+       // ? Width of the SnackBar.
+      //width: 340,
+      // ? Inner padding for SnackBar content.
+      padding: const EdgeInsets.all(15),
+      backgroundColor: niftiWhite,
       behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+      shape: const RoundedRectangleBorder(
+        borderRadius:BorderRadius.only(topLeft: Radius.circular(1), topRight: Radius.circular(20), bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20),),
       )));
 }
 // * ---------------- * END OF (displayErrorMessage) * ---------------- *

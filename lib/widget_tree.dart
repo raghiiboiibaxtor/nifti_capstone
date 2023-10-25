@@ -4,6 +4,7 @@ import 'package:nifti_locapp/components/app_theme.dart';
 import 'package:nifti_locapp/pages/connection_page.dart';
 import 'package:nifti_locapp/pages/contacts_page.dart';
 import 'package:nifti_locapp/pages/profile_page.dart';
+import 'package:nifti_locapp/pages/settings_page.dart';
 import 'package:circle_nav_bar/circle_nav_bar.dart';
 
 // ? WidgetTree == App navigation through bottom nav bar + app bar
@@ -21,11 +22,13 @@ class WidgetTree extends StatefulWidget {
 class _WidgetTreeState extends State<WidgetTree> {
   // ? Variables
   int currentPage = 1; // set to scanning page
+
   // ? List of page widgets
   List<Widget> pages = const [
     ContactsPage(),
     ConnectPage(),
     ProfilePage(),
+    SettingsPage(),
   ];
 
   // * ---------------- * (BUILD WIDGET) * ---------------- *
@@ -70,10 +73,12 @@ class _WidgetTreeState extends State<WidgetTree> {
           actions: [
             //const Padding(padding: EdgeInsets.only(right: 7)),
             IconButton(
-              onPressed: () {
-                // ! Settings page redirection
-                //FirebaseAuth.instance.signOut();
-              },
+              // ? Settings page redirection
+              onPressed: () => Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return const SettingsPage();
+                },
+              )),
               //icon: Image.asset('images/settings_icon.png'),
               icon: const Icon(
                 CupertinoIcons.gear,
