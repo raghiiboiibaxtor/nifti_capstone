@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nifti_locapp/components/button.dart';
+import 'package:nifti_locapp/components/cta_button.dart';
 import 'package:nifti_locapp/components/text_field.dart';
 import 'package:nifti_locapp/functions/frontend.dart';
 
@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 25),
 
             // ? Login Button
-            ButtonComponent(
+            CTAButton(
               onTap: login,
               text: 'LOGIN',
               color: const Color.fromRGBO(79, 219, 245, 1),

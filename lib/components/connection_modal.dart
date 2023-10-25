@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:nifti_locapp/components/text_display.dart';
-import 'package:nifti_locapp/components/button.dart';
+import 'package:nifti_locapp/components/cta_button.dart';
 import '../functions/functions.dart';
 
 // ? CONTACT CARD MODAL
@@ -250,7 +250,7 @@ displayModalBottomSheet(
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                     ),
                     // ? Cancel Button
-                    ButtonComponent(
+                    CTAButton(
                       onTap: () {
                         // ? Closes modal
                         if (context.mounted) {
@@ -295,7 +295,7 @@ displayModalBottomSheet(
                           borderRadius: BorderRadius.all(Radius.circular(30))),
                     ),
 
-                    ButtonComponent(
+                    CTAButton(
                       onTap: () async {
                         // ?  find and add to contact list logic
                         await StoreUserData.updateConnectionsPincode(pincode);
