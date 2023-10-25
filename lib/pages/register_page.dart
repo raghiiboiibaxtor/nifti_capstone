@@ -1,13 +1,13 @@
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nifti_locapp/components/cta_button.dart';
+import 'package:nifti_locapp/components/app_theme.dart';
 import 'package:nifti_locapp/components/text_display.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/functions/frontend.dart';
 import 'package:nifti_locapp/components/gradient_text_field.dart';
-import 'package:nifti_locapp/components/text_field_character_limit.dart';
-import 'package:nifti_locapp/components/drop_menu.dart';
+import 'package:nifti_locapp/components/cta_cancel_button.dart';
+import 'package:nifti_locapp/components/cta_confirm_button.dart';
 
 // ? RegisterPage == display for new users to add details and register account
 
@@ -28,6 +28,8 @@ class RegisterPage extends StatefulWidget {
 
 // * ---------------- * (STATE) CLASS _RegisterPageState (STATE) * ---------------- *
 class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
+  String? _firstNameError;
   // ? Text Controllers - used to access the user's input
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -35,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _cityController = TextEditingController();
-  String _pronouns = '';
+  final String _pronouns = '';
   Uint8List? _profileImage;
   final _bio = TextEditingController();
   final _roleTitle = TextEditingController();
@@ -153,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   // ? List of steps to be displayed in the stepper
-  List<Step> stepList() => [
+  /*List<Step> stepList() => [
         // ? First Step == Account Details (First Name, Last Name, Email, Password)
         Step(
             isActive: currentStep >= 0,
@@ -390,14 +392,169 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
         ),
-      ];
+      ];*/
 
   // * * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+            //padding:const EdgeInsets.only(bottom: 50),
+            child: Container(
+          width: 400,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/background_gradient.png'),
+                fit: BoxFit.cover),
+          ),
+          child: Column(children: [
+            const Padding(padding: EdgeInsets.only(top: 40)),
+            // ? Nifti Logo
+            const SizedBox(
+              height: 180,
+              child: Image(image: AssetImage('images/nifti_logo_white.png')),
+            ),
+            // White container
+            Container(
+                height: 624,
+                width: 400,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    color: niftiOffWhite,
+                    borderRadius:
+                        const BorderRadius.only(topRight: Radius.circular(80))),
+                child: Stack(children: [
+                  TextDisplay(
+                    text: 'REGISTER',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: niftiGrey,
+                  ),
+                  // Text Fields
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        // ? Name prompt
+                        Row(
+                          children: [
+                            // ? First name
+                            GradientTextFieldComponent(
+                              validator: (firstNameController) {
+                                if (firstNameController.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                              padding: const EdgeInsets.only(left: 0),
+                              width: 160,
+                              controller: _firstNameController,
+                              labelText: 'First Name *',
+                              obscureText: false,
+                              errorText: _firstNameError,
+                            ),
+                            // ? Last name
+                            GradientTextFieldComponent(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              width: 170,
+                              controller: _lastNameController,
+                              labelText: 'Last Name',
+                              obscureText: false,
+                            ),
+                          ],
+                        ),
+                        // ? Space between next widget
+                        const SizedBox(height: 20),
 
-        // ? resizeToAvoidBottomInset: false,
+                        // ? Email Textfield
+                        GradientTextFieldComponent(
+                          padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                          width: 360,
+                          controller: _emailController,
+                          labelText: 'Email *',
+                          obscureText: false,
+                        ),
+                        // ? Space between next widget
+                        const SizedBox(height: 20),
+
+                        // ? Password Textfield
+                        GradientTextFieldComponent(
+                            padding: const EdgeInsets.symmetric(horizontal: 0),
+                            width: 350,
+                            controller: _passwordController,
+                            labelText: 'Password *',
+                            obscureText: true),
+                        // ? Space between next widget
+                        const SizedBox(height: 3),
+
+                        // ? Password prompt
+                        TextDisplay(
+                          text: '6 characters minimum',
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                          color: niftiGrey,
+                          letterSpacing: 0.3,
+                        ),
+
+                        // ? Space between next widget
+                        const SizedBox(height: 8),
+
+                        // ? Confirm Password Textfield
+                        GradientTextFieldComponent(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 0.0),
+                            width: 350,
+                            controller: _confirmPasswordController,
+                            labelText: 'Confirm Password *',
+                            obscureText: true),
+                        // ? Space between next widget
+                        const SizedBox(height: 30),
+
+                        // ? Clear & Confirm Buttons
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            // ? Cancel
+                            CTACancelButton(onTap: () {}),
+                            const SizedBox(
+                              width: 6,
+                            ),
+                            // ? Confirm
+                            CTAConfirmButton(onTap: () {
+                              // Validate the form using the _formKey
+                              if (_formKey.currentState!.validate()) {
+                                // Check if the First Name text controller is empty
+                                if (_firstNameController.text.isEmpty) {
+                                  // Display an error message or take appropriate action
+                                  displayErrorMessage(context,
+                                      'Please enter your first name');
+                                } else {
+                                  // If both validation and non-empty First Name check pass, proceed with registration
+                                  register();
+                                }
+                              }
+                            })
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ])),
+          ]),
+        )));
+  }
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
+}
+// * ---------------- * END OF (STATE) CLASS _RegisterPageState (STATE) * ---------------- *
+
+/*
+
+// ? resizeToAvoidBottomInset: false,
         // ? Top bar that contains Nifti Logo
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(252, 250, 245, 1),
@@ -517,8 +674,5 @@ class _RegisterPageState extends State<RegisterPage> {
               );
             },
           ),
-        ));
-  }
-  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
-}
-// * ---------------- * END OF (STATE) CLASS _RegisterPageState (STATE) * ---------------- *
+        )
+ */

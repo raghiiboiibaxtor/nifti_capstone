@@ -8,6 +8,7 @@ import 'package:nifti_locapp/components/app_theme.dart';
 // ? Error Message Snackbar Function
 void displayErrorMessage(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    margin: EdgeInsets.only(left: 10, right: 10, bottom: MediaQuery.of(context).viewInsets.bottom + 10),
     showCloseIcon: true,
     closeIconColor: niftiPink,
       content: Text(
@@ -18,14 +19,13 @@ void displayErrorMessage(BuildContext context, String message) {
             color: niftiPink),
       ),
       duration: const Duration(seconds: 5),
-       // ? Width of the SnackBar.
-      //width: 340,
       // ? Inner padding for SnackBar content.
       padding: const EdgeInsets.all(15),
       backgroundColor: niftiWhite,
       behavior: SnackBarBehavior.floating,
-      shape: const RoundedRectangleBorder(
-        borderRadius:BorderRadius.only(topLeft: Radius.circular(1), topRight: Radius.circular(20), bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20),),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: niftiPink, width: 1.5),
+        borderRadius:const BorderRadius.only(topLeft: Radius.circular(1), topRight: Radius.circular(30), bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30),),
       )));
 }
 // * ---------------- * END OF (displayErrorMessage) * ---------------- *
