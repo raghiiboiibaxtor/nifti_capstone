@@ -116,17 +116,25 @@ class StoreUserData {
   // ? Add user info to Firestore
   Future addUserDetails(
     // ? Listing required variables to be added
-    String firstName,
-    String lastName,
+    //String firstName,
+    //String lastName,
+    String fullName,
     String email,
-    String city,
+    /*String city,
     String pronouns,
     Uint8List profileImage,
     String bio,
     String role,
     String industry,
     String company,
-    String yearsWorked,
+    String yearsWorked,*/
+    // socials
+    /*String phone,
+    String website,
+    String linkedin,
+    String instagram,
+    String github,*/
+    // connect
     String code,
     String userID,
   ) async {
@@ -135,17 +143,26 @@ class StoreUserData {
     try {
       // ? Trying to set the document
       await _collectionReference.doc(_niftiFireUser).set({
-        'firstName': firstName,
-        'lastName': lastName,
+        // Personal Variables
+        'fullName': fullName,
+        //'firstName': firstName,
+        //'lastName': lastName,
         'email': email,
-        'city/town': city,
-        'pronouns': pronouns,
+        'city/town': '',
+        'pronouns': '',
         'imageLink': '',
-        'bio': bio,
-        'role': role,
-        'industry': industry,
-        'company': company,
-        'yearsWorked': yearsWorked,
+        'bio': '',
+        'role': '',
+        'industry': '',
+        'company': '',
+        'yearsWorked': '',
+        // Socials
+        'phone': '',
+        'website': '',
+        'linkedin': '',
+        'instagram': '',
+        'github': '',
+        // Connection Variables
         'pincode': code,
         'userID': _niftiFireUser,
         'connections': [],
@@ -239,7 +256,7 @@ class StoreUserData {
 }
 
 // ? Adding User Details to FireStore & Storage
-class StoreUserImages {
+ /* class StoreUserImages {
   final _collectionReference = FirebaseFirestore.instance.collection('users');
   final _niftiFireUser = FirebaseAuth.instance.currentUser?.uid;
 
@@ -259,7 +276,7 @@ class StoreUserImages {
     return downloadUrl;
   }
 
-  // ? Update Add profile image to storage
+ // ? Update Add profile image to storage
   Future addSquare1Image(Uint8List file) async {
     // ? Reference points to object in memory
     Reference referenceRoot = FirebaseStorage.instance.ref();
@@ -325,7 +342,7 @@ class StoreUserImages {
       'square3ImageLink': square3Url,
     });
   }
-}
+}*/
 // ! END OF FIREBASE RELATED FUNCTIONS 🔥 ------------------------------ 🔥
 
 // * * --------------------------------- * END OF BACKEND FUNCTIONS * ---------------------- * */

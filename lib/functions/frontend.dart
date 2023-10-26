@@ -30,6 +30,22 @@ void displayErrorMessage(BuildContext context, String message) {
 }
 // * ---------------- * END OF (displayErrorMessage) * ---------------- *
 
+// Define error messages as constants
+const String emptyNameErrorMessage = 'Please enter your name';
+const String emptyEmailErrorMessage = 'Please enter your email';
+const String emptyPasswordErrorMessage = 'Please enter a password';
+const String emptyConfirmPasswordErrorMessage = 'Please confirm your password';
+
+// Create a function to validate and handle errors for each field
+bool validateAndHandleError(String fieldValue, String? errorMessage, Function(String?) setError) {
+  if (fieldValue.isEmpty) {
+    setError(errorMessage); // Set the error message
+    return false;
+  }
+  setError(null); // Clear the error message if the field is valid
+  return true;
+}
+
 // * ---------------- * (displayLoadingCircle) * ---------------- *
 // ? Loading Circle Animation Function
 void displayLoadingCircle(

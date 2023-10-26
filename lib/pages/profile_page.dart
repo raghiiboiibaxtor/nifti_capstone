@@ -195,8 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         // ? Display Full Name
                         TextDisplay(
-                          text: '${details['firstName']}'
-                              ' ${details['lastName']}',
+                          text: '${details['fullName']}',
                           fontSize: 34,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 1,
