@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:gradient_borders/gradient_borders.dart';
 import 'package:nifti_locapp/components/app_theme.dart';
 
 // ? GradientTextFieldComponent == custom text field widget with a gradient border
 
 // * ---------------- * (STATELESS WIDGET) CLASS GradientTextFieldComponent (STATELESS WIDGET) * ---------------- *
-class GradientTextFieldComponent extends StatelessWidget {
+class TextFieldComponent extends StatelessWidget {
   // ? Component variables
   final TextEditingController controller;
-  final String hintText;
   final bool obscureText;
   final double width;
   final EdgeInsetsGeometry padding;
+  final String labelText;
+  final String? errorText;
+  final Function(String)? validator;
+  final bool hasError;
 
   // ? Required variables to be passed
-  const GradientTextFieldComponent({
+  const TextFieldComponent({
     super.key,
     required this.controller,
-    required this.hintText,
     required this.obscureText,
-    required this.width,
+    this.width = 350,
     required this.padding,
+    this.labelText = 'Hint Text',
+    this.errorText = '',
+    this.validator,
+    required this.hasError,
   });
 
   // * ---------------- * (BUILD WIDGET) * ---------------- *
@@ -28,30 +33,65 @@ class GradientTextFieldComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: padding,
-        child: Container(
+        child: SizedBox(
           width: width,
-          decoration: BoxDecoration(
-              color: niftiOffWhite,
-              border: Border.all(color: niftiWhite),
-              borderRadius: BorderRadius.circular(25)),
-          child: TextField(
+          child: TextFormField(
             controller: controller,
             obscureText: obscureText,
             decoration: InputDecoration(
-              hintText: hintText,
-              border: GradientOutlineInputBorder(
-                gradient: niftiGradient,
-                width: 2,
-                borderRadius: BorderRadius.circular(25),
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              contentPadding: const EdgeInsets.only(bottom: 0),
+              labelText: labelText,
+              labelStyle: TextStyle(
+                  color: niftiGrey, fontSize: 17, fontWeight: FontWeight.w500),
+              floatingLabelStyle: TextStyle(
+                  color: niftiGrey, fontSize: 13, fontWeight: FontWeight.w500),
+              // ? Standard border
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: niftiGrey,
+                  width: 0.5,
+                ),
               ),
-              contentPadding: const EdgeInsets.only(
-                left: 20.0,
-                right: 20.0,
+              // ? Selected border style
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: niftiLightBlue,
+                  width: 1.5,
+                ),
+              ),
+              // ? Error borders & styles
+              errorText: errorText,
+              errorBorder: hasError
+                  ? UnderlineInputBorder(
+                      borderSide: BorderSide(color: niftiPink, width: 1.5))
+                  : UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: niftiGrey,
+                        width: 0.5,
+                      ),
+                    ),
+              focusedErrorBorder: hasError
+                  ? UnderlineInputBorder(
+                      borderSide: BorderSide(color: niftiPink, width: 1.5))
+                  : UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: niftiLightBlue,
+                        width: 1.5,
+                      ),
+                    ),
+              errorStyle: TextStyle(
+                color: niftiPink,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
               ),
             ),
-            style: const TextStyle(
-              fontSize: 15,
+            // ? Input text style
+            style: TextStyle(
+              fontSize: 14,
+              color: niftiGrey,
             ),
+            
           ),
         ));
   }
