@@ -5,7 +5,7 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:nifti_locapp/components/app_theme.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/functions/frontend.dart';
-import 'package:nifti_locapp/components/gradient_text_field.dart';
+import 'package:nifti_locapp/components/text_form_field.dart';
 import 'package:nifti_locapp/components/cta_cancel_button.dart';
 import 'package:nifti_locapp/components/cta_confirm_button.dart';
 
