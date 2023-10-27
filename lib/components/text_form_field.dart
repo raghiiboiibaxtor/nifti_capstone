@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/components/app_theme.dart';
 
-// ? GradientTextFieldComponent == custom text field widget with a gradient border
+// ? GradientTextFieldComponent == custom text field widget
 
-// * ---------------- * (STATELESS WIDGET) CLASS GradientTextFieldComponent (STATELESS WIDGET) * ---------------- *
+// * ---------------- * (STATELESS WIDGET) CLASS TextFieldComponent (STATELESS WIDGET) * ---------------- *
 class TextFieldComponent extends StatelessWidget {
   // ? Component variables
   final TextEditingController controller;
@@ -91,10 +91,9 @@ class TextFieldComponent extends StatelessWidget {
               fontSize: 14,
               color: niftiGrey,
             ),
-            
           ),
         ));
   }
   // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
-// * ---------------- * END OF (STATELESS WIDGET) CLASS GradientTextFieldComponent (STATELESS WIDGET) * ---------------- *
+// * ---------------- * END OF (STATELESS WIDGET) CLASS TextFieldComponent (STATELESS WIDGET) * ---------------- *

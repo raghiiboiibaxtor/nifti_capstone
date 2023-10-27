@@ -1,88 +1,106 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:gradient_borders/gradient_borders.dart';
+import 'package:nifti_locapp/components/app_theme.dart';
 
-// ? CharacterLimitFieldComponent == widget to limit & display character limits
+// ? TextFieldLimitComponent == custom text field widget with a character limit
 
-// * ---------------- * (STATEFUL WIDGET) CLASS CharacterLimitFieldComponent (STATEFUL WIDGET) * ---------------- *
-class CharacterLimitFieldComponent extends StatefulWidget {
-  // ? Component Variables
+// * ---------------- * (STATELESS WIDGET) CLASS TextFieldLimitComponent (STATELESS WIDGET) * ---------------- *
+class TextFieldLimitComponent extends StatelessWidget {
+  // ? Component variables
   final TextEditingController controller;
-  final String hintText;
+  final bool obscureText;
   final double width;
   final EdgeInsetsGeometry padding;
+  final String labelText;
+  final String? errorText;
+  final Function(String)? validator;
+  final bool hasError;
+  final int maxLength;
+
+
   // ? Required variables to be passed
-  const CharacterLimitFieldComponent({
+  const TextFieldLimitComponent({
     super.key,
     required this.controller,
-    required this.hintText,
-    required this.width,
+    required this.obscureText,
+    this.width = 350,
     required this.padding,
+    this.labelText = 'Hint Text',
+    this.errorText = '',
+    this.validator,
+    required this.hasError,
+    required this.maxLength,
   });
-
-  @override
-  State<CharacterLimitFieldComponent> createState() =>
-      _CharacterLimitFieldComponentState();
-}
-// * ---------------- * END OF (STATEFUL WIDGET) CLASS CharacterLimitFieldComponent (STATE) * ---------------- *
-
-/* * ---------------- * (STATE) CLASS _RegisterPageState (STATE) * ---------------- * */
-class _CharacterLimitFieldComponentState
-    extends State<CharacterLimitFieldComponent> {
-  // Characters counting & max setting variables
-
-  var characterCounter = 75;
-  var maxCharacters = 75;
 
   // * ---------------- * (BUILD WIDGET) * ---------------- *
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: widget.padding,
-        child: Container(
-          width: widget.width,
-          decoration: BoxDecoration(
-              color: const Color.fromRGBO(252, 250, 245, 1),
-              borderRadius: BorderRadius.circular(25)),
-          child: TextField(
-            // ? subtracting remaining characters from max amount
-            onChanged: (value) {
-              setState(() {
-                characterCounter = maxCharacters - value.length;
-              });
-            },
-            maxLength: 75,
-            maxLengthEnforcement: MaxLengthEnforcement.enforced,
-            controller: widget.controller,
+        padding: padding,
+        child: SizedBox(
+          width: width,
+          child: TextFormField(
+            keyboardType: TextInputType.multiline,
+             maxLines: 2,
+            maxLength: maxLength,
+            controller: controller,
+            obscureText: obscureText,
             decoration: InputDecoration(
-              counterStyle: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w300,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              contentPadding: const EdgeInsets.only(bottom: 0),
+              labelText: labelText,
+              labelStyle: TextStyle(
+                  color: niftiGrey, fontSize: 17, fontWeight: FontWeight.w500),
+              floatingLabelStyle: TextStyle(
+                  color: niftiGrey, fontSize: 13, fontWeight: FontWeight.w500),
+              // ? Standard border
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: niftiGrey,
+                  width: 0.5,
+                ),
               ),
-              // ? display characters remaining out of max amount
-              counterText: " $characterCounter / $maxCharacters",
-              hintText: widget.hintText,
-              border: GradientOutlineInputBorder(
-                gradient: const LinearGradient(colors: [
-                  Color.fromRGBO(209, 147, 246, 1),
-                  Color.fromRGBO(115, 142, 247, 1),
-                  Color.fromRGBO(116, 215, 247, 1)
-                ]),
-                width: 2,
-                borderRadius: BorderRadius.circular(25),
+              // ? Selected border style
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: niftiLightBlue,
+                  width: 1.5,
+                ),
               ),
-              contentPadding: const EdgeInsets.only(
-                left: 20.0,
-                right: 20.0,
+              // ? Error borders & styles
+              errorText: errorText,
+              errorBorder: hasError
+                  ? UnderlineInputBorder(
+                      borderSide: BorderSide(color: niftiPink, width: 1.5))
+                  : UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: niftiGrey,
+                        width: 0.5,
+                      ),
+                    ),
+              focusedErrorBorder: hasError
+                  ? UnderlineInputBorder(
+                      borderSide: BorderSide(color: niftiPink, width: 1.5))
+                  : UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: niftiLightBlue,
+                        width: 1.5,
+                      ),
+                    ),
+              errorStyle: TextStyle(
+                color: niftiPink,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
               ),
             ),
-            style: const TextStyle(
-              fontSize: 15,
+            // ? Input text style
+            style: TextStyle(
+              fontSize: 14,
+              color: niftiGrey,
             ),
+            
           ),
         ));
   }
-
-  /* * ---------------- * END OF (BUILD WIDGET) * ---------------- * */
+  // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
-// * ---------------- * END OF (STATE) CLASS _CharacterLimitFieldComponentState (STATE) * ---------------- *
+// * ---------------- * END OF (STATELESS WIDGET) CLASS TextFieldLimitComponent (STATELESS WIDGET) * ---------------- *
