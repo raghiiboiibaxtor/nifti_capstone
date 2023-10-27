@@ -10,6 +10,8 @@ class TextDisplay extends StatelessWidget {
   final FontWeight fontWeight;
   final Color color;
   final double letterSpacing;
+  final TextDecoration decoration;
+
   // ? Required variables to be passed
   const TextDisplay(
       {super.key,
@@ -18,6 +20,7 @@ class TextDisplay extends StatelessWidget {
       this.fontWeight = FontWeight.normal,
       this.color = const Color.fromRGBO(116, 142, 183, 1),
       this.letterSpacing = 0,
+      this.decoration = TextDecoration.none,
       });
 
   // * ---------------- * (BUILD WIDGET) * ---------------- *
