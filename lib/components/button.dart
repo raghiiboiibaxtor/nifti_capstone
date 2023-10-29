@@ -17,6 +17,8 @@ class Button extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final double iconSize;
+  final double width;
+  final double height;
 
   // Required & optional variables to be passed
   const Button({
@@ -30,6 +32,8 @@ class Button extends StatelessWidget {
     this.icon = CupertinoIcons.add,
     this.iconColor = const Color.fromRGBO(116, 142, 183, 1),
     this.iconSize = 20,
+    this.width = 360,
+    this.height = 45,
   });
 
   // * ---------------- * (BUILD WIDGET) * ---------------- *
@@ -42,7 +46,8 @@ class Button extends StatelessWidget {
         children: [
           // Base shape
           Container(
-            height: 45,
+            height: height,
+            width: width,
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -64,7 +69,7 @@ class Button extends StatelessWidget {
 
           // Icon Shape
           Container(
-            height: 45,
+            height: height,
             width: 50,
             decoration: BoxDecoration(
               boxShadow: [

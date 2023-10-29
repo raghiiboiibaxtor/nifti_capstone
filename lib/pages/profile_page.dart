@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import "package:flutter/material.dart";
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nifti_locapp/components/icon_text_form_field.dart';
 import 'package:nifti_locapp/functions/functions.dart';
 import 'package:nifti_locapp/functions/frontend.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
@@ -12,6 +13,7 @@ import 'package:social_media_buttons/social_media_buttons.dart';
 import 'package:nifti_locapp/components/text_form_field.dart';
 import 'package:nifti_locapp/components/text_field_character_limit.dart';
 import 'package:nifti_locapp/components/drop_menu.dart';
+import 'package:nifti_locapp/components/button.dart';
 
 /*
 import 'package:flutter/cupertino.dart';
@@ -56,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final _industry = TextEditingController();
   final _roleTitle = TextEditingController();
   final _companyName = TextEditingController();
-  String? _yearsWorked;
+  String? _yearsWorked = '';
   final _emailController = TextEditingController();
   final _websiteController = TextEditingController();
   final _linkedinController = TextEditingController();
@@ -321,18 +323,25 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 5,
                     ),
                     // Bio + check
-                    details['bio'] != ''
-                        ? TextDisplay(
+                    details['bio'] == ''
+                        ? Column(children: [
+                              const SizedBox(
+                                height: 45,
+                              ),
+                              TextDisplay(
+                                text:
+                                    'TAP EDIT TO FINISH SETTING UP YOUR PROFILE! 🥳',
+                                fontSize: 16,
+                                color: niftiDarkBlue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ])
+                          
+                        : TextDisplay(
                             text: '${details['bio']}',
                             fontSize: 13,
-                          )
-                        : TextDisplay(
-                            text:
-                                'EDIT YOUR PROFILE TO GIVE YOUR CONTACTS A CHEEKY INSIGHT TO YOU! 🥳',
-                            fontSize: 13,
-                            color: niftiDarkBlue,
-                            fontWeight: FontWeight.bold,
                           ),
+
                     const SizedBox(
                       height: 10,
                     ),
@@ -389,12 +398,14 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(
                 height: 10,
               ),
-              Divider(
-                thickness: 1,
-                indent: 20,
-                endIndent: 20,
-                color: niftiLightBlue,
-              ),
+              details['role'] != ''
+                  ? Divider(
+                      thickness: 1,
+                      indent: 20,
+                      endIndent: 20,
+                      color: niftiLightBlue,
+                    )
+                  : const SizedBox(),
               const SizedBox(
                 height: 5,
               ), // End of divider + spacing
@@ -405,12 +416,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextDisplay(
-                      text: 'Current Role / Study',
-                      color: niftiLightGrey,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    details['role'] != ''
+                        ? TextDisplay(
+                            text: 'Current Role / Study',
+                            color: niftiLightGrey,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                          )
+                        : const SizedBox(),
                     const SizedBox(
                       height: 5,
                     ),
@@ -727,6 +740,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           padding: const EdgeInsets.all(20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -791,10 +805,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         obscureText: false,
                         hasError: false,
                       ),
-                      // Space
-                      const SizedBox(
-                        height: 15,
-                      ),
+
                       // ? Pronoun dropdown selector
                       DropdownMenuComponent(
                         width: 181,
@@ -884,14 +895,31 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               // ? Email Textfield
-                  TextFieldComponent(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    width: 325,
-                    controller: _emailController,
-                    labelText: 'Email',
-                    obscureText: false,
-                    hasError: false,
+              TextFieldComponent(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                width: 325,
+                controller: _emailController,
+                labelText: 'Email',
+                obscureText: false,
+                hasError: false,
+              ),
+              // Row to center link button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Link Modal Button
+                  Button(
+                    onTap: () {
+                      showBottomSheet();
+                    },
+                    width: 300,
+                    height: 40,
+                    text: 'Add Social Links',
+                    icon: CupertinoIcons.link,
+                    iconColor: niftiLightBlue,
                   ),
+                ],
+              )
             ],
           ),
         ),
@@ -899,5 +927,105 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
   // * ---------------- * END OF (EDIT DISPLAY) * ---------------- *
+
+  void showBottomSheet() {
+    showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return SingleChildScrollView(
+            child: Container(
+              height: 500,
+              width: 450,
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Title
+                  const TextDisplay(
+                    text: 'Social Links',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  // Space
+                  const SizedBox(height: 5),
+                  // Prompt
+                  const TextDisplay(
+                    text: 'Add any links below and tap out when you\'re done!',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  // ? Space & Divider
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: niftiDarkBlue,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  // Website
+                  IconTextFieldComponent(
+                    controller: _websiteController,
+                    obscureText: false,
+                    padding: const EdgeInsets.all(0),
+                    labelText: 'Website',
+                    hasError: false,
+                    child: const Icon(
+                      CupertinoIcons.globe,
+                      size: 20,
+                    ),
+                  ),
+                  // Linkedin
+                  IconTextFieldComponent(
+                      controller: _linkedinController,
+                      obscureText: false,
+                      padding: const EdgeInsets.all(0),
+                      labelText: 'LinkedIn',
+                      hasError: false,
+                      child: const Icon(
+                        SocialMediaIcons.linkedin,
+                        size: 20,
+                      )),
+                  // Insta
+                  IconTextFieldComponent(
+                      controller: _instagramController,
+                      obscureText: false,
+                      padding: const EdgeInsets.all(0),
+                      labelText: 'Instagram',
+                      hasError: false,
+                      child: const Icon(
+                        SocialMediaIcons.instagram,
+                        size: 20,
+                      )),
+                  // Github
+                  IconTextFieldComponent(
+                      controller: _githubController,
+                      obscureText: false,
+                      padding: const EdgeInsets.all(0),
+                      labelText: 'Github',
+                      hasError: false,
+                      child: const Icon(
+                        SocialMediaIcons.github_circled,
+                        size: 20,
+                      )),
+                  // Phone
+                  IconTextFieldComponent(
+                      controller: _phoneController,
+                      obscureText: false,
+                      padding: const EdgeInsets.all(0),
+                      labelText: 'Phone',
+                      hasError: false,
+                      child: const Icon(
+                        CupertinoIcons.phone,
+                        size: 20,
+                      )),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 }
 // * ---------------- * END OF (STATE) CLASS _ProfilePageState (STATE) * ---------------- *
