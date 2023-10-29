@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nifti_locapp/components/app_theme.dart';
 
-// ? TextFieldLimitComponent == custom text field widget with a character limit
+// ? GradientTextFieldComponent == custom text field widget
 
-// * ---------------- * (STATELESS WIDGET) CLASS TextFieldLimitComponent (STATELESS WIDGET) * ---------------- *
-class TextFieldLimitComponent extends StatelessWidget {
+// * ---------------- * (STATELESS WIDGET) CLASS TextFieldComponent (STATELESS WIDGET) * ---------------- *
+class IconTextFieldComponent extends StatelessWidget {
   // ? Component variables
   final TextEditingController controller;
   final bool obscureText;
@@ -14,11 +14,10 @@ class TextFieldLimitComponent extends StatelessWidget {
   final String? errorText;
   final Function(String)? validator;
   final bool hasError;
-  final int maxLength;
-
+  final Widget? child;
 
   // ? Required variables to be passed
-  const TextFieldLimitComponent({
+  const IconTextFieldComponent({
     super.key,
     required this.controller,
     required this.obscureText,
@@ -28,7 +27,7 @@ class TextFieldLimitComponent extends StatelessWidget {
     this.errorText = '',
     this.validator,
     required this.hasError,
-    required this.maxLength,
+    required this.child,
   });
 
   // * ---------------- * (BUILD WIDGET) * ---------------- *
@@ -39,19 +38,20 @@ class TextFieldLimitComponent extends StatelessWidget {
         child: SizedBox(
           width: width,
           child: TextFormField(
-            keyboardType: TextInputType.multiline,
-             //maxLines: 2,
-            maxLength: maxLength,
             controller: controller,
             obscureText: obscureText,
             decoration: InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              contentPadding: const EdgeInsets.only(bottom: 0),
-              labelText: labelText,
-              labelStyle: TextStyle(
-                  color: niftiGrey, fontSize: 17, fontWeight: FontWeight.w500),
-              floatingLabelStyle: TextStyle(
-                  color: niftiGrey, fontSize: 13, fontWeight: FontWeight.w500),
+              
+              prefixIcon: Container(
+                margin:  const EdgeInsets.only(
+                  right: 10,),
+                  child: child,
+              ) ,
+              prefixIconColor: niftiGrey,
+              prefixIconConstraints: const BoxConstraints(minWidth: 15, minHeight: 10),
+              hintText: labelText,
+              hintStyle: TextStyle(
+                  color: niftiGrey, fontSize: 14, fontWeight: FontWeight.w500,),
               // ? Standard border
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
@@ -97,10 +97,9 @@ class TextFieldLimitComponent extends StatelessWidget {
               fontSize: 14,
               color: niftiGrey,
             ),
-            
           ),
         ));
   }
   // * ---------------- * END OF (BUILD WIDGET) * ---------------- *
 }
-// * ---------------- * END OF (STATELESS WIDGET) CLASS TextFieldLimitComponent (STATELESS WIDGET) * ---------------- *
+// * ---------------- * END OF (STATELESS WIDGET) CLASS TextFieldComponent (STATELESS WIDGET) * ---------------- *
